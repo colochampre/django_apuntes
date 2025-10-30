@@ -1,0 +1,136 @@
+# Entornos virtuales
+venv/
+ENV/
+.env
+
+# Archivos de Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Base de datos
+*.sqlite3
+*.sql
+
+# Archivos de configuración local
+settings/local.py
+settings/*.local.py
+
+# Archivos de IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Archivos de cobertura
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Archivos de medios y estáticos
+media/
+staticfiles/
+
+# Archivos de log
+*.log
+
+# Archivos de Jupyter Notebook
+.ipynb_checkpoints
+
+# Archivos de PyCharm
+.idea/
+
+# Archivos de VS Code
+.vscode/
+
+# Archivos de Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Archivos de macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Archivos de Python
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Archivos de entorno virtual
+venv/
+ENV/
+
+# Archivos de PyCharm
+.idea/
+
+# Archivos de VS Code
+.vscode/
+
+# Archivos de Jupyter Notebook
+.ipynb_checkpoints
+
+# Archivos de log
+*.log
+
+# Archivos de base de datos
+*.sqlite3
+*.sql
+
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Archivos de configuración local
+settings/local.py
+settings/*.local.py
