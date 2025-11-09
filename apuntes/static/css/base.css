@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.base-header {
+    padding: 1rem 2rem;
+    color: #fff;
+    background-color: #333;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.base-ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2rem;
+}
+
+.base-ul li a {
+    padding: 0.5rem 1rem;
+    color: #fff;
+    text-decoration: none;
+    background-color: #333;
+    border-radius: 3px;
+    border: 1px solid #99ff00;
+    transition: all 0.2s ease;
+}
+
+.base-ul li a:hover {
+    background-color: #99ff00;
+    color: #333;
+}
+
+.base-main {
+    padding: 1rem;
+}
+
+.base-footer {
+    width: 100%;
+    padding: 1rem;
+    color: #fff;
+    background-color: #333;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+}
