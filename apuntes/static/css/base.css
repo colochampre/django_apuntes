@@ -9,7 +9,12 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
+    margin: 0;
     font-family: 'Share Tech Mono', monospace;
+}
+
+h2 {
+    font-size: 4rem;
 }
 
 .base-header {
@@ -22,12 +27,18 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
 }
 
+.base-header a {
+    text-decoration: none;
+    color: #fff;
+}
+
 .base-ul {
     list-style: none;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 2rem;
+    margin: 0;
 }
 
 .base-ul li a {
