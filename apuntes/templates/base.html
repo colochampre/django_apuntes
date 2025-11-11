@@ -1,22 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block otros_css %}{% endblock %}
 </head>
+
 <body>
     <header class="base-header">
-        <h1>Apuntes</h1>
+        <h1><a href="{% url 'home' %}">Apuntes Universitarios</a></h1>
+        <nav class="base-nav">
+            <ul class="base-ul">
+                <li><a href="{% url 'home' %}">Inicio</a></li>
+                <li><a href="{% url 'gestion_apuntes:apuntes' %}">Apuntes</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <main>
+    <main class="base-main">
         {% block content %}
         {% endblock %}
     </main>
 
     <footer class="base-footer">
-        <p>Footer</p>
+        <p>© 2025 Apuntes Universitarios</p>
     </footer>
+    
+    {% block otros_js %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
