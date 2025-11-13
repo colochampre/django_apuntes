@@ -12,13 +12,19 @@
 
 <body>
     <header class="base-header">
-        <h1><a href="{% url 'home' %}">Apuntes Universitarios</a></h1>
-        <nav class="base-nav">
-            <ul class="base-ul">
-                <li><a href="{% url 'home' %}">Inicio</a></li>
-                <li><a href="{% url 'gestion_apuntes:apuntes' %}">Apuntes</a></li>
-            </ul>
-        </nav>
+        <div class="header-container">
+            <h1 id="base-title"><a href="{% url 'home' %}">Apuntes</a></h1>
+            <div class="base-nav">
+
+                <div class="base-ul">
+                    <a href="{% url 'home' %}">Carreras</a>
+                </div>
+                <div class="base-ul">
+                    <a href="{% url 'home' %}">Login</a>
+                    <a href="{% url 'home' %}">Registro</a>
+                </div>
+            </div>
+        </div>
     </header>
 
     <main class="base-main">
