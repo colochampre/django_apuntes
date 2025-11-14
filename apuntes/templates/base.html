@@ -13,15 +13,37 @@
 <body>
     <header class="base-header">
         <div class="header-container">
-            <h1 id="base-title"><a href="{% url 'home' %}">Apuntes</a></h1>
+            <h1 id="base-h1"><a href="{% url 'home' %}">Apuntes</a></h1>
             <div class="base-nav">
-
                 <div class="nav-izq">
-                    <a href="{% url 'gestion_carreras:lista_carreras' %}" class="{% if request.resolver_match.url_name == 'lista_carreras' %}active{% endif %}">Carreras</a>
+                    <a href="{% url 'gestion_carreras:lista_carreras' %}" class="dropdown-toggle {% if request.resolver_match.url_name == 'lista_carreras' %}active{% endif %}">Carreras</a>
                 </div>
                 <div class="nav-der">
-                    <a href="{% url 'home' %}">Login</a>
-                    <a href="{% url 'home' %}">Registro</a>
+                    <div class="dropdown">
+                        <button class="btn" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                            Login
+                        </button>
+                        <div id="login-container" class="dropdown-menu dropdown-menu-end" style="width: 250px;" aria-labelledby="loginDropdown">
+                            <p class="login-title">Inicia Sesión</p>
+                            <p class="login-subtitle">Obtené acceso a más funciones</p>
+
+                            <p class="login-register mb-2 small">¿No tenés cuenta? <a href="{% url 'home' %}" class="text-decoration-none">Registrate</a></p>
+                            <hr>
+                            <form action="{% url 'home' %}">
+                                <div class="mb-2">
+                                    <input type="text" name="username" class="form-control form-control-sm" placeholder="Usuario">
+                                </div>
+                                <div class="mb-2">
+                                    <input type="password" name="password" class="form-control form-control-sm" placeholder="Contraseña">
+                                </div>
+                                <button id="login-submit" type="submit" class="btn btn-sm w-100">Iniciar Sesión</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,7 +58,7 @@
         <p>© 2025 Apuntes Universitarios</p>
     </footer>
     
-    {% block otros_js %}{% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    {% block otros_js %}{% endblock %}
 </body>
 </html>

@@ -8,7 +8,13 @@
     font-family: 'IBM Plex Mono', monospace;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 body {
+    width: 100%;
+    position: relative;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -24,15 +30,8 @@ h2 {
     margin: auto auto 4rem auto;
 }
 
-#base-title {
+#base-h1 {
     margin: 0 4rem 0 2rem;
-}
-
-.base-main {
-    width: 100%;
-    display: flex;
-    flex: 1;
-    
 }
 
 .base-header {
@@ -69,7 +68,6 @@ h2 {
 
 .base-nav a {
     font-size: 1.2rem;
-    transition: all 0.2s ease;
 }
 
 .nav-izq {
@@ -84,9 +82,9 @@ h2 {
     padding: 0 1.5rem;
     text-decoration: none;
     background-color: #333;
-    transition: all 0.2s ease;
     display: flex;
     align-items: center;
+    transition: all 0.2s ease;
 }
 
 .nav-izq a:hover {
@@ -100,6 +98,7 @@ h2 {
 }
 
 .nav-der {
+    padding-right: 1rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -108,17 +107,80 @@ h2 {
 }
 
 .nav-der a {
-    padding: 0.5rem 1rem;
-    color: #D9EEE1;
-    text-decoration: none;
-    background-color: #333;
-    border-radius: 3px;
-    border: 1px solid #D9EEE1;
+    color: #222;
 }
 
-.nav-der a:hover {
+#loginDropdown {
     background-color: #D9EEE1;
     color: #222;
+    transition: all 0.2s ease;
+}
+
+#loginDropdown:hover {
+    background-color: #BACC9D;
+}
+
+#loginDropdown.show {
+    background-color: #BACC9D;
+}
+
+#login-submit {
+    background-color: #D9EEE1;
+    color: #222;
+}
+
+#login-submit:hover {
+    background-color: #BACC9D;
+}
+
+#login-container {
+    width: 400px !important;
+    padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 3px;
+}
+
+#login-container hr {
+    margin: 2rem 0;
+}
+
+#login-container form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.login-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.login-subtitle {
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.login-register {
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #888;
+}
+
+.login-register a {
+    font-size: 1rem;
+    color: green;
+    text-decoration: none;
+}
+
+.base-main {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex: 1;
+    overflow-x: hidden;
 }
 
 .base-footer {
@@ -127,4 +189,25 @@ h2 {
     color: #D9EEE1;
     background-color: #333;
     text-align: center;
+}
+
+/* Large devices (laptops/desktops, 992px up to 1200px) */
+@media only screen and (max-width: 1200px) {}
+
+/* Medium devices (landscape tablets, 768px up to 992px) */
+@media only screen and (max-width: 992px) {
+    #base-h1 { margin: 0 3rem 0 2rem; }
+}
+
+/* Small devices (portrait tablets and large phones, 600px up to 768px) */
+@media only screen and (max-width: 768px) {
+    #base-h1 { margin: 0 2rem 0 2rem; }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    #base-h1 { margin: 0 .5rem 0 1rem; }
+    #login-container { width: 100vw !important; }
+    .nav-izq a { padding: 0 .5rem; font-size: 1rem; }
+    .nav-der button { font-size: .8rem !important; }
 }
