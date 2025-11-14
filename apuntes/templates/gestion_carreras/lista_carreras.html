@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Carreras{% endblock %}
+{% load static %}
+{% block otros_css %}<link rel="stylesheet" href="{% static 'css/carreras.css' %}">{% endblock %}
+
+{% block content %}
+    <div class="carreras-container">
+        <h2>Carreras</h2>
+        {% if carreras %}
+            <div class="lista-carreras">
+                {% for carrera in carreras %}
+                    <div class="carrera-item">
+                        <p>{{ carrera.nombre }}</p>
+                    </div>
+                    <div class="carrera-item">
+                        <p>{{ carrera.nombre }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No hay carreras disponibles aún.</p>
+        {% endif %}
+    </div>
+{% endblock %}

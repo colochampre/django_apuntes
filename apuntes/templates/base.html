@@ -16,10 +16,10 @@
             <h1 id="base-title"><a href="{% url 'home' %}">Apuntes</a></h1>
             <div class="base-nav">
 
-                <div class="base-ul">
-                    <a href="{% url 'home' %}">Carreras</a>
+                <div class="nav-izq">
+                    <a href="{% url 'gestion_carreras:lista_carreras' %}" class="{% if request.resolver_match.url_name == 'lista_carreras' %}active{% endif %}">Carreras</a>
                 </div>
-                <div class="base-ul">
+                <div class="nav-der">
                     <a href="{% url 'home' %}">Login</a>
                     <a href="{% url 'home' %}">Registro</a>
                 </div>
