@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Materias de {{ carrera.nombre }}{% endblock %}
+
+{% load static %}
+{# Si tienes un CSS específico para materias, puedes añadirlo aquí #}
+{# <link rel="stylesheet" href="{% static 'css/materias.css' %}"> #}
+
+{% block content %}
+<div class="container">
+    <h2>Materias de la carrera: <strong>{{ carrera.nombre }}</strong></h2>
+    <hr>
+
+    {% if materias %}
+        <div class="lista-materias">
+            <ul>
+                {% for materia in materias %}
+                    <li>{{ materia.nombre }} (Año: {{ materia.anio }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            Aún no se han asignado materias para esta carrera.
+        </div>
+    {% endif %}
+
+    <a href="{% url 'gestion_carreras:lista_carreras' %}" class="btn btn-primary mt-3">Volver a la lista de carreras</a>
+</div>
+{% endblock %}

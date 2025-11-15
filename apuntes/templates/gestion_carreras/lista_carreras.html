@@ -6,22 +6,14 @@
 
 {% block content %}
     <div class="carreras-container">
-        <h2>Carreras</h2>
+        <h2>Selecciona una Carrera</h2>
         {% if carreras %}
             <div class="lista-carreras">
                 {% for carrera in carreras %}
                     <div class="carrera-item">
-                        <p>{{ carrera.nombre }}</p>
-                    </div>
-                {% endfor %}
-                {% for carrera in carreras %}
-                    <div class="carrera-item">
-                        <p>{{ carrera.nombre }}</p>
-                    </div>
-                {% endfor %}
-                {% for carrera in carreras %}
-                    <div class="carrera-item">
-                        <p>{{ carrera.nombre }}</p>
+                        <a href="{% url 'gestion_materias:materias_por_carrera' carrera.id %}">
+                            {{ carrera.nombre }} ({{ carrera.universidad }})
+                        </a>
                     </div>
                 {% endfor %}
             </div>

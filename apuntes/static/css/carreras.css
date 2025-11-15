@@ -1,7 +1,7 @@
 .carreras-container {
     padding: 4rem 0;
     width: 100%;
-    background-color: #BACC9D;
+    background-color: #bacc9d;
     text-align: center;
     flex: 1;
 }
@@ -38,22 +38,35 @@
     font-size: 1.5rem;
 }
 
+.carrera-item a {
+    text-decoration: none;
+    color: inherit; /* Opcional: para que el color del texto sea el mismo que el del padre */
+}
+
 /* Large devices (laptops/desktops, 992px up to 1200px) */
 @media only screen and (max-width: 1200px) {
-    .lista-carreras { grid-template-columns: 1fr 1fr 1fr; }
+    .lista-carreras {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }
 
 /* Medium devices (landscape tablets, 768px up to 992px) */
 @media only screen and (max-width: 992px) {
-    .lista-carreras { grid-template-columns: 1fr 1fr; }
+    .lista-carreras {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px up to 768px) */
 @media only screen and (max-width: 768px) {
-    .carrera-item p { font-size: 1.3rem; }
+    .carrera-item p {
+        font-size: 1.3rem;
+    }
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    .lista-carreras { grid-template-columns: 1fr; }
+    .lista-carreras {
+        grid-template-columns: 1fr;
+    }
 }
