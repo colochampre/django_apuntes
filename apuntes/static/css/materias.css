@@ -1,0 +1,99 @@
+/*
+ * Contenido para: static/css/materias.css
+ * Estilos para el layout de la barra lateral.
+*/
+
+/* Este es el contenedor principal para las dos columnas.
+  - 'display: flex' crea las columnas.
+  - 'width: 100%' hace que ocupe todo el ancho de '.base-main'.
+  - 'flex-grow: 1' hace que ocupe todo el alto disponible
+    (ya que su padre '.base-main' es flex).
+*/
+.layout-container-sidebar {
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+    background-color: #ffffff; /* Fondo blanco para el área de contenido */
+}
+
+/*
+  La Barra Lateral (Sidebar)
+*/
+.sidebar {
+    width: 280px; /* Ancho fijo para la barra lateral (ajusta si prefieres) */
+    flex-shrink: 0; /* Evita que la barra se encoja si el contenido es mucho */
+    background-color: #f8f9fa; /* Un gris claro como en tu imagen */
+    border-right: 1px solid #dee2e6; /* Línea divisoria sutil */
+    overflow-y: auto; /* Añade scroll si la lista de materias es muy larga */
+    /* La altura se estira automáticamente para llenar el contenedor flex */
+}
+
+/*
+  El Área de Contenido Principal (donde va "Nuestra Misión")
+*/
+.content-area {
+    flex-grow: 1; /* Hace que ocupe todo el espacio restante */
+    padding: 2rem 3rem;
+    /*
+    Reutilizamos la fuente 'Share Tech Mono' que usas para
+    títulos en tu 'base.css' para que coincida con la imagen.
+    */
+    font-family: "Share Tech Mono", monospace;
+}
+
+.content-area h1 {
+    font-size: 4rem; /* Tamaño similar al 'h2' de tu 'base.css' */
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.content-area p {
+    /*
+    Usamos la fuente 'IBM Plex Mono' de tu 'base.css'
+    para el texto normal.
+    */
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 1.5rem; /* Texto más grande */
+    text-align: center;
+    margin-top: 2rem;
+    color: #333; /* Color de texto oscuro */
+}
+
+/*
+  Estilos para las secciones del sidebar (basados en tu imagen)
+*/
+.sidebar-section h3 {
+    /* Usamos un azul estándar de Bootstrap, que se parece al de tu imagen.
+    */
+    background-color: #d9eee1; /* Azul de Bootstrap */
+    color: white;
+    padding: 12px 15px;
+    margin: 0;
+    /* Usamos la fuente de tu 'base.css' para consistencia */
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 1.1rem;
+}
+
+.sidebar-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-section ul li a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #212529; /* Color de texto estándar */
+    border-bottom: 1px solid #eee;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+/* Usamos los colores de tu propio 'base.css' para el hover,
+  manteniendo la consistencia del diseño.
+*/
+.sidebar-section ul li a:hover {
+    background-color: #d9eee1; /* Color 'hover' de tu nav */
+    color: #111;
+}

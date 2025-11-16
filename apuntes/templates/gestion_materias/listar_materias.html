@@ -1,30 +1,40 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Materias de {{ carrera.nombre }}{% endblock %}
 
-{% load static %}
-{# Si tienes un CSS específico para materias, puedes añadirlo aquí #}
-{# <link rel="stylesheet" href="{% static 'css/materias.css' %}"> #}
+{% block otros_css %}
+    <link rel="stylesheet" href="{% static 'css/materias.css' %}">
+{% endblock %}
+
 
 {% block content %}
-<div class="container">
-    <h2>Materias de la carrera: <strong>{{ carrera.nombre }}</strong></h2>
-    <hr>
+<div class="layout-container-sidebar">
 
-    {% if materias %}
-        <div class="lista-materias">
+    <aside class="sidebar">
+
+        <div class="sidebar-section">
+            <h3>{{ carrera.nombre }}</h3>
+
             <ul>
                 {% for materia in materias %}
-                    <li>{{ materia.nombre }} (Año: {{ materia.anio }})</li>
+                    <li>
+                        <a href="#">{{ materia.nombre }}</a>
+                    </li>
+                {% empty %}
+                    <li style="padding: 10px 15px; color: #666;">
+                        No hay materias cargadas.
+                    </li>
                 {% endfor %}
             </ul>
         </div>
-    {% else %}
-        <div class="alert alert-warning" role="alert">
-            Aún no se han asignado materias para esta carrera.
-        </div>
-    {% endif %}
 
-    <a href="{% url 'gestion_carreras:lista_carreras' %}" class="btn btn-primary mt-3">Volver a la lista de carreras</a>
+    </aside>
+
+    <main class="content-area">
+        <h1>Nuestra Misión</h1>
+        <p>Facilitar el acceso a recursos educativos y fomentar la colaboración entre estudiantes</p>
+    </main>
+
 </div>
 {% endblock %}
