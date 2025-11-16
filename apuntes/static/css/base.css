@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap");
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: "IBM Plex Mono", monospace;
 }
 
-html, body {
+html,
+body {
     overflow-x: hidden;
 }
 
@@ -20,9 +21,15 @@ body {
     flex-direction: column;
 }
 
-h1, h1 a, h2, h3, h4, h5, h6 {
+h1,
+h1 a,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 0;
-    font-family: 'Share Tech Mono', monospace;
+    font-family: "Share Tech Mono", monospace;
 }
 
 h2 {
@@ -46,7 +53,7 @@ h2 {
 .header-container {
     height: 100%;
     width: 100%;
-    max-width: 1700px;
+    max-width: 1200px;
     text-align: center;
     display: flex;
     justify-content: space-between;
@@ -55,7 +62,7 @@ h2 {
 
 .base-header a {
     text-decoration: none;
-    color: #D9EEE1;
+    color: #d9eee1;
 }
 
 .base-nav {
@@ -78,7 +85,7 @@ h2 {
 
 .nav-izq a {
     height: 100%;
-    color: #D9EEE1;
+    color: #d9eee1;
     padding: 0 1.5rem;
     text-decoration: none;
     background-color: #333;
@@ -89,11 +96,11 @@ h2 {
 
 .nav-izq a:hover {
     color: #111;
-    background-color: #D9EEE1;
+    background-color: #d9eee1;
 }
 
 .nav-izq a.active {
-    background-color: #BACC9D;
+    background-color: #bacc9d;
     color: #111;
 }
 
@@ -111,26 +118,26 @@ h2 {
 }
 
 #loginDropdown {
-    background-color: #D9EEE1;
+    background-color: #d9eee1;
     color: #222;
     transition: all 0.2s ease;
 }
 
 #loginDropdown:hover {
-    background-color: #BACC9D;
+    background-color: #bacc9d;
 }
 
 #loginDropdown.show {
-    background-color: #BACC9D;
+    background-color: #bacc9d;
 }
 
 #login-submit {
-    background-color: #D9EEE1;
+    background-color: #d9eee1;
     color: #222;
 }
 
 #login-submit:hover {
-    background-color: #BACC9D;
+    background-color: #bacc9d;
 }
 
 #login-container {
@@ -175,39 +182,63 @@ h2 {
     text-decoration: none;
 }
 
-.base-main {
-    width: 100%;
-    max-width: 100%;
-    display: flex;
-    flex: 1;
-    overflow-x: hidden;
+.bd-masthead {
+    padding: 3rem 0;
+}
+
+.navbar {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    min-height: 80px !important;
+}
+
+.navbar .navbar-brand {
+    font-size: 1.5rem !important;
+}
+
+.navbar .nav-link {
+    font-size: 1.1rem !important;
 }
 
 .base-footer {
     width: 100%;
     padding: 1rem;
-    color: #D9EEE1;
+    color: #d9eee1;
     background-color: #333;
     text-align: center;
 }
 
 /* Large devices (laptops/desktops, 992px up to 1200px) */
-@media only screen and (max-width: 1200px) {}
+@media only screen and (max-width: 1200px) {
+}
 
 /* Medium devices (landscape tablets, 768px up to 992px) */
 @media only screen and (max-width: 992px) {
-    #base-h1 { margin: 0 3rem 0 2rem; }
+    #base-h1 {
+        margin: 0 3rem 0 2rem;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px up to 768px) */
 @media only screen and (max-width: 768px) {
-    #base-h1 { margin: 0 2rem 0 2rem; }
+    #base-h1 {
+        margin: 0 2rem 0 2rem;
+    }
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    #base-h1 { margin: 0 .5rem 0 1rem; }
-    #login-container { width: 100vw !important; }
-    .nav-izq a { padding: 0 .5rem; font-size: 1rem; }
-    .nav-der button { font-size: .8rem !important; }
+    #base-h1 {
+        margin: 0 0.5rem 0 1rem;
+    }
+    #login-container {
+        width: 100vw !important;
+    }
+    .nav-izq a {
+        padding: 0 0.5rem;
+        font-size: 1rem;
+    }
+    .nav-der button {
+        font-size: 0.8rem !important;
+    }
 }
