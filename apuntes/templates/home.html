@@ -1,12 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Apuntes{% endblock %}
-{% load static %}
-{% block otros_css %}<link rel="stylesheet" href="{% static 'css/home.css' %}">{% endblock %}
+
+{% block otros_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="home-container">
-    <h2>Inicio</h2>
-    <p>Bienvenido a nuestra página de inicio.</p>
+<div class="home-welcome">
+    <div class="home-content">
+        <h2>¿Qué son los Apuntes?</h2>
+        <p>Una plataforma para subir y descargar material de estudio por carrera y materia.</p>
+    </div>
 </div>
 {% endblock %}
