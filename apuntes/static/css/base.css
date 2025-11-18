@@ -242,3 +242,187 @@ h2 {
         font-size: 0.8rem !important;
     }
 }
+
+/* --- apuntes.css --- */
+.apuntes-container {
+    text-align: center;
+    margin-top: 4rem;
+}
+
+/* --- carreras.css --- */
+.carreras-container {
+    padding: 4rem 0;
+    width: 100%;
+    background-color: #bacc9d;
+    text-align: center;
+    flex: 1;
+}
+
+.carreras-container h2 {
+    color: #333;
+}
+
+.carreras-container p {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.lista-carreras {
+    padding: 0 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: start;
+    gap: 2rem;
+}
+
+.carrera-item {
+    min-height: 8rem;
+    width: 100%;
+    max-width: 550px;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 1.5rem;
+}
+
+.carrera-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Large devices (laptops/desktops, 992px up to 1200px) */
+@media only screen and (max-width: 1200px) {
+    .lista-carreras {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px up to 992px) */
+@media only screen and (max-width: 992px) {
+    .lista-carreras {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px up to 768px) */
+@media only screen and (max-width: 768px) {
+    .carrera-item p {
+        font-size: 1.3rem;
+    }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .lista-carreras {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- home.css --- */
+.home-welcome {
+    min-height: 100vh;
+    background-color: #d9eee1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.home-content {
+    text-align: center;
+    max-width: 900px;
+}
+
+.home-content h2 {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.home-content p {
+    font-size: 1.5rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .home-content h2 {
+        font-size: 2rem;
+    }
+    
+    .home-content p {
+        font-size: 1.2rem;
+    }
+}
+
+/* --- materias.css --- */
+.layout-container-sidebar {
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+    background-color: #ffffff;
+}
+
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    overflow-y: auto;
+}
+
+.content-area {
+    flex-grow: 1;
+    padding: 2rem 3rem;
+    font-family: "Share Tech Mono", monospace;
+}
+
+.content-area h1 {
+    font-size: 4rem;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.content-area p {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 2rem;
+    color: #333;
+}
+
+.sidebar-section h3 {
+    background-color: #d9eee1;
+    color: white;
+    padding: 12px 15px;
+    margin: 0;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 1.1rem;
+}
+
+.sidebar-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-section ul li a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #212529;
+    border-bottom: 1px solid #eee;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.sidebar-section ul li a:hover {
+    background-color: #d9eee1;
+    color: #111;
+}
