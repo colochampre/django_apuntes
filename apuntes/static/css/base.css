@@ -8,7 +8,10 @@
     font-family: "IBM Plex Mono", monospace;
 }
 
-html,
+html {
+    overflow-y: scroll;
+}
+
 body {
     overflow-x: hidden;
 }
@@ -200,6 +203,10 @@ h2 {
     font-size: 1.1rem !important;
 }
 
+.base-main {
+    flex-grow: 1;
+}
+
 .base-footer {
     width: 100%;
     padding: 1rem;
@@ -256,6 +263,7 @@ h2 {
     background-color: #bacc9d;
     text-align: center;
     flex: 1;
+    height: 100%;
 }
 
 .carreras-container h2 {
@@ -325,12 +333,13 @@ h2 {
 
 /* --- home.css --- */
 .home-welcome {
-    min-height: 100vh;
     background-color: #d9eee1;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2rem;
+    flex: 1;
+    height: 100%;
 }
 
 .home-content {
