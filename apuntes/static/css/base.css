@@ -37,7 +37,7 @@ h6 {
 
 h2 {
     font-size: 4rem;
-    margin: auto auto 4rem auto;
+    margin: 4rem auto 4rem auto;
 }
 
 #base-h1 {
@@ -205,6 +205,8 @@ h2 {
 
 .base-main {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .base-footer {
@@ -281,7 +283,7 @@ h2 {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
     align-items: start;
     gap: 2rem;
@@ -336,8 +338,8 @@ h2 {
     background-color: #d9eee1;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 2rem;
+    align-items: flex-start;
+    padding: 4rem 2rem;
     flex: 1;
     height: 100%;
 }
@@ -348,7 +350,7 @@ h2 {
 }
 
 .home-content h2 {
-    font-size: 3rem;
+    font-size: 4rem;
     color: #333;
     margin-bottom: 2rem;
 }
@@ -364,7 +366,7 @@ h2 {
     .home-content h2 {
         font-size: 2rem;
     }
-    
+
     .home-content p {
         font-size: 1.2rem;
     }
@@ -382,11 +384,11 @@ h2 {
     width: 280px;
     flex-shrink: 0;
     background-color: #f8f9fa;
-    border-right: 1px solid #dee2e6;
     overflow-y: auto;
 }
 
 .content-area {
+    background-color: #d9eee1;
     flex-grow: 1;
     padding: 2rem 3rem;
     font-family: "Share Tech Mono", monospace;
@@ -408,11 +410,12 @@ h2 {
 
 .sidebar-section h3 {
     background-color: #d9eee1;
-    color: white;
+    color: #212529;
     padding: 12px 15px;
     margin: 0;
     font-family: "IBM Plex Mono", monospace;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    text-align: center;
 }
 
 .sidebar-section ul {
@@ -426,12 +429,11 @@ h2 {
     padding: 10px 15px;
     text-decoration: none;
     color: #212529;
-    border-bottom: 1px solid #eee;
     transition: all 0.2s ease;
     font-size: 0.9rem;
 }
 
 .sidebar-section ul li a:hover {
-    background-color: #d9eee1;
+    background-color: #a0f1bf;
     color: #111;
 }
