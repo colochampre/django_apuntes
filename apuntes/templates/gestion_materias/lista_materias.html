@@ -1,0 +1,32 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Materias de {{ carrera.nombre }}{% endblock %}
+
+{% block content %}
+<div class="layout-container-sidebar">
+
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <h3>{{ carrera.nombre }}</h3>
+            <ul>
+                {% for materia in materias %}
+                    <li>
+                        <a href="#">{{ materia.nombre }}</a>
+                    </li>
+                {% empty %}
+                    <li style="padding: 10px 15px; color: #666;">
+                        No hay materias cargadas.
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </aside>
+
+    <main class="content-area">
+        <h1>Nuestra Misión</h1>
+        <p>Facilitar el acceso a recursos educativos y fomentar la colaboración entre estudiantes</p>
+    </main>
+</div>
+{% endblock %}

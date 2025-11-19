@@ -19,31 +19,32 @@
                     <a href="{% url 'gestion_carreras:lista_carreras' %}" class="dropdown-toggle {% if request.resolver_match.url_name == 'lista_carreras' %}active{% endif %}">Carreras</a>
                 </div>
                 <div class="nav-der">
-                    <div class="dropdown">
-                        <button class="btn" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                            </svg>
-                            Login
-                        </button>
-                        <div id="login-container" class="dropdown-menu dropdown-menu-end" style="width: 250px;" aria-labelledby="loginDropdown">
-                            <p class="login-title">Inicia Sesión</p>
-                            <p class="login-subtitle">Obtené acceso a más funciones</p>
-
-                            <p class="login-register mb-2 small">¿No tenés cuenta? <a href="{% url 'home' %}" class="text-decoration-none">Registrate</a></p>
-                            <hr>
-                            <form action="{% url 'home' %}">
-                                <div class="mb-2">
-                                    <input type="text" name="username" class="form-control form-control-sm" placeholder="Usuario">
-                                </div>
-                                <div class="mb-2">
-                                    <input type="password" name="password" class="form-control form-control-sm" placeholder="Contraseña">
-                                </div>
-                                <button id="login-submit" type="submit" class="btn btn-sm w-100">Iniciar Sesión</button>
-                            </form>
+                    {% if user.is_authenticated %}
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                                </svg>
+                                {{ user.username }}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuDropdown">
+                                <li><a class="dropdown-item" href="{% url 'gestion_usuarios:perfil' %}">Mi Perfil</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form id="logout-form" action="{% url 'gestion_usuarios:logout' %}" method="post" style="display: none;">
+                                        {% csrf_token %}
+                                    </form>
+                                    <a class="dropdown-item" href="#" onclick="document.getElementById('logout-form').submit(); return false;">
+                                        Cerrar Sesión
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
+                    {% else %}
+                        <a href="{% url 'gestion_usuarios:login' %}" class="btn">Iniciar Sesión</a>
+                        <a href="{% url 'gestion_usuarios:register' %}" class="btn btn-primary">Registrarse</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

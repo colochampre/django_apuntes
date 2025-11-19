@@ -8,4 +8,5 @@ class UsuarioAdmin(admin.ModelAdmin):
     
     def mostrar_carreras(self, obj):
         return ", " .join([c.nombre for c in obj.carrera.all()])
+        
     mostrar_carreras.short_description = "carreras"

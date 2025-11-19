@@ -5,4 +5,3 @@ from .models import Materia
 class MateriaAdmin(admin.ModelAdmin):
     list_display = ("nombre", "anio")
     ordering = ("anio", "nombre")
-    
