@@ -1,5 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.http import FileResponse
 from gestion_usuarios.models import Usuario
 from gestion_materias.models import Materia
 from .forms import ApunteForm
@@ -12,6 +14,7 @@ def apuntes(request):
     """
     return render(request, 'gestion_apuntes/apuntes.html')
 
+@login_required
 def subir_apunte(request):
     """
     Gestiona la subida de un nuevo apunte.
@@ -50,3 +53,12 @@ def subir_apunte(request):
     
     context = {'form': form}
     return render(request, 'gestion_apuntes/subir_apunte.html', context)
+
+@login_required
+def descargar_apunte(request, apunte_id):
+    """
+    Gestiona la descarga de un apunte.
+    Verifica que el usuario esté autenticado y luego sirve el archivo.
+    """
+    apunte = get_object_or_404(Apunte, id=apunte_id)
+    return FileResponse(apunte.archivo.open(), as_attachment=True, filename=apunte.archivo.name)

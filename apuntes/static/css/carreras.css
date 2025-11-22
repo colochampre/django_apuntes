@@ -21,21 +21,30 @@
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
     align-items: start;
     gap: 2rem;
 }
 
 .carrera-item {
-    min-height: 8rem;
     width: 100%;
-    max-width: 550px;
+    height: 140px;
     padding: 1rem;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.carrera-item a {
+    text-decoration: none;
     font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    color: #333; /* Ensuring text color is visible */
 }
 
 /* Large devices (laptops/desktops, 992px up to 1200px) */

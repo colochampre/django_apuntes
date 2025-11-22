@@ -110,6 +110,12 @@ h2 {
     color: #222;
 }
 
+#userMenuDropdown {
+    background-color: #D9EEE1;
+    color: #111;
+    transition: all 0.2s ease;
+}
+
 #loginDropdown {
     background-color: #D9EEE1;
     color: #222;

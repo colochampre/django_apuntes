@@ -6,7 +6,7 @@ from gestion_apuntes.models import Apunte
 def listar_materias_por_carrera(request, carrera_id):
     """
     Lista las materias de una carrera y muestra los apuntes de una materia seleccionada.
-    Si no se especifica una materia, muestra los apuntes de la primera materia de la lista.
+    Si no se especifica una materia, no se muestra ningún apunte.
     """
     carrera = get_object_or_404(Carrera, id=carrera_id) 
     materias = carrera.materias.all().order_by("nombre")
@@ -17,8 +17,6 @@ def listar_materias_por_carrera(request, carrera_id):
     materia_id = request.GET.get('materia_id')
     if materia_id:
         materia_seleccionada = get_object_or_404(Materia, id=materia_id)
-    elif materias.exists():
-        materia_seleccionada = materias.first()
 
     if materia_seleccionada:
         apuntes = Apunte.objects.filter(materia=materia_seleccionada).order_by("-fecha_publicacion")

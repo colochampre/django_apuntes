@@ -16,13 +16,6 @@
                         </a>
                     </div>
                 {% endfor %}
-                {% for carrera in carreras %}
-                    <div class="carrera-item">
-                        <a href="{% url 'gestion_materias:materias_por_carrera' carrera.id %}">
-                            {{ carrera.nombre }} ({{ carrera.universidad }})
-                        </a>
-                    </div>
-                {% endfor %}
             </div>
         {% else %}
             <p>No hay carreras disponibles aún.</p>
