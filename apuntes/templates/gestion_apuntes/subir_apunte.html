@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}Subir Nuevo Apunte{% endblock %}
+{% block title %}Subir Apunte{% endblock %}
 
 {% block content %}
-    <h1>Subir Nuevo Apunte</h1>
+    <h1>Subir Apunte</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Subir Apunte</button>
+        <button type="submit">Subir</button>
     </form>
-    <a href="javascript:history.back()">Cancelar</a>
 {% endblock %}
