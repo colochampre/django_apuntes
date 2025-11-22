@@ -3,8 +3,11 @@ from gestion_carreras.models import Carrera
 from gestion_materias.models import Materia
 from gestion_apuntes.models import Apunte
 
-# Create your views here.
 def listar_materias_por_carrera(request, carrera_id):
+    """
+    Lista las materias de una carrera y muestra los apuntes de una materia seleccionada.
+    Si no se especifica una materia, muestra los apuntes de la primera materia de la lista.
+    """
     carrera = get_object_or_404(Carrera, id=carrera_id) 
     materias = carrera.materias.all().order_by("nombre")
     

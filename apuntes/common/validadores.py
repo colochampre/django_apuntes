@@ -1,6 +1,11 @@
 from .helpers import limpiar_texto, colapsar_espacios, solo_digitos
 
 def es_nombre_valido(valor=None) -> bool:
+    """
+    Valida si un valor es un nombre válido.
+    Un nombre válido debe tener entre 2 y 100 caracteres y solo puede contener
+    letras, espacios, guiones, apóstrofes y puntos.
+    """
     permitidos = set(
        "abcdefghijklmnopqrstuvwxyz"
        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -19,6 +24,10 @@ def es_nombre_valido(valor=None) -> bool:
 
 
 def es_anio_valido(valor=None) -> bool:
+    """
+    Valida si un valor es un año válido.
+    Un año válido debe tener 4 dígitos.
+    """
     if valor is None:
         return False
     v = solo_digitos(limpiar_texto(valor))

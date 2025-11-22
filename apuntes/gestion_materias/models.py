@@ -2,8 +2,10 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from common import validadores as v
 
-# Create your models here.
 class Materia(models.Model):
+    """
+    Representa una materia o asignatura de una carrera.
+    """
     nombre = models.CharField(max_length=50, null=False, blank=False)
     anio = models.IntegerField(null=False, blank=False)
 

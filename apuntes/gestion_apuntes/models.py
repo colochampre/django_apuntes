@@ -4,8 +4,10 @@ from gestion_usuarios.models import Usuario
 from gestion_materias.models import Materia
 from django.core.exceptions import ValidationError
 
-# Create your models here.
 class Apunte(models.Model):
+    """
+    Representa un apunte o material de estudio subido por un usuario.
+    """
     titulo = models.CharField(max_length=100, null=False, blank=False)
     descripcion = models.TextField()
     archivo = models.FileField(upload_to='apuntes/')

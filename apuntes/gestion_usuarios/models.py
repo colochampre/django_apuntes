@@ -2,8 +2,11 @@ from django.db import models
 from gestion_carreras.models import Carrera
 from django.contrib.auth.models import User
 
-# Create your models here.
 class Usuario(models.Model):
+    """
+    Extiende el modelo de usuario por defecto de Django para incluir
+    información específica de la aplicación, como la carrera del usuario.
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     carrera = models.ManyToManyField(Carrera, related_name='usuarios')
 
