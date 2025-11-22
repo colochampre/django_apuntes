@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block title %}Subir Apunte{% endblock %}
+{% block title %}Subir Nuevo Apunte{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center">Subir Nuevo Apunte</h2>
-    <p class="text-center">Aquí irá el formulario para subir apuntes.</p>
-</div>
+    <h1>Subir Nuevo Apunte</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Subir Apunte</button>
+    </form>
+    <a href="javascript:history.back()">Cancelar</a>
 {% endblock %}

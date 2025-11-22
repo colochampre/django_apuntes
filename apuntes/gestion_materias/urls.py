@@ -5,4 +5,5 @@ app_name = 'gestion_materias'
 
 urlpatterns = [
     path('por_carrera/<int:carrera_id>/', views.listar_materias_por_carrera, name='materias_por_carrera'),
+    path('<int:materia_id>/apuntes/', views.apuntes_por_materia, name='apuntes_por_materia'),
 ]

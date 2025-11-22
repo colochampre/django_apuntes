@@ -13,7 +13,7 @@
             <ul>
                 {% for materia in materias %}
                     <li>
-                        <a href="#">{{ materia.nombre }}</a>
+                        <a href="{% url 'gestion_materias:apuntes_por_materia' materia.id %}">{{ materia.nombre }}</a>
                     </li>
                 {% empty %}
                     <li style="padding: 10px 15px; color: #666;">
