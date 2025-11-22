@@ -5,7 +5,31 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="text-center">Buscar Apunte</h2>
-    <p class="text-center">Aquí irá el formulario de búsqueda de apuntes.</p>
+    <h2 class="text-center mb-4">Buscar Apunte</h2>
+    
+    <form method="get" action="{% url 'gestion_apuntes:buscar_apunte' %}" class="d-flex mb-4">
+        <input class="form-control me-2" type="search" name="q" placeholder="Buscar por título..." aria-label="Buscar" value="{{ query|default:'' }}">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+
+    {% if query %}
+        {% if resultados %}
+            <h3>Resultados para "{{ query }}":</h3>
+            <div class="list-group">
+                {% for apunte in resultados %}
+                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ apunte.titulo }}</h5>
+                            <small>{{ apunte.fecha_creacion|date:"d/m/Y" }}</small>
+                        </div>
+                        <p class="mb-1">{{ apunte.descripcion }}</p>
+                        <small>Subido por: {{ apunte.usuario }}</small>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="alert alert-warning">No se encontraron apuntes con ese título.</p>
+        {% endif %}
+    {% endif %}
 </div>
 {% endblock %}

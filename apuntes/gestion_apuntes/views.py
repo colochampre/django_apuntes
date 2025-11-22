@@ -62,3 +62,13 @@ def descargar_apunte(request, apunte_id):
     """
     apunte = get_object_or_404(Apunte, id=apunte_id)
     return FileResponse(apunte.archivo.open(), as_attachment=True, filename=apunte.archivo.name)
+
+def buscar_apunte(request):
+    """
+    Busca apuntes por título.
+    """
+    query = request.GET.get('q')
+    resultados = []
+    if query:
+        resultados = Apunte.objects.filter(titulo__icontains=query)
+    return render(request, 'gestion_apuntes/buscar_apunte.html', {'resultados': resultados, 'query': query})
