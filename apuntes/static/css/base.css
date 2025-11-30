@@ -31,10 +31,12 @@ header{
     padding:1rem 2rem;
     color: #fff;
     background-color: transparent;
+    /*
     text-align: center;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    */
 }
 
 .base-header a{
@@ -42,25 +44,34 @@ header{
     color: #fff;
 }
 .base-header ul li{
+    /*
     justify-content: end;
     text-align: center;
+    */
     color:white;
 }
 .navbar-nav{
+    /*
     display: flex;
     flex-direction: row;
     justify-content: end;
     align-items: center;
     text-align: center;
+    */
     white-space: nowrap;
     color:white;
+    /*
     margin-left:auto;
+    */
 }
 .nav-item{
     font-family:'Inter', sans-serif;
+    /*
     display: flex;
+  
     text-align: center;
     align-items: center;
+    */
 }
 .nav.item a{
     color:white;

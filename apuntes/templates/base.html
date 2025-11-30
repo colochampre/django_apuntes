@@ -18,23 +18,24 @@
 
 <body>
     <header class="base-header">
-        <nav class="navbar sticky-top">
+        <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <div class="d-flex align-items-center w-100">
-                    <a class="navbar-brand" href="{% url 'home' %}">
-                        <img src="{% static 'img/logo.png' %}" alt="Logo" style="height: 60px; width: auto; object-fit: contain;">
-                        <span class="ms-3 fs-3 fw-bold text-primary"></span>
-                    </a>
-                    <div class="navbar">
-                        <ul class="nav justify-content-end">
-                            <li class="nav-item px-3">
-                                <button type="button" class="btn btn-custom"><a>Carreras</a></button>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="btn btn-custom"><a>Iniciar sesion</a></button>
-                            </li>
-                        </ul>
-                    </div>
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo" style="height: 60px; width: auto; object-fit: contain;">
+                    <span class="ms-3 fs-3 fw-bold text-primary"></span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarMenu">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item px-2">
+                            <a href="#" class="btn btn-custom">Carreras</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a href="#" class="btn btn-custom">Iniciar sesion</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
