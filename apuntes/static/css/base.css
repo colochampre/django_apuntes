@@ -169,5 +169,23 @@ html::before {
     top: 600px;      
     left: -15%;       
 }
+.btn-custom{
+    background-color:blueviolet;
+    border-radius: 30px;
+}
+.section-btn{
+    text-decoration: none;
+    color:white;
+    font-family: 'Inter', sans-serif;
+}
 
-
+.btn-custom:hover{
+    color:blueviolet;
+    background-color: white;
+}
+.section-btn:hover{
+    color:blueviolet;
+}
+html, body {
+    overflow-x: hidden;
+}
