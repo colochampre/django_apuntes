@@ -5,7 +5,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'IBM Plex Mono', monospace;
 }
 
 h1, h1 a, h2, h3, h4, h5, h6 {
@@ -16,22 +15,57 @@ h1, h1 a, h2, h3, h4, h5, h6 {
 h2 {
     font-size: 4rem;
 }
-
+body{
+    margin:0;
+    padding:0;
+    background-color: black;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    min-height: 100vh;
+}
+header{
+    background-color: transparent;
+}
 .base-header {
-    padding: 1rem 2rem;
+    padding:1rem 2rem;
     color: #fff;
-    background-color: #333;
+    background-color: transparent;
     text-align: center;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.base-header a {
+.base-header a{
     text-decoration: none;
     color: #fff;
 }
-
+.base-header ul li{
+    justify-content: end;
+    text-align: center;
+    color:white;
+}
+.navbar-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+    color:white;
+    margin-left:auto;
+}
+.nav-item{
+    font-family:'Inter', sans-serif;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+.nav.item a{
+    color:white;
+}
+/*
 .base-ul {
     list-style: none;
     display: flex;
@@ -55,17 +89,29 @@ h2 {
     background-color: #99ff00;
     color: #333;
 }
-
+*/
 .base-main {
     padding: 1rem;
+    flex:1;
 }
 
 .base-footer {
     width: 100%;
     padding: 1rem;
     color: #fff;
-    background-color: #333;
+    background-color: #000000;
     text-align: center;
-    position: fixed;
-    bottom: 0;
+    position: static;
+    font-family: 'Inter', sans-serif;
+}
+.col h3{
+    font-family:'Poppins', sans-serif;
+    font-weight: 800;
+}
+.col ul li a{
+    text-decoration: none;
+    color:white;
+}
+footer .col{
+    text-align: center;
 }
