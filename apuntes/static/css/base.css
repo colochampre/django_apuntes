@@ -18,7 +18,7 @@ h2 {
 body{
     margin:0;
     padding:0;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     color:white;
     display:flex;
     flex-direction:column;
@@ -43,6 +43,14 @@ header{
     text-decoration: none;
     color: #fff;
 }
+.navbar a{
+    color:white;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+.navbar a:hover{
+    color:white;
+}
 .base-header ul li{
     /*
     justify-content: end;
@@ -55,17 +63,18 @@ header{
     display: flex;
     flex-direction: row;
     justify-content: end;
-    align-items: center;
-    text-align: center;
     */
     white-space: nowrap;
     color:white;
-    /*
-    margin-left:auto;
-    */
+    align-items: center;
+    text-align: center;
+    margin-left:10%;
+    
 }
 .nav-item{
     font-family:'Inter', sans-serif;
+    display:block;
+    align-items: flex-end;
     /*
     display: flex;
   
