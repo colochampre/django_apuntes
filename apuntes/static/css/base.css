@@ -24,6 +24,7 @@ body{
     flex-direction:column;
     min-height: 100vh;
 }
+
 header{
     background-color: transparent;
 }
@@ -135,3 +136,38 @@ header{
 footer .col{
     text-align: center;
 }
+
+body::before,
+body::after {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(131, 65, 255, 0.6) 0%, rgba(131, 65, 255, 0) 80%);
+    filter: blur(40px);
+    z-index: -1;
+}
+
+body::before {
+    top: -150px;
+    left: -250px;
+}
+
+
+body::after {
+    bottom: -150px;
+    right: -250px;
+}
+html::before {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(131, 65, 255, 0.6) 0%, rgba(131, 65, 255, 0) 80%);
+    filter: blur(40px);
+    z-index: -1;
+    top: 600px;      
+    left: -15%;       
+}
+
+
