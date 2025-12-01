@@ -1,0 +1,16 @@
+.container p{
+    width: 100%;
+    max-width: 1000px;
+    justify-content: center;
+    font-family:'Inter', sans-serif;
+    font-weight:300; 
+}
+.login-title{
+    font-family: 'Poppins', sans-serif;
+    font-weight:500;
+}
+#login-container{
+    margin:3%;
+    padding:10%;  
+    border-radius: 5%;  
+}

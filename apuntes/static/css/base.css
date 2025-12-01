@@ -143,27 +143,24 @@ footer .col{
 body::before,
 body::after {
     content: "";
-    position: absolute;
+    position: fixed;
     width: 600px;
     height: 600px;
     background: radial-gradient(circle, rgba(131, 65, 255, 0.6) 0%, rgba(131, 65, 255, 0) 80%);
     filter: blur(40px);
     z-index: -1;
 }
-
 body::before {
     top: -150px;
     left: -250px;
 }
-
-
 body::after {
     bottom: -150px;
     right: -250px;
 }
 html::before {
     content: "";
-    position: absolute;
+    position: fixed;
     width: 600px;
     height: 600px;
     background: radial-gradient(circle, rgba(131, 65, 255, 0.6) 0%, rgba(131, 65, 255, 0) 80%);
@@ -181,7 +178,6 @@ html::before {
     color:white;
     font-family: 'Inter', sans-serif;
 }
-
 .btn-custom:hover{
     color:blueviolet;
     background-color: white;
@@ -198,4 +194,7 @@ html, body {
 .dropdown-menu a:hover{
     background-color: #000000;
     color:#fff
+}
+.row{
+    margin:0;
 }

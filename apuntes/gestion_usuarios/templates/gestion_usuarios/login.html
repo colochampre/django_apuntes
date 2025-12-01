@@ -2,12 +2,13 @@
 {% load static %}
 
 {% block title %}Iniciar Sesión{% endblock %}
+{% block otros_css %}<link rel="stylesheet" href="{% static 'css/register.css' %}">{% endblock %}
 
 {% block content %}
 <div class="container d-flex justify-content-center align-items-center" style="flex: 1;">
-    <div id="login-container" class="bg-light">
-        <p class="login-title">Inicia Sesión</p>
-        <p class="login-subtitle">Obtené acceso a más funciones</p>
+    <div id="login-container" class="bg-black text-white">
+        <h1 class="login-title text-center">Inicia Sesión</h1>
+        <p class="login-subtitle text-center">Obtené acceso a más funciones</p>
 
         {% if messages %}
             {% for message in messages %}
@@ -37,7 +38,7 @@
                 </div>
             {% endif %}
 
-            <button id="login-submit" type="submit" class="btn btn-sm w-100">Iniciar Sesión</button>
+            <button id="login-submit" type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
         </form>
     </div>
 </div>

@@ -2,52 +2,67 @@
 {% load static %}
 
 {% block title %}Materias de {{ carrera.nombre }}{% endblock %}
+{% block otros_css %}<link rel="stylesheet" href="{% static 'css/materias.css' %}">{% endblock %}
 
 {% block content %}
-<div class="layout-container-sidebar">
-
-    <aside class="sidebar">
-        <div class="sidebar-section">
-            <h3>{{ carrera.nombre }}</h3>
-            <ul>
-                {% for materia in materias %}
-                    <li>
-                        <a href="?materia_id={{ materia.id }}">{{ materia.nombre }}</a>
+<section class="centro">
+    <div class="container-fluid">
+            <h1>{{ carrera.nombre }}</h1>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <ul class="list-unstyled texto-seccion">
+                    {% for materia in materias %}
+                    <li class="py-2 mt-1">
+                        <button class="btn btn-primary" type="button">
+                            <a href="?materia_id={{ materia.id }}">{{ materia.nombre }}</a>
+                        </button>
                     </li>
-                {% empty %}
-                    <li style="padding: 10px 15px; color: #666;">
-                        No hay materias cargadas.
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </aside>
-
-    <main class="content-area">
-        {% if materia_seleccionada %}
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1>Apuntes de: {{ materia_seleccionada.nombre }}</h1>
-                <a href="{% url 'gestion_apuntes:subir_apunte' %}" class="btn btn-primary">Subir Contenido</a>
-            </div>
-
-            {% if apuntes %}
-                <ul>
-                    {% for apunte in apuntes %}
-                        <li>
-                            <h3>{{ apunte.titulo }}</h3>
-                            <p>Subido el {{ apunte.fecha_publicacion|date:"d/m/Y" }}</p>
-                            <p>{{ apunte.descripcion|default:"Sin descripción." }}</p>
-                            <a href="{% url 'gestion_apuntes:descargar_apunte' apunte.id %}">Descargar</a>
+                    {% empty %}
+                        <li class="py-4 mt-2">
+                            No hay materias cargadas.
                         </li>
                     {% endfor %}
                 </ul>
-            {% else %}
-                <p>No hay material subido todavía.</p>
-            {% endif %}
-        {% else %}
-            <h1>Apuntes</h1>
-            <p>Comunidad educativa para ayudarte de manera funcional A que consigas los mejores apuntes Para tus estudios</p>
-        {% endif %}
-    </main>
-</div>
+            </div>
+</section>
+<section class="centro">
+        <div class="container-fluid">
+            <main class="row justify-content-center texto-seccion">
+                {% if materia_seleccionada %}
+                <h1 class="py-4 mt-2">Apuntes de: {{ materia_seleccionada.nombre }}</h1>
+                    <div class="d-flex justify-content-center align-items-center mb-4">
+                        <button class="btn btn-primary" type="button">
+                            <a href="{% url 'gestion_apuntes:subir_apunte' %}">Subir Contenido</a>
+                        </button>
+                    </div>
+
+                    {% if apuntes %}
+                    <div class="d-flex justify-content-center align-items-center mb-4">
+                        <ul class="list-unstyled texto-seccion">
+                            {% for apunte in apuntes %}
+                                <li class="py-4 mt-5">
+                                    <h2>{{ apunte.titulo }}</h2>
+                                    <p>Subido el {{ apunte.fecha_publicacion|date:"d/m/Y" }}</p>
+                                    <p>{{ apunte.descripcion|default:"Sin descripción." }}</p>
+                                    <button class="btn btn-secondary" type="button">
+                                        <a href="{% url 'gestion_apuntes:descargar_apunte' apunte.id %}">Descargar</a>
+                                    </button>
+                                    
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No hay material subido todavía.</p>
+                    {% endif %}
+                    </div>
+                {% else %}
+                    
+                    <h2 class="py-4 mt-5">Apuntes</h2>
+                    <p>Comunidad educativa para ayudarte de manera funcional a que consigas los mejores apuntes para tus estudios</p>
+                {% endif %}
+            </main>
+        </div>
+
+        </div>
+    </div>
+</section>
 {% endblock %}
