@@ -86,6 +86,9 @@ header{
 .nav.item a{
     color:white;
 }
+.nav-item a:hover{
+    color:blueviolet;
+}
 /*
 .base-ul {
     list-style: none;
@@ -188,4 +191,11 @@ html::before {
 }
 html, body {
     overflow-x: hidden;
+}
+.dropdown-menu a{
+    color:black;
+}
+.dropdown-menu a:hover{
+    background-color: #000000;
+    color:#fff
 }
