@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Carreras{% endblock %}
+{% load static %}
+{% block otros_css %}<link rel="stylesheet" href="{% static 'css/carreras.css' %}">{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="carreras-container">
+            <h2 class="py-4">Carreras</h2>
+            {% if carreras %}
+                <div class="lista-carreras">
+                    {% for carrera in carreras %}
+                        <div class="carrera-item">
+                            <a href="{% url 'gestion_materias:materias_por_carrera' carrera.id %}">
+                                {{ carrera.nombre }} ({{ carrera.universidad }})
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No hay carreras disponibles aún.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

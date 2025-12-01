@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarMenu">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item px-2">
-                            <a href="#" class="btn btn-custom">Carreras</a>
+                            <a href="{% url 'gestion_carreras:lista_carreras' %}" class="btn btn-custom">Carreras</a>
                         </li>
                         <li class="nav-item px-2">
                             <div class="nav-der">
@@ -69,20 +69,6 @@
                 </div>
             </div>
         </nav>
-        <!--
-        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
-            <img src="{% static 'img/logo.png' %}" alt="Logo"
-                 style="height: 70px; width: auto; object-fit: contain;">
-            <span class="ms-3 fs-3 fw-bold text-primary"></span>
-        </a>
-        <!<h1><a href="{% url 'home' %}">Apuntes Universitarios</a></h1>->
-        <nav class="base-nav">
-            <ul class="base-ul">
-                <li><a href="{% url 'home' %}">Inicio</a></li>
-                <li><a href="{% url 'gestion_apuntes:apuntes' %}">Apuntes</a></li>
-            </ul>
-        </nav>
-        -->
     </header>
 
     <main class="base-main">
@@ -98,14 +84,14 @@
                 <ul>
                     <li><a href="#">Apuntes</a></li>
                     <li><a href="#">Materias</a></li>
-                    <li><a href="#">Carreras</a></li>
+                    <li><a href="{% url 'gestion_carreras:lista_carreras' %}">Carreras</a></li>
                 </ul>
             </div>
             <div class="col">
                 <h3>Cuenta</h3>
                 <ul class="text-lg-start">
-                    <li><a href="#">Iniciar sesion</a></li>
-                    <li><a href="#">Mi cuenta</a></li>
+                    <li><a href="{% url 'gestion_usuarios:login' %}">Iniciar sesion</a></li>
+                    <li><a href="{% url 'gestion_usuarios:perfil' %}">Mi cuenta</a></li>
                 </ul>
             </div>
             <div class="col text-lg-end">
@@ -116,8 +102,9 @@
                     <a href="#" class="text-decoration-none"><i class="bi bi-paypal fs-2 me-3 text-white"></i></a>
                 </div>
             </div>
-            <p>2025 Derechos reservados</p>
+            
         </div>
+        <p>2025 Derechos reservados</p>
     </div>
     </footer>
     

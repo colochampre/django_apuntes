@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="flex: 1;">
+    <div id="login-container" class="bg-light">
+        <p class="login-title">Inicia Sesión</p>
+        <p class="login-subtitle">Obtené acceso a más funciones</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <p class="login-register mb-2 small">¿No tenés cuenta? <a href="{% url 'gestion_usuarios:register' %}" class="text-decoration-none">Registrate</a></p>
+        <hr>
+        <form method="post" action="{% url 'gestion_usuarios:login' %}">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="id_username" class="form-label">Usuario</label>
+                {{ form.username }}
+            </div>
+            <div class="mb-3">
+                <label for="id_password" class="form-label">Contraseña</label>
+                {{ form.password }}
+            </div>
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    Por favor, corrija los errores a continuación.
+                </div>
+            {% endif %}
+
+            <button id="login-submit" type="submit" class="btn btn-sm w-100">Iniciar Sesión</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

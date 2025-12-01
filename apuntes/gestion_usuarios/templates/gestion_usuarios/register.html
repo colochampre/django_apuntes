@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Registro de Usuario{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="flex: 1;">
+    <div id="login-container" class="bg-light">
+        <p class="login-title">Crear una Cuenta</p>
+        <p class="login-subtitle">Únete a la plataforma de apuntes.</p>
+
+        <hr>
+        <form method="post" action="{% url 'gestion_usuarios:register' %}">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+
+            <button id="login-submit" type="submit" class="btn btn-sm w-100 mt-3">Registrarse</button>
+        </form>
+        <hr>
+        <p class="login-register mb-2 small">¿Ya tenés cuenta? <a href="{% url 'gestion_usuarios:login' %}" class="text-decoration-none">Inicia Sesión</a></p>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Materias de {{ carrera.nombre }}{% endblock %}
+
+{% block content %}
+<div class="layout-container-sidebar">
+
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <h3>{{ carrera.nombre }}</h3>
+            <ul>
+                {% for materia in materias %}
+                    <li>
+                        <a href="?materia_id={{ materia.id }}">{{ materia.nombre }}</a>
+                    </li>
+                {% empty %}
+                    <li style="padding: 10px 15px; color: #666;">
+                        No hay materias cargadas.
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </aside>
+
+    <main class="content-area">
+        {% if materia_seleccionada %}
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>Apuntes de: {{ materia_seleccionada.nombre }}</h1>
+                <a href="{% url 'gestion_apuntes:subir_apunte' %}" class="btn btn-primary">Subir Contenido</a>
+            </div>
+
+            {% if apuntes %}
+                <ul>
+                    {% for apunte in apuntes %}
+                        <li>
+                            <h3>{{ apunte.titulo }}</h3>
+                            <p>Subido el {{ apunte.fecha_publicacion|date:"d/m/Y" }}</p>
+                            <p>{{ apunte.descripcion|default:"Sin descripción." }}</p>
+                            <a href="{% url 'gestion_apuntes:descargar_apunte' apunte.id %}">Descargar</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No hay material subido todavía.</p>
+            {% endif %}
+        {% else %}
+            <h1>Apuntes</h1>
+            <p>Comunidad educativa para ayudarte de manera funcional A que consigas los mejores apuntes Para tus estudios</p>
+        {% endif %}
+    </main>
+</div>
+{% endblock %}
