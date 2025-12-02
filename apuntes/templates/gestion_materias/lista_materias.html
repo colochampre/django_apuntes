@@ -5,7 +5,7 @@
 {% block otros_css %}<link rel="stylesheet" href="{% static 'css/materias.css' %}">{% endblock %}
 
 {% block content %}
-<section class="centro">
+<section class="centro my-3 mb-4">
     <div class="container-fluid">
             <h1>{{ carrera.nombre }}</h1>
             <div class="d-grid gap-2 col-6 mx-auto">
@@ -56,11 +56,10 @@
                     </div>
                 {% else %}
                     
-                    <h2 class="py-4 mt-5">Apuntes</h2>
+                    <h2 class="py-4 my-5">Apuntes</h2>
                     <p>Comunidad educativa para ayudarte de manera funcional a que consigas los mejores apuntes para tus estudios</p>
                 {% endif %}
             </main>
-        </div>
 
         </div>
     </div>
