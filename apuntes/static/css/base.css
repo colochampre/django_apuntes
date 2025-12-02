@@ -143,7 +143,7 @@ footer .col{
 body::before,
 body::after {
     content: "";
-    position: fixed;
+    position: absolute;
     width: 600px;
     height: 600px;
     background: radial-gradient(circle, rgba(131, 65, 255, 0.6) 0%, rgba(131, 65, 255, 0) 80%);
@@ -158,6 +158,7 @@ body::after {
     bottom: -150px;
     right: -250px;
 }
+/*
 html::before {
     content: "";
     position: fixed;
@@ -168,7 +169,7 @@ html::before {
     z-index: -1;
     top: 600px;      
     left: -15%;       
-}
+}*/
 .btn-custom{
     background-color:blueviolet;
     border-radius: 30px;
