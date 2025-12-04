@@ -18,17 +18,17 @@
             {% endfor %}
         {% endif %}
 
-        <p class="login-register mb-2 small">¿No tenés cuenta? <a href="{% url 'gestion_usuarios:register' %}" class="text-decoration-none">Registrate</a></p>
+        <p class="register-text mb-2">¿No tenés cuenta? <a href="{% url 'gestion_usuarios:register' %}" class="register-link text-decoration-none">Registrate</a></p>
         <hr>
-        <form method="post" action="{% url 'gestion_usuarios:login' %}">
+        <form class="login-form" method="post" action="{% url 'gestion_usuarios:login' %}">
             {% csrf_token %}
             
             <div class="mb-3">
-                <label for="id_username" class="form-label">Usuario</label>
+                <label for="id_username">Usuario</label>
                 {{ form.username }}
             </div>
             <div class="mb-3">
-                <label for="id_password" class="form-label">Contraseña</label>
+                <label for="id_password">Contraseña</label>
                 {{ form.password }}
             </div>
 

@@ -11,7 +11,7 @@
         <p class="login-subtitle text-center">Únete a la plataforma de apuntes.</p>
 
         <hr>
-        <form method="post" action="{% url 'gestion_usuarios:register' %}">
+        <form class="register-form" method="post" action="{% url 'gestion_usuarios:register' %}">
             {% csrf_token %}
             
             {{ form.as_p }}

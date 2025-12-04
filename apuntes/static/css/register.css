@@ -8,9 +8,34 @@
 .login-title{
     font-family: 'Poppins', sans-serif;
     font-weight:500;
+    font-size: 2.8rem;
 }
+
+.login-subtitle {
+    font-size: 1.2rem;
+}
+
+.register-text {
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.register-link {
+    font-size: 1.3rem;
+}
+
 #login-container{
     margin:3%;
     padding:10%;  
     border-radius: 5%;  
+}
+
+.register-form p, .login-form div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.register-form span, .login-form span {
+    color: #bbb;
 }
