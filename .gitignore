@@ -134,3 +134,4 @@ ENV/
 # Archivos de configuración local
 settings/local.py
 settings/*.local.py
+migrations/
