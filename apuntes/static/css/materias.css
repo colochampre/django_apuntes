@@ -43,6 +43,15 @@ body{
     text-align: center;
 }
 
+.apuntes-container .title {
+    
+}
+
+.apuntes-container p {
+    font-size: 1.1rem;
+    font-family:'Inter', sans-serif;
+}
+
 .apuntes-header {
     display: flex;
     flex-direction: row;
@@ -51,12 +60,18 @@ body{
     gap: 2rem;
 }
 .apuntes-header h2 {
-    font-size: 2rem;
+    font-size: 3rem;
     text-align: center;
 }
 
 .apuntes-header a {
-    width: 20%;
+    font-size: 1.4rem;
+    white-space: nowrap;
+}
+
+.apuntes-container .no-material {
+    margin-top: 4rem;
+    font-size: 1.4rem;
 }
 
 .ul-apuntes {
@@ -70,6 +85,10 @@ body{
 .apunte-item {
     min-width: 300px;
     min-height: 250px;
+}
+
+.apunte-item .title {
+    font-size: 2.4rem;
 }
 
 
