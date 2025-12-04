@@ -47,19 +47,11 @@ p{
     font-family:'Inter', sans-serif;
     font-weight:300;
 }
-.btn-custom{
-    background-color:blueviolet;
-    border-radius: 30px;
-}
+
 .section-btn{
     text-decoration: none;
     color:white;
     font-family: 'Inter', sans-serif;
-}
-
-.btn-custom:hover{
-    color:blueviolet;
-    background-color: white;
 }
 .section-btn:hover{
     color:blueviolet;
@@ -88,6 +80,10 @@ p{
     padding-top: 10%;
     gap:1.5rem;
 }
+.derecha-content {
+    width: 100%;
+    padding: 0 auto;
+}
 .centro{
     background-image: linear-gradient(180deg, white, black);
     width: 100%;
@@ -104,12 +100,16 @@ p{
 }
 .texto-seccion p{
     width: 100%;
-    max-width: 1000px;
+    max-width: 1400px;
     justify-content: center;
     font-family:'Inter', sans-serif;
     font-weight:300; 
+    font-size: 1.2rem;
+    text-align: justify;
 }
 .texto-seccion h2{
+    width: 100%;
+    max-width: 1400px;
     font-family:'Inter', sans-serif;
     font-weight:700; 
     font-size: 1.5rem;
@@ -120,6 +120,7 @@ p{
     justify-content: center;
     font-family:'Inter', sans-serif;
     font-weight:300;
+    font-size: 1.2rem;
 }
 .texto-seccion img {
     width: 300px;      
@@ -128,4 +129,8 @@ p{
 }
 .row{
     margin:0;
+}
+
+.video {
+    border-radius: 30px;
 }

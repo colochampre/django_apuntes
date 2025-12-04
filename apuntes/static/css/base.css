@@ -52,6 +52,18 @@ header{
 .navbar a:hover{
     color:white;
 }
+
+
+.btn-custom {
+    color:white;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-custom:hover{
+    color:white;
+}
+
 .base-header ul li{
     /*
     justify-content: end;
@@ -59,12 +71,20 @@ header{
     */
     color:white;
 }
-.navbar-nav{
-    /*
+
+.brand-container {
     display: flex;
     flex-direction: row;
+}
+
+.brand-container a {
+    font-size: 1.5rem;
+}
+
+.navbar-nav{
+    display: flex;
+    flex-direction: column;
     justify-content: end;
-    */
     white-space: nowrap;
     color:white;
     align-items: center;
@@ -88,6 +108,10 @@ header{
 }
 .nav-item a:hover{
     color:blueviolet;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1) brightness(2);
 }
 /*
 .base-ul {
@@ -115,7 +139,6 @@ header{
 }
 */
 .base-main {
-    padding: 1rem;
     flex:1;
 }
 .base-footer {
