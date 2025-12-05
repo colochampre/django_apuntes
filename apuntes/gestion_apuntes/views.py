@@ -15,43 +15,43 @@ def apuntes(request):
     return render(request, 'gestion_apuntes/apuntes.html')
 
 @login_required
-def subir_apunte(request):
+def subir_apunte(request, materia_id):
     """
-    Gestiona la subida de un nuevo apunte.
-    Si el método es POST, procesa el formulario. Si es válido, guarda el apunte
-    y redirige a la lista de apuntes de la materia correspondiente.
-    Si el método es GET, muestra el formulario vacío.
+    Gestiona la subida de un nuevo apunte para una materia específica.
     """
+    materia = get_object_or_404(Materia, pk=materia_id)
+
     if request.method == 'POST':
         form = ApunteForm(request.POST, request.FILES)
+        # Eliminamos el campo materia del formulario para que no se valide
+        if 'materia' in form.fields:
+            del form.fields['materia']
+            
         if form.is_valid():
             apunte = form.save(commit=False)
+            apunte.materia = materia # Asignamos la materia automáticamente
+            
             # Asigna el usuario actual al apunte.
             try:
                 apunte.usuario = Usuario.objects.get(user=request.user)
             except Usuario.DoesNotExist:
-                # Si el perfil de usuario no existe, se podría redirigir a una página de creación de perfil.
-                # Por ahora, se omite para evitar errores si el usuario no está completamente configurado.
                 pass
 
             apunte.save()
             
             # Redirige a la lista de apuntes de la materia específica.
-            if apunte.materia:
-                carrera = apunte.materia.carreras.first()
-                if carrera:
-                    url = reverse('gestion_materias:materias_por_carrera', kwargs={'carrera_id': carrera.id})
-                    return redirect(f'{url}?materia_id={apunte.materia.id}')
-                else:
-                    # Si la materia no está asociada a ninguna carrera, redirige a la lista general de apuntes.
-                    return redirect('gestion_apuntes:apuntes')
+            carrera = materia.carreras.first()
+            if carrera:
+                url = reverse('gestion_materias:materias_por_carrera', kwargs={'carrera_id': carrera.id})
+                return redirect(f'{url}?materia_id={materia.id}')
             else:
-                # Si el apunte no tiene una materia asignada, redirige a la lista general.
                 return redirect('gestion_apuntes:apuntes')
     else:
         form = ApunteForm()
+        if 'materia' in form.fields:
+            del form.fields['materia']
     
-    context = {'form': form}
+    context = {'form': form, 'materia': materia}
     return render(request, 'gestion_apuntes/subir_apunte.html', context)
 
 @login_required
@@ -62,4 +62,3 @@ def descargar_apunte(request, apunte_id):
     """
     apunte = get_object_or_404(Apunte, id=apunte_id)
     return FileResponse(apunte.archivo.open(), as_attachment=True, filename=apunte.archivo.name)
-

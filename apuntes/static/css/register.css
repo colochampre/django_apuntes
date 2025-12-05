@@ -24,12 +24,6 @@
     font-size: 1.3rem;
 }
 
-#login-container{
-    margin:3%;
-    padding:10%;  
-    border-radius: 5%;  
-}
-
 .register-form p, .login-form div {
     display: flex;
     flex-direction: column;
@@ -38,4 +32,27 @@
 
 .register-form span, .login-form span {
     color: #bbb;
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    height: 80vh;
+}
+
+.profile-card {
+    padding: 2rem;
+    margin-top: 4rem;
+    min-width: 400px;
+    max-height: 500px;
+    border-radius: 15px;
+    border: 2px solid #87CEEB; /* Light Sky Blue */
+    background-color: #000; /* Black background for the card itself */
+}
+
+.profile-value-bg {
+    background-color: #212529; /* A slightly lighter black/dark grey */
+    padding: 8px 12px; /* Add some padding to make the background visible */
+    border-radius: 5px; /* Slightly rounded corners for the background */
+    margin-top: 5px; /* Small margin above the value field */
 }

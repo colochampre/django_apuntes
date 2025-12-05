@@ -27,18 +27,15 @@
             {% if materia_seleccionada %}
             <div class="apuntes-header">
                 <h2 class="title py-4">Apuntes de {{ materia_seleccionada.nombre }}</h1>
-                {% if user.is_authenticated %}
-                    <a class="btn btn-primary" href="{% url 'gestion_apuntes:subir_apunte' %}">Subir Contenido</a>
-                {% endif %}
+                <a class="btn btn-primary" href="{% url 'gestion_apuntes:subir_apunte' materia_seleccionada.id %}">Subir Contenido</a>
             </div>
-
             {% if apuntes %}
             <div class="apuntes-items">
                 <div class="ul-apuntes">
                     {% for apunte in apuntes %}
                     <div class="apunte-item">
                         <div class="apunte-title-container">
-                            <h2 class="title">{{ apunte.titulo }}</h2>
+                            <h2 class="title">{{ apunte.titulo }}</h2> 
                         </div>
                         <div class="apunte-descripcion-container">
                             <p class="descripcion">{{ apunte.descripcion|default:"Sin descripción." }}</p>

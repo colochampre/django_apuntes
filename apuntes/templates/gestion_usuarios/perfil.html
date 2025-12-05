@@ -1,26 +1,28 @@
+
 {% extends 'base.html' %}
 {% load static %}
 
 {% block title %}Perfil de Usuario{% endblock %}
+{% block otros_css %}<link rel="stylesheet" href="{% static 'css/register.css' %}">{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card bg-black text-white">
-                <div class="card-header">
-                    <h2 class="text-center">Mi Perfil</h2>
-                </div>
-                <div class="card-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        <h3>Información de Usuario</h3>
-                        {{ user_form.as_p }}
-                        <h3>Información de Perfil</h3>
-                        {{ profile_form.as_p }}
-                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                    </form>
-                </div>
+<div class="profile-container">
+    <div class="profile-card text-white">
+        <h2 class="login-title text-center">Mi Perfil</h1>
+        <hr>
+        
+        <div class="login-form">
+            <div class="mb-3">
+                <label class="fw-bold">Nombre</label>
+                <p class="profile-value-bg text-white">{{ user.first_name }}</p>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold">Apellido</label>
+                <p class="profile-value-bg text-white">{{ user.last_name }}</p>
+            </div>
+            <div class="mb-3">
+                <label class="fw-bold">Email</label>
+                <p class="profile-value-bg text-white">{{ user.email }}</p>
             </div>
         </div>
     </div>
