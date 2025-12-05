@@ -8,7 +8,7 @@
 {% block content %}
 <div class="materias-container">
     <section class="carrera-container">
-        <h2>{{ carrera.nombre }}</h1>
+        <h2>{{ carrera.nombre }}</h2>
         <div class="lista-materias">
             <ul class="materias-ul list-unstyled texto-seccion">
                 {% for materia in materias %}
@@ -26,7 +26,7 @@
         <main class="row justify-content-center texto-seccion">
             {% if materia_seleccionada %}
             <div class="apuntes-header">
-                <h2 class="title py-4">Apuntes de {{ materia_seleccionada.nombre }}</h1>
+                <h2 class="title py-4">Apuntes de {{ materia_seleccionada.nombre }}</h2>
                 <a class="btn btn-primary" href="{% url 'gestion_apuntes:subir_apunte' materia_seleccionada.id %}">Subir Contenido</a>
             </div>
             {% if apuntes %}
