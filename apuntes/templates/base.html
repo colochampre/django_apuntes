@@ -87,29 +87,23 @@
                 <div class="col text-lg-start">
                     <h3>Descubrir</h3>
                     <ul>
-                        <li><a href="#">Apuntes</a></li>
-                        <li><a href="{% url 'gestion_materias:materias_por_carrera' 1 %}">Materias</a></li>
                         <li><a href="{% url 'gestion_carreras:lista_carreras' %}">Carreras</a></li>
                     </ul>
                 </div>
-                <div class="col">
+                <div class="footer-item-container col">
                     <h3>Cuenta</h3>
                     <ul class="text-lg-start">
                         <li><a href="{% url 'gestion_usuarios:login' %}">Iniciar sesion</a></li>
                         <li><a href="{% url 'gestion_usuarios:perfil' %}">Mi cuenta</a></li>
                     </ul>
                 </div>
-                <div class="col text-lg-end">
-                    <h3>Contacto</h3>
+                <div class="footer-item-container col text-lg-end">
+                    <h3>Repositorio</h3>
                     <div>
-                        <a href="#" class="text-decoration-none"><i
-                                class="bi bi-instagram fs-2 me-3 text-white"></i></a>
-                        <a href="#" class="text-decoration-none"><i class="bi bi-linkedin fs-2 me-3 text-white"></i></a>
-                        <a href="#" class="text-decoration-none"><i class="bi bi-paypal fs-2 me-3 text-white"></i></a>
+                        <a href="https://github.com/colochampre/django_apuntes" class="text-decoration-none"><i class="bi bi-github fs-2 me-3 text-white"></i></a>
                     </div>
                 </div>
             </div>
-            <p>2025 Derechos reservados</p>
         </div>
     </footer>
 

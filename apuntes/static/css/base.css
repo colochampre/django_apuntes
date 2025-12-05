@@ -7,6 +7,42 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+body::before,
+body::after {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(131, 65, 255, 0.6) 0%, rgba(131, 65, 255, 0) 80%);
+    filter: blur(40px);
+    z-index: -1;
+}
+
+body::before {
+    top: 50px;
+    left: -250px;
+}
+
+body::after {
+    bottom: 50px;
+    right: -250px;
+}
+
 h1, h1 a, h2, h3, h4, h5, h6 {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -15,20 +51,13 @@ h1, h1 a, h2, h3, h4, h5, h6 {
 h2 {
     font-size: 4rem;
 }
-body{
-    margin:0;
-    padding:0;
-    width: 100%;
-    background-color: rgb(0, 0, 0);
-    color:white;
-    display:flex;
-    flex-direction:column;
-}
-header{
+
+header {
     background-color: transparent;
 }
+
 .base-header {
-    padding:1rem 2rem;
+    padding: 1rem 2rem;
     color: #fff;
     background-color: transparent;
     /*
@@ -39,36 +68,38 @@ header{
     */
 }
 
-.base-header a{
+.base-header a {
     text-decoration: none;
     color: #fff;
 }
-.navbar a{
-    color:white;
+
+.navbar a {
+    color: white;
     text-align: center;
     font-family: 'Poppins', sans-serif;
 }
-.navbar a:hover{
-    color:white;
+
+.navbar a:hover {
+    color: white;
 }
 
 
 .btn-custom {
-    color:white;
+    color: white;
     text-align: center;
     font-family: 'Poppins', sans-serif;
 }
 
-.btn-custom:hover{
-    color:white;
+.btn-custom:hover {
+    color: white;
 }
 
-.base-header ul li{
+.base-header ul li {
     /*
     justify-content: end;
     text-align: center;
     */
-    color:white;
+    color: white;
 }
 
 .brand-container {
@@ -80,20 +111,21 @@ header{
     font-size: 1.5rem;
 }
 
-.navbar-nav{
+.navbar-nav {
     display: flex;
     flex-direction: column;
     justify-content: end;
     white-space: nowrap;
-    color:white;
+    color: white;
     align-items: flex-end;
     text-align: center;
-    margin-left:10%;
-    
+    margin-left: 10%;
+
 }
-.nav-item{
-    font-family:'Inter', sans-serif;
-    display:block;
+
+.nav-item {
+    font-family: 'Inter', sans-serif;
+    display: block;
     align-items: flex-end;
     /*
     display: flex;
@@ -102,11 +134,13 @@ header{
     align-items: center;
     */
 }
-.nav.item a{
-    color:white;
+
+.nav.item a {
+    color: white;
 }
-.nav-item a:hover{
-    color:blueviolet;
+
+.nav-item a:hover {
+    color: blueviolet;
 }
 
 .navbar-toggler-icon {
@@ -122,8 +156,9 @@ header{
 }
 
 .base-main {
-    flex:1;
+    flex: 1;
 }
+
 .base-footer {
     margin-top: auto;
     width: 100%;
@@ -134,36 +169,21 @@ header{
     position: static;
     font-family: 'Inter', sans-serif;
 }
-.col h3{
-    font-family:'Poppins', sans-serif;
+
+.col h3 {
+    font-family: 'Poppins', sans-serif;
     font-weight: 800;
 }
-.col ul li a{
+
+.col ul li a {
     text-decoration: none;
-    color:white;
+    color: white;
 }
-footer .col{
+
+footer .col {
     text-align: center;
 }
 
-body::before,
-body::after {
-    content: "";
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(131, 65, 255, 0.6) 0%, rgba(131, 65, 255, 0) 80%);
-    filter: blur(40px);
-    z-index: -1;
-}
-body::before {
-    top: -150px;
-    left: -250px;
-}
-body::after {
-    bottom: -150px;
-    right: -250px;
-}
 /*
 html::before {
     content: "";
@@ -176,8 +196,8 @@ html::before {
     top: 600px;      
     left: -15%;       
 }*/
-.btn-custom{
-    background-color:blueviolet;
+.btn-custom {
+    background-color: blueviolet;
     border-radius: 30px;
 }
 
@@ -186,25 +206,33 @@ html::before {
     color: blueviolet;
 }
 
-.section-btn{
+.section-btn {
     text-decoration: none;
-    color:white;
+    color: white;
     font-family: 'Inter', sans-serif;
 }
-.btn-custom:hover{
-    color:blueviolet;
+
+.btn-custom:hover {
+    color: blueviolet;
     background-color: white;
 }
-.section-btn:hover{
-    color:blueviolet;
+
+.section-btn:hover {
+    color: blueviolet;
 }
-html, body {
-    overflow-x: hidden;
+
+.dropdown-menu a {
+    color: black;
 }
-.dropdown-menu a{
-    color:black;
-}
-.dropdown-menu a:hover{
+
+.dropdown-menu a:hover {
     background-color: #000000;
-    color:#fff
+    color: #fff
+}
+
+.footer-item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
