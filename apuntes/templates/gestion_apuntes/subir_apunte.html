@@ -2,19 +2,18 @@
 {% load static %}
 
 {% block title %}Subir Apunte{% endblock %}
-{% block otros_css %}<link rel="stylesheet" href="{% static 'css/apuntes.css' %}">{% endblock %}
+{% block otros_css %}
+<link rel="stylesheet" href="{% static 'css/apuntes.css' %}">{% endblock %}
 
 {% block content %}
-<section class="centro">
-    <div class="container-fluid">
-        <div class="row justify-content-center texto-seccion">
-            <h1 class="py-4 mt-2">SUBIR APUNTE</h1>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button class="btn btn-success" type="submit">Subir</button>
-            </form>
-        </div>
+<section class="subir-apuntes-container">
+    <div class="subir-apunte-card">
+        <h2 class="subir-apunte-title py-4 mt-2">Subir Apunte</h1>
+        <form class="subir-apunte-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success" type="submit">Subir</button>
+        </form>
     </div>
 </section>
 

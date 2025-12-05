@@ -36,12 +36,14 @@
             <div class="apuntes-items">
                 <div class="ul-apuntes">
                     {% for apunte in apuntes %}
-                    <div class="apunte-item mt-5">
+                    <div class="apunte-item">
                         <div class="apunte-title-container">
                             <h2 class="title">{{ apunte.titulo }}</h2>
                         </div>
-                        <div class="apunte-content-container">
+                        <div class="apunte-descripcion-container">
                             <p class="descripcion">{{ apunte.descripcion|default:"Sin descripción." }}</p>
+                        </div>
+                        <div class="apunte-descarga-container">
                             <p class="fecha-subida">Subido el {{ apunte.fecha_publicacion|date:"d/m/Y" }}</p>
                             <a class="btn btn-success"
                             href="{% url 'gestion_apuntes:descargar_apunte' apunte.id %}">Descargar</a>

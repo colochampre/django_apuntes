@@ -2,22 +2,56 @@
     text-align: center;
     margin-top: 4rem;
 }
-.centro{
-    background-color: transparent;
-    width: 100%;
-    min-height: 100vh;
+.subir-apuntes-container {
+    min-height: 66vh;
     margin:0;
-    padding:0;
+    padding: 1rem;
+    background-color: transparent;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap:1.5rem;
+}
+
+.subir-apunte-card {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
-    padding-top: 10%;
-    gap:1.5rem;
 }
-.container-fluid h1{
+
+.subir-apunte-title {
     margin:4%;
     padding:2%;
+    font-size: 2rem;
+    text-align: center;
     font-weight: 700;
     font-family: 'Poppins', sans-serif;
+}
+
+.subir-apunte-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.subir-apunte-form p {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.subir-apunte-form input {
+    display: flex;
+    flex-direction: column;
+}
+
+.subir-apunte-form input, textarea {
+    width: 100%;
+}
+
+.subir-apunte-form button {
+    width: 30%;
 }

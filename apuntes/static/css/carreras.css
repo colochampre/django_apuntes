@@ -1,16 +1,10 @@
 .carreras-container {
     width: 100%;
-    min-height:100vh;
+    min-height:66vh;
     padding: 4rem 0;
     background-color: transparent;
     text-align: center;
     flex: 1;
-}
-.container-fluid{
-    width: 100%;
-    min-height: 100vh;
-    padding-left: 0 !important;
-    padding-right:0 !important;
 }
 .carreras-container h2 {
     font-family:'Poppins', sans-serif;
