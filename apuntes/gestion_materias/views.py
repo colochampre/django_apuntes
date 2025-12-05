@@ -29,6 +29,11 @@ def listar_materias_por_carrera(request, carrera_id):
 
     if materia_seleccionada:
         apuntes = Apunte.objects.filter(materia=materia_seleccionada).order_by("-fecha_publicacion")
+        
+        # Agregar la puntuación del usuario actual a cada apunte
+        if usuario_actual:
+            for apunte in apuntes:
+                apunte.puntuacion_del_usuario = apunte.puntuacion_usuario(usuario_actual)
 
     context = {
         "carrera": carrera, 

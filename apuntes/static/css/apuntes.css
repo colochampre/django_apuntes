@@ -55,3 +55,8 @@
 .subir-apunte-form button {
     width: 30%;
 }
+
+.apunte-puntuacion-container {
+    margin: 0;
+    padding: 8px 0 0 0;
+}
