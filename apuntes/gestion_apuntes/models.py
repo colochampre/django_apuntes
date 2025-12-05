@@ -1,8 +1,6 @@
 from django.db import models
-from common import validadores as v
 from gestion_usuarios.models import Usuario
 from gestion_materias.models import Materia
-from django.core.exceptions import ValidationError
 
 PUNTUACION = {
     ("1", "☆"),
@@ -24,10 +22,6 @@ class Apunte(models.Model):
     
     class Meta:
         ordering = ['titulo']
-    
-    def clean(self):
-        if not v.es_nombre_valido(self.titulo):
-            raise ValidationError('Titulo inválido')
     
     def __str__(self):
         return (f'{self.titulo} - {self.fecha_publicacion} - '
