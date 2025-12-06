@@ -2,59 +2,45 @@
 
 {% block title %}Inicio{% endblock %}
 {% load static %}
-{% block otros_css %}<link rel="stylesheet" href="{% static 'css/home.css' %}">{% endblock %}
+{% block otros_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">{% endblock %}
 
 {% block content %}
-<section class="bienvenida">
+<section>
     <h1>Bienvenidos/as</h1>
     <h3>Subi los apuntes de las materias que cursaste y ayuda a tus compañeros</h3>
     <a href="{% url 'gestion_carreras:lista_carreras' %}" class="btn btn-custom">Ver Carreras</a>
 </section>
-<section class="izquierda">
-    <div class="container-fluid">
-        <div class="row justify-content-start">
-            <div class="col-md-10 text-lg-start texto-seccion">
-                <h2 class="py-4">¿Cómo subir apuntes?</h2>
-                <ol>
-                    <li>Escaneá tus apuntes utilizando la aplicación o herramienta que prefieras.</li>
-                    <li>Iniciá sesión en nuestra plataforma y seleccioná la opción para subir un archivo.</li>
-                    <li>Cargá tu documento en formato .pdf o .docx.</li>
-                    <li>Completá la información requerida, como el título del apunte, el año y la materia correspondiente.</li>
-                    <li>Confirmá la carga y ¡listo! Estás contribuyendo a que más estudiantes accedan a material útil.</li>
-                </ol>
-                <img src="{% static 'img/apunte.png' %}" alt="Cómo subir un apunte">
-            </div>
-        </div>
-    </div>
+<section>
+    <h2>¿Cómo subir apuntes?</h2>
+    <ol>
+        <li>Escaneá tus apuntes utilizando la aplicación o herramienta que prefieras.</li>
+        <li>Iniciá sesión en nuestra plataforma y seleccioná la opción para subir un archivo.</li>
+        <li>Cargá tu documento en formato .pdf o .docx.</li>
+        <li>Completá la información requerida, como el título del apunte, el año y la materia correspondiente.</li>
+        <li>Confirmá la carga y ¡listo! Estás contribuyendo a que más estudiantes accedan a material útil.</li>
+    </ol>
+    <img src="{% static 'img/apunte.png' %}" alt="Cómo subir un apunte">
 </section>
-<section class="derecha">
-    <div class="container-fluid">
-        <div class="row justify-content-end">
-            <div class="col-md-10 text-lg-end texto-seccion">
-                <h2 class="py-4">Nuestra misión</h2>
-                <p>
-                Nuestra misión es construir un espacio abierto, accesible y solidario donde cada estudiante de la UTN pueda compartir sus apuntes, experiencias y materiales de estudio, fortaleciendo así el aprendizaje colectivo.
-                Buscamos transformar el esfuerzo individual en un recurso compartido, crear una comunidad que se ayude mutuamente y facilitar el acceso a contenido confiable y organizado.
-                Trabajamos para que cada alumno encuentre aquí apoyo académico real, práctico y cercano; y para que el conocimiento circule libremente, impulsando el crecimiento de todos.
-                </p>
-                 <img src="{% static 'img/somos.png' %}" alt="Nuestra misión">
-            </div>
-        </div>
-    </div>
+<section>
+    <h2>Nuestra misión</h2>
+    <p>
+            Nuestra misión es construir un espacio abierto, accesible y solidario donde cada estudiante de la UTN pueda
+            compartir sus apuntes, experiencias y materiales de estudio, fortaleciendo así el aprendizaje colectivo.
+            Buscamos transformar el esfuerzo individual en un recurso compartido, crear una comunidad que se ayude
+            mutuamente y facilitar el acceso a contenido confiable y organizado.
+            Trabajamos para que cada alumno encuentre aquí apoyo académico real, práctico y cercano; y para que el
+            conocimiento circule libremente, impulsando el crecimiento de todos.
+        </p>
+    <img src="{% static 'img/somos.png' %}" alt="Nuestra misión">
 </section>
-<section class="centro">
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="section-centro-container col-md-10 texto-seccion">
-                <h2 class="centro-title py-4">La responsabilidad de subir apuntes</h2>
-                <div class="col-lg-8 col-md-10">
-                    <div class="ratio ratio-16x9">
-                        <iframe class="video text-center" src="https://www.youtube.com/embed/ONZnKpvNOZw?si=oY7habrTTCY78DUv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+<section>
+    <h2>La responsabilidad de subir apuntes</h2>
+    <div>
+        <iframe src="https://www.youtube.com/embed/ONZnKpvNOZw?si=oY7habrTTCY78DUv"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
 </section>
 {% endblock %}
