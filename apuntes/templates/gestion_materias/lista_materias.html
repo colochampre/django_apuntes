@@ -7,94 +7,141 @@
 
 {% block content %}
 <div class="materias-container">
-    <section class="carrera-container">
-        <h2>{{ carrera.nombre }}</h2>
-        <div class="lista-materias">
-            <ul class="materias-ul list-unstyled texto-seccion">
+    <!-- Sidebar Navigation -->
+    <aside class="materias-sidebar">
+        <div class="sidebar-header">
+            <h2 class="sidebar-title">
+                <i class="bi bi-mortarboard-fill"></i>
+                {{ carrera.nombre }}
+            </h2>
+        </div>
+        <nav class="materias-nav">
+            <ul class="materias-list">
                 {% for materia in materias %}
-                <li class="materia-item py-2 mt-1">
-                    <a class="btn btn-primary" href="?materia_id={{ materia.id }}">{{ materia.nombre }}</a>
+                <li class="materia-item {% if materia_seleccionada and materia.id == materia_seleccionada.id %}active{% endif %}">
+                    <a href="?materia_id={{ materia.id }}" class="materia-link">
+                        <i class="bi bi-book"></i>
+                        <span>{{ materia.nombre }}</span>
+                    </a>
                 </li>
                 {% empty %}
-                <li class="py-4 mt-2">
-                    No hay materias cargadas.
+                <li class="materia-item-empty">
+                    <i class="bi bi-inbox"></i>
+                    <span>No hay materias cargadas</span>
                 </li>
                 {% endfor %}
             </ul>
-    </section>
-    <section class="apuntes-container">
-        <main class="row justify-content-center texto-seccion">
-            {% if materia_seleccionada %}
-            <div class="apuntes-header">
-                <h2 class="title py-4">Apuntes de {{ materia_seleccionada.nombre }}</h2>
-                <a class="btn btn-primary" href="{% url 'gestion_apuntes:subir_apunte' materia_seleccionada.id %}">Subir Contenido</a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="materias-main-content">
+        {% if materia_seleccionada %}
+        <!-- Apuntes Header -->
+        <div class="apuntes-header">
+            <div class="header-content">
+                <h1 class="apuntes-title">
+                    <i class="bi bi-file-earmark-text"></i>
+                    Apuntes de {{ materia_seleccionada.nombre }}
+                </h1>
+                <p class="apuntes-subtitle">Explorá y descargá el material de estudio</p>
             </div>
-            {% if apuntes %}
-            <div class="apuntes-items">
-                <div class="ul-apuntes">
-                    {% for apunte in apuntes %}
-                    <div class="apunte-item" data-apunte-id="{{ apunte.id }}">
-                        <div class="apunte-title-container">
-                            <h2 class="title">{{ apunte.titulo }}</h2> 
-                        </div>
-                        <div class="apunte-descripcion-container">
-                            <p class="descripcion">{{ apunte.descripcion|default:"Sin descripción." }}</p>
-                        </div>
-                        <div class="apunte-puntuacion-container">
-                            <div class="puntuacion-display">
-                                {% if apunte.promedio_puntuacion %}
-                                    <span class="promedio-estrellas">
-                                        {% with promedio=apunte.promedio_puntuacion %}
-                                            {% for i in "12345" %}
-                                                {% if forloop.counter <= promedio %}
-                                                    <span class="estrella llena">★</span>
-                                                {% elif forloop.counter|add:"-1" < promedio %}
-                                                    <span class="estrella media">★</span>
-                                                {% else %}
-                                                    <span class="estrella vacia">☆</span>
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% endwith %}
-                                    </span>
-                                    <span class="promedio-numero">({{ apunte.promedio_puntuacion }}/5 - {{ apunte.total_puntuaciones }} valoraciones)</span>
+            <a href="{% url 'gestion_apuntes:subir_apunte' materia_seleccionada.id %}" class="btn-subir-apunte">
+                <i class="bi bi-cloud-upload"></i>
+                Subir Contenido
+            </a>
+        </div>
+
+        <!-- Apuntes Grid -->
+        {% if apuntes %}
+        <div class="apuntes-grid">
+            {% for apunte in apuntes %}
+            <div class="apunte-card" data-apunte-id="{{ apunte.id }}">
+                <div class="apunte-card-header">
+                    <h3 class="apunte-titulo">{{ apunte.titulo }}</h3>
+                    <span class="apunte-fecha">
+                        <i class="bi bi-calendar3"></i>
+                        {{ apunte.fecha_publicacion|date:"d/m/Y" }}
+                    </span>
+                </div>
+                
+                <div class="apunte-card-body">
+                    <p class="apunte-descripcion">{{ apunte.descripcion|default:"Sin descripción disponible." }}</p>
+                    
+                    <!-- Puntuación Display -->
+                    <div class="puntuacion-section">
+                        <div class="puntuacion-display">
+                            {% if apunte.promedio_puntuacion %}
+                            <div class="estrellas-promedio">
+                                {% with promedio=apunte.promedio_puntuacion %}
+                                {% for i in "12345" %}
+                                {% if forloop.counter <= promedio %}
+                                <i class="bi bi-star-fill estrella llena"></i>
+                                {% elif forloop.counter|add:"-1" < promedio %}
+                                <i class="bi bi-star-half estrella media"></i>
                                 {% else %}
-                                    <span class="sin-puntuacion">Sin valoraciones aún</span>
+                                <i class="bi bi-star estrella vacia"></i>
                                 {% endif %}
+                                {% endfor %}
+                                {% endwith %}
                             </div>
-                            {% if user.is_authenticated and usuario_actual %}
-                            <div class="puntuacion-usuario">
-                                <span class="label-puntuar">Tu valoración:</span>
-                                <div class="estrellas-interactivas">
-                                    {% for i in "12345" %}
-                                        <span class="estrella-btn {% if apunte.puntuacion_del_usuario == forloop.counter %}activa{% endif %}" 
-                                              data-valor="{{ forloop.counter }}"
-                                              data-apunte-id="{{ apunte.id }}">★</span>
-                                    {% endfor %}
-                                </div>
-                            </div>
+                            <span class="puntuacion-info">
+                                {{ apunte.promedio_puntuacion }}/5 ({{ apunte.total_puntuaciones }} valoraciones)
+                            </span>
+                            {% else %}
+                            <span class="sin-puntuacion">
+                                <i class="bi bi-star"></i>
+                                Sin valoraciones aún
+                            </span>
                             {% endif %}
                         </div>
-                        <div class="apunte-descarga-container">
-                            <p class="fecha-subida">Subido el {{ apunte.fecha_publicacion|date:"d/m/Y" }}</p>
-                            <a class="btn btn-success"
-                            href="{% url 'gestion_apuntes:descargar_apunte' apunte.id %}">Descargar</a>
+                        
+                        <!-- Puntuación Usuario -->
+                        {% if user.is_authenticated and usuario_actual %}
+                        <div class="puntuacion-usuario">
+                            <span class="label-puntuar">Tu valoración:</span>
+                            <div class="estrellas-interactivas">
+                                {% for i in "12345" %}
+                                <i class="bi bi-star-fill estrella-btn {% if apunte.puntuacion_del_usuario == forloop.counter %}activa{% endif %}" 
+                                   data-valor="{{ forloop.counter }}"
+                                   data-apunte-id="{{ apunte.id }}"></i>
+                                {% endfor %}
+                            </div>
                         </div>
+                        {% endif %}
                     </div>
-                    {% endfor %}
                 </div>
-                {% else %}
-                <p class="no-material">No hay material subido todavía.</p>
-                {% endif %}
+                
+                <div class="apunte-card-footer">
+                    <a href="{% url 'gestion_apuntes:descargar_apunte' apunte.id %}" class="btn-descargar">
+                        <i class="bi bi-download"></i>
+                        Descargar
+                    </a>
+                </div>
             </div>
-            {% else %}
-
-            <h2 class="title py-4 my-5">Apuntes</h2>
-            <p>Comunidad educativa para ayudarte de manera funcional a que consigas los mejores apuntes para tus
-                estudios</p>
-            {% endif %}
-        </main>
-</div>
-</section>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <i class="bi bi-inbox empty-icon"></i>
+            <h3 class="empty-title">No hay material disponible</h3>
+            <p class="empty-text">Aún no se han subido apuntes para esta materia.</p>
+            <a href="{% url 'gestion_apuntes:subir_apunte' materia_seleccionada.id %}" class="btn-subir-primero">
+                <i class="bi bi-cloud-upload"></i>
+                Sé el primero en subir contenido
+            </a>
+        </div>
+        {% endif %}
+        
+        {% else %}
+        
+        <div class="welcome-state">
+            <i class="bi bi-file-earmark-text welcome-icon"></i>
+            <h2 class="welcome-title">Apuntes Universitarios</h2>
+            <p class="welcome-text">Seleccioná una materia del menú lateral para ver los apuntes disponibles</p>
+        </div>
+        {% endif %}
+    </main>
 </div>
 {% endblock %}
 

@@ -1,0 +1,500 @@
+/* ========================================
+   MATERIAS & APUNTES - MODERN LAYOUT
+   ======================================== */
+
+/* Main Container */
+.materias-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: calc(100vh - 200px);
+    gap: 0;
+    background-color: var(--light-primary-color);
+}
+
+/* ========================================
+   SIDEBAR NAVIGATION
+   ======================================== */
+
+.materias-sidebar {
+    background: linear-gradient(180deg, var(--dark-bg-color) 0%, #1a1d2e 100%);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem 0;
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    padding: 0 1.5rem 1.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-title {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0;
+}
+
+.sidebar-title i {
+    color: var(--primary-light-color);
+    font-size: 1.5rem;
+}
+
+/* Materias List */
+.materias-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.materia-item {
+    margin: 0.25rem 0.75rem;
+}
+
+.materia-link {
+    display: flex;
+    align-items: start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.materia-link i {
+    font-size: 1.1rem;
+    color: var(--primary-light-color);
+    transition: transform 0.3s ease;
+}
+
+.materia-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateY(-5px);
+}
+
+.materia-link:hover i {
+    transform: scale(1.1);
+}
+
+.materia-item.active .materia-link {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.materia-item.active .materia-link i {
+    color: white;
+}
+
+.materia-item-empty {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.materia-item-empty i {
+    font-size: 2rem;
+    opacity: 0.5;
+}
+
+/* ========================================
+   MAIN CONTENT AREA
+   ======================================== */
+
+.materias-main-content {
+    background-color: var(--light-primary-color);
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+/* Apuntes Header */
+.apuntes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.header-content {
+    flex: 1;
+}
+
+.apuntes-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark-bg-color);
+    margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.apuntes-title i {
+    color: var(--primary-color);
+}
+
+.apuntes-subtitle {
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.btn-subir-apunte {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-subir-apunte:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+/* ========================================
+   APUNTES GRID
+   ======================================== */
+
+.apuntes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Apunte Card */
+.apunte-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+.apunte-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.25);
+    border-color: var(--primary-color);
+}
+
+.apunte-card-header {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.apunte-titulo {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--dark-bg-color);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
+}
+
+.apunte-fecha {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.apunte-fecha i {
+    font-size: 0.9rem;
+}
+
+.apunte-card-body {
+    flex: 1;
+    margin-bottom: 1rem;
+}
+
+.apunte-descripcion {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* ========================================
+   PUNTUACIÓN SYSTEM
+   ======================================== */
+
+.puntuacion-section {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.puntuacion-display {
+    margin-bottom: 0.75rem;
+}
+
+.estrellas-promedio {
+    display: inline-flex;
+    gap: 0.25rem;
+    margin-right: 0.5rem;
+}
+
+.estrella {
+    color: #ffc107;
+    font-size: 1.1rem;
+}
+
+.estrella.llena {
+    color: #ffc107;
+}
+
+.estrella.media {
+    color: #ffc107;
+}
+
+.estrella.vacia {
+    color: #ddd;
+}
+
+.puntuacion-info {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.sin-puntuacion {
+    color: #999;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* Usuario Puntuación */
+.puntuacion-usuario {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.label-puntuar {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.estrellas-interactivas {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.estrella-btn {
+    color: #ddd;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.estrella-btn:hover,
+.estrella-btn.activa {
+    color: #ffc107;
+    transform: scale(1.15);
+}
+
+/* ========================================
+   CARD FOOTER
+   ======================================== */
+
+.apunte-card-footer {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.btn-descargar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-descargar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    color: white;
+}
+
+/* ========================================
+   EMPTY & WELCOME STATES
+   ======================================== */
+
+.empty-state,
+.welcome-state {
+    padding: 4rem 2rem;
+    background-color: white;
+    color: #555;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.empty-icon,
+.welcome-icon {
+    font-size: 4rem;
+    color: var(--primary-color);
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+}
+
+.empty-title,
+.welcome-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--dark-bg-color);
+    margin-bottom: 0.75rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.empty-text,
+.welcome-text {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.btn-subir-primero {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-subir-primero:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 991px) {
+    .materias-container {
+        grid-template-columns: 240px 1fr;
+    }
+
+    .apuntes-title {
+        font-size: 1.75rem;
+    }
+
+    .apuntes-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 767px) {
+    .materias-container {
+        grid-template-columns: 1fr;
+    }
+
+    .materias-sidebar {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .materias-main-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .apuntes-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .btn-subir-apunte {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .apuntes-title {
+        font-size: 1.5rem;
+    }
+
+    .apuntes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .puntuacion-usuario {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .materias-main-content {
+        padding: 1rem;
+    }
+
+    .apunte-card {
+        padding: 1.25rem;
+    }
+
+    .apuntes-title {
+        font-size: 1.35rem;
+    }
+
+    .empty-state,
+    .welcome-state {
+        padding: 3rem 1rem;
+    }
+
+    .empty-icon,
+    .welcome-icon {
+        font-size: 3rem;
+    }
+}

@@ -12,7 +12,7 @@ def apuntes(request):
     Vista para mostrar la página principal de apuntes.
     Actualmente, solo renderiza una plantilla estática.
     """
-    return render(request, 'gestion_apuntes/apuntes.html')
+    return render(request, 'gestion_apuntes/lista_apuntes.html')
 
 @login_required
 def subir_apunte(request, materia_id):
