@@ -23,36 +23,45 @@
 
 <!-- Carreras Grid Section -->
 <section class="carreras-section">
-    <div class="container pt-2">
+    <div class="container">
         {% if carreras %}
-        <div class="row g-4">
+        <div class="row g-4 p-3">
             {% for carrera in carreras %}
             <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-                <a href="{% url 'gestion_materias:materias_por_carrera' carrera.id %}" class="carrera-card-link">
-                    <div class="carrera-card">
-                        <div class="carrera-card-icon">
-                            <i class="bi bi-mortarboard-fill"></i>
+                <div class="carrera-card-wrapper">
+                    <a href="{% url 'gestion_materias:materias_por_carrera' carrera.id %}" class="carrera-card-link">
+                        <div class="carrera-card">
+                            <div class="carrera-card-header">
+                                <div class="carrera-card-icon">
+                                    <i class="bi bi-mortarboard-fill"></i>
+                                </div>
+                            </div>
+                            <div class="carrera-card-body">
+                                <h3 class="carrera-nombre">{{ carrera.nombre }}</h3>
+                                <p class="carrera-universidad">
+                                    <i class="bi bi-building"></i>
+                                    {{ carrera.universidad }}
+                                </p>
+                            </div>
+                            <div class="carrera-card-footer">
+                                <span class="ver-materias">
+                                    Ver materias <i class="bi bi-arrow-right"></i>
+                                </span>
+                            </div>
                         </div>
-                        <div class="carrera-card-body">
-                            <h3 class="carrera-nombre">{{ carrera.nombre }}</h3>
-                            <p class="carrera-universidad">
-                                <i class="bi bi-building"></i>
-                                {{ carrera.universidad }}
-                            </p>
-                        </div>
-                        <div class="carrera-card-footer">
-                            <span class="ver-materias">
-                                Ver materias <i class="bi bi-arrow-right"></i>
-                            </span>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                    {% if user.is_staff or user.is_superuser %}
+                    <a href="{% url 'gestion_carreras:eliminar_carrera' carrera.id %}" class="btn-delete-carrera" data-carrera-nombre="{{ carrera.nombre }}" title="Eliminar carrera">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                    {% endif %}
+                </div>
             </div>
             {% endfor %}
         </div>
         {% else %}
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 py-3">
                 <div class="empty-state">
                     <i class="bi bi-inbox empty-icon"></i>
                     <h3 class="empty-title">No hay carreras disponibles</h3>
@@ -64,3 +73,5 @@
     </div>
 </section>
 {% endblock %}
+
+{% block otros_js %}<script src="{% static 'js/carreras.js' %}"></script>{% endblock %}

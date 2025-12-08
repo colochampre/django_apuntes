@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import Carrera
 
 def lista_carreras(request):
@@ -7,3 +9,26 @@ def lista_carreras(request):
     """
     carreras = Carrera.objects.all().order_by('nombre')  # Obtiene las carreras de la base de datos ordenadas por nombre
     return render(request, 'gestion_carreras/lista_carreras.html', {'carreras': carreras})  # Envía la lista de carreras al template
+
+@login_required
+def eliminar_carrera(request, carrera_id):
+    """
+    Elimina una carrera específica. Solo accesible para usuarios staff o superusuarios.
+    """
+    # Verificar que el usuario tenga permisos de administrador
+    if not (request.user.is_staff or request.user.is_superuser):
+        messages.error(request, 'No tienes permisos para eliminar carreras.')
+        return redirect('gestion_carreras:lista_carreras')
+    
+    # Obtener la carrera o devolver 404 si no existe
+    carrera = get_object_or_404(Carrera, id=carrera_id)
+    nombre_carrera = carrera.nombre
+    universidad = carrera.universidad
+    
+    # Eliminar la carrera
+    carrera.delete()
+    
+    # Mensaje de éxito
+    messages.success(request, f'La carrera "{nombre_carrera}" ({universidad}) ha sido eliminada exitosamente.')
+    
+    return redirect('gestion_carreras:lista_carreras')
