@@ -7,15 +7,23 @@
     /* colors */
     --primary-light-color: #AC74E0;
     --primary-light-color-rgb: 172, 116, 224;
-    --primary-color: blueviolet;
+    --primary-color: #764ba2;
     --primary-color-rgb: 138, 43, 226;
     --primary-dark-color: #2E2242;
     --primary-dark-color-rgb: 46, 34, 66;
+
+    --secondary-light-color: #9DABE8;
+    --secondary-color: #667eea;
+    --secondary-color-rgb: 102, 126, 234;
+    --secondary-dark-color: #35427A;
+
     --light-primary-color: #f8f9fa;
     --light-secondary-color: #adb5bd;
     --dark-bg-color: #171717;
+    --dark-bg-color-rgb: 23, 23, 23;
     --dark-border-color: #495057;
     --dark-dropdown-color: #343a40;
+    --dark-dropdown-color-rgb: 52, 58, 64;
     /* sizes */
     --navbar-height: 68px;
 }
@@ -24,14 +32,19 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Configuración general del body */
 html, body {
     width: 100%;
     height: 100%;
-    font-family: 'Inter', 'Poppins', sans-serif;
     overflow: hidden;
+    cursor: default;
 }
 
 body {
@@ -77,7 +90,7 @@ body {
 .nav-link {
     padding: 0.5rem 1rem !important;
     color: var(--light-primary-color);
-    font-family: 'Inter', sans-serif;
+    cursor: pointer;
     font-weight: 400;
     transition: all 0.3s ease;
 }
@@ -85,6 +98,10 @@ body {
 .nav-link:hover {
     color: var(--primary-light-color) !important;
     transform: translateY(-2px);
+}
+
+.nav-link i {
+    margin-right: 4px;
 }
 
 .dropdown-menu {
@@ -110,7 +127,7 @@ body {
 }
 
 .dropdown-item i {
-    margin-right: 8px;
+    margin-right: 4px;
 }
 
 /* Navbar collapse para móviles */
@@ -148,7 +165,10 @@ main {
 
 .base-main-content {
     flex: 1;
-    padding: 2rem 0;
+}
+
+.btn-custom {
+    background-color: var(--primary-dark-color);
 }
 
 /* Footer */
@@ -167,7 +187,6 @@ main {
 }
 
 .footer-text {
-    font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
     color: var(--light-secondary-color);
 }
@@ -236,10 +255,6 @@ section {
         padding: 0;
         margin-top: 0;
     }
-
-    .base-main-content {
-        padding: 1.5rem 0;
-    }
 }
 
 @media (max-width: 767.98px) {
@@ -257,9 +272,5 @@ section {
 
     .footer-text {
         font-size: 0.85rem;
-    }
-
-    .base-main-content {
-        padding: 1rem 0;
     }
 }
