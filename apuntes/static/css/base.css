@@ -5,12 +5,12 @@
 
 :root {
     /* colors */
-    --primary-light-color: #AC74E0;
+    --primary-light-color: #CB97FC;
     --primary-light-color-rgb: 172, 116, 224;
-    --primary-color: #764ba2;
-    --primary-color-rgb: 138, 43, 226;
-    --primary-dark-color: #2E2242;
-    --primary-dark-color-rgb: 46, 34, 66;
+    --primary-color: #8F13FE;
+    --primary-color-rgb: 143, 19, 254;
+    --primary-dark-color: #380866;
+    --primary-dark-color-rgb: 58, 8, 102;
 
     --secondary-light-color: #9DABE8;
     --secondary-color: #667eea;
@@ -52,7 +52,7 @@ body {
     background-color: var(--light-primary-color);
     display: flex;
     flex-direction: column;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-bg-color) 30%, var(--primary-color) 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-bg-color) 30%, var(--primary-color) 130%);
 }
 
 /* Navbar personalizado */
@@ -170,7 +170,7 @@ main {
 
 .btn-custom {
     color: var(--light-primary-color);
-    background-color: #8F13FE;
+    background-color: var(--primary-color);
 }
 
 .btn-custom:hover {

@@ -1,0 +1,291 @@
+/* Header Section */
+.carreras-header {
+    position: relative;
+    color: white;
+    padding: 60px 0 90px;
+    margin-bottom: 0;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-bg-color) 30%, var(--primary-color) 100%);
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.page-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.95;
+    margin-bottom: 0;
+}
+
+/* Carreras Section */
+.carreras-section {
+    padding: 2rem 0 3rem;
+    background-color: var(--light-primary-color);
+    min-height: 60vh;
+}
+
+/* Card Link */
+.carrera-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+/* Carrera Card */
+.carrera-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.carrera-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.25);
+    border-color: var(--primary-color);
+}
+
+/* Card Icon */
+.carrera-card-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.carrera-card:hover .carrera-card-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.carrera-card-icon i {
+    font-size: 1.8rem;
+    color: white;
+}
+
+/* Card Body */
+.carrera-card-body {
+    flex: 1;
+    margin-bottom: 15px;
+}
+
+.carrera-nombre {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    min-height: 2.8em;
+}
+
+.carrera-universidad {
+    font-size: 0.95rem;
+    color: #6c757d;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.carrera-universidad i {
+    font-size: 1rem;
+    color: var(--secondary-color);
+}
+
+/* Card Footer */
+.carrera-card-footer {
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef;
+}
+
+.ver-materias {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: gap 0.3s ease;
+}
+
+.carrera-card:hover .ver-materias {
+    gap: 12px;
+}
+
+.ver-materias i {
+    transition: transform 0.3s ease;
+}
+
+.carrera-card:hover .ver-materias i {
+    transform: translateX(4px);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 80px 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.empty-icon {
+    font-size: 4rem;
+    color: #dee2e6;
+    margin-bottom: 20px;
+}
+
+.empty-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.empty-text {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1199px) {
+    .carrera-nombre {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .page-title {
+        font-size: 2rem;
+    }
+
+    .page-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .carrera-card {
+        padding: 20px;
+    }
+
+    .carrera-nombre {
+        font-size: 1.15rem;
+        min-height: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .carreras-header {
+        padding: 40px 0 80px;
+    }
+
+    .page-title {
+        font-size: 1.75rem;
+    }
+
+    .page-subtitle {
+        font-size: 1rem;
+    }
+
+    .carrera-card-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .carrera-card-icon i {
+        font-size: 1.5rem;
+    }
+
+    .carrera-nombre {
+        font-size: 1.1rem;
+    }
+
+    .carrera-universidad {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .carreras-header {
+        padding: 30px 0 70px;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .page-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .carrera-card {
+        padding: 18px;
+    }
+
+    .carrera-card-icon {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 15px;
+    }
+
+    .carrera-card-icon i {
+        font-size: 1.3rem;
+    }
+
+    .carrera-nombre {
+        font-size: 1.05rem;
+    }
+
+    .empty-state {
+        padding: 60px 20px;
+    }
+
+    .empty-icon {
+        font-size: 3rem;
+    }
+
+    .empty-title {
+        font-size: 1.3rem;
+    }
+}
+
+/* Animation for cards on load */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.carrera-card {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Stagger animation for multiple cards */
+.col-12:nth-child(1) .carrera-card { animation-delay: 0.1s; }
+.col-12:nth-child(2) .carrera-card { animation-delay: 0.15s; }
+.col-12:nth-child(3) .carrera-card { animation-delay: 0.2s; }
+.col-12:nth-child(4) .carrera-card { animation-delay: 0.25s; }
+.col-12:nth-child(5) .carrera-card { animation-delay: 0.3s; }
+.col-12:nth-child(6) .carrera-card { animation-delay: 0.35s; }
+.col-12:nth-child(7) .carrera-card { animation-delay: 0.4s; }
+.col-12:nth-child(8) .carrera-card { animation-delay: 0.45s; }
