@@ -52,7 +52,7 @@ body {
     background-color: var(--light-primary-color);
     display: flex;
     flex-direction: column;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-bg-color) 30%, var(--primary-color) 130%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-bg-color) 30%, var(--primary-color) 100%);
 }
 
 /* Navbar personalizado */
