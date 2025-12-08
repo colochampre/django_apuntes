@@ -1,13 +1,14 @@
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-    color: var(--light-primary-color);
-    padding: 80px 0;
-    margin-bottom: 0;
+    position: relative;
     min-height: 69vh;
+    margin-bottom: 0;
+    padding: 80px 0;
+    color: var(--light-primary-color);
     display: flex;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-bg-color) 30%, var(--primary-color) 100%);
 }
 
 .hero-title {
