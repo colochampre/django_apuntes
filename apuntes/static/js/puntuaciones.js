@@ -1,109 +1,123 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Obtener el token CSRF
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    const csrftoken = getCookie('csrftoken');
+    const estrellasInteractivas = document.querySelectorAll('.estrella-btn');
 
-    // Manejar clics en las estrellas
-    const estrellasBtn = document.querySelectorAll('.estrella-btn');
-    console.log('Estrellas encontradas:', estrellasBtn.length);
-    console.log('CSRF Token:', csrftoken);
-    
-    estrellasBtn.forEach(estrella => {
+    estrellasInteractivas.forEach(function(estrella) {
         estrella.addEventListener('click', function() {
-            const valor = this.getAttribute('data-valor');
-            const apunteId = this.getAttribute('data-apunte-id');
-            
-            console.log('Click en estrella - Valor:', valor, 'Apunte ID:', apunteId);
+            const valor = parseInt(this.getAttribute('data-valor'));
+            const apunteId = parseInt(this.getAttribute('data-apunte-id'));
+            const card = this.closest('.apunte-card');
             
             // Enviar puntuación al servidor
             fetch(`/apuntes/puntuar/${apunteId}/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': csrftoken
+                    'X-CSRFToken': getCookie('csrftoken')
                 },
                 body: `valor=${valor}`
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Actualizar la visualización del promedio
-                    const apunteItem = document.querySelector(`.apunte-item[data-apunte-id="${apunteId}"]`);
-                    const displayDiv = apunteItem.querySelector('.puntuacion-display');
-                    
-                    // Actualizar estrellas del promedio
-                    let estrellasHTML = '<span class="promedio-estrellas">';
-                    const promedio = data.promedio;
-                    for (let i = 1; i <= 5; i++) {
-                        if (i <= Math.floor(promedio)) {
-                            estrellasHTML += '<span class="estrella llena">★</span>';
-                        } else if (i - 1 < promedio) {
-                            estrellasHTML += '<span class="estrella media">★</span>';
-                        } else {
-                            estrellasHTML += '<span class="estrella vacia">☆</span>';
-                        }
-                    }
-                    estrellasHTML += '</span>';
-                    estrellasHTML += `<span class="promedio-numero">(${promedio}/5 - ${data.total} valoraciones)</span>`;
-                    
-                    displayDiv.innerHTML = estrellasHTML;
-                    
-                    // Actualizar estrellas del usuario
-                    const estrellasUsuario = apunteItem.querySelectorAll('.estrella-btn');
-                    estrellasUsuario.forEach((est, index) => {
+                    // Actualizar las estrellas del usuario
+                    const estrellas = card.querySelectorAll('.estrella-btn');
+                    estrellas.forEach(function(est, index) {
                         if (index < valor) {
                             est.classList.add('activa');
                         } else {
                             est.classList.remove('activa');
                         }
                     });
-                    
-                    // Mostrar mensaje de éxito
-                    console.log(data.mensaje);
+
+                    // Actualizar el promedio y total de puntuaciones
+                    const puntuacionDisplay = card.querySelector('.puntuacion-display');
+                    if (data.promedio) {
+                        const estrellaPromedio = puntuacionDisplay.querySelector('.estrellas-promedio');
+                        const puntuacionPromedio = puntuacionDisplay.querySelector('.puntuacion-promedio');
+                        const puntuacionVotos = puntuacionDisplay.querySelector('.puntuacion-votos');
+                        
+                        if (!estrellaPromedio) {
+                            // Si no había puntuaciones antes, crear la estructura
+                            puntuacionDisplay.innerHTML = `
+                                <span class="puntuacion-promedio">${data.promedio.toFixed(1)}</span>
+                                <div class="estrellas-promedio">
+                                    ${generarEstrellas(data.promedio)}
+                                </div>
+                                <span class="puntuacion-votos">(${data.total})</span>
+                            `;
+                        } else {
+                            // Actualizar las estrellas existentes
+                            estrellaPromedio.innerHTML = generarEstrellas(data.promedio);
+                            puntuacionPromedio.textContent = data.promedio.toFixed(1);
+                            puntuacionVotos.textContent = `(${data.total})`;
+                        }
+                    }
                 } else {
-                    alert('Error al puntuar: ' + data.error);
+                    console.error('Error al puntuar:', data.error);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error al enviar la puntuación');
             });
         });
-        
-        // Efecto hover para mostrar las estrellas que se seleccionarían
+
+        // Efecto hover para las estrellas
         estrella.addEventListener('mouseenter', function() {
             const valor = parseInt(this.getAttribute('data-valor'));
-            const apunteId = this.getAttribute('data-apunte-id');
-            const contenedor = this.parentElement;
-            const todasEstrellas = contenedor.querySelectorAll('.estrella-btn');
+            const card = this.closest('.apunte-card');
+            const estrellas = card.querySelectorAll('.estrella-btn');
             
-            todasEstrellas.forEach((est, index) => {
+            estrellas.forEach(function(est, index) {
                 if (index < valor) {
                     est.style.color = '#ffc107';
                 } else {
-                    est.style.color = '#ccc';
+                    est.style.color = '#ddd';
                 }
             });
         });
-        
-        estrella.parentElement.addEventListener('mouseleave', function() {
-            const todasEstrellas = this.querySelectorAll('.estrella-btn');
-            todasEstrellas.forEach(est => {
-                est.style.color = '';
+
+        estrella.addEventListener('mouseleave', function() {
+            const card = this.closest('.apunte-card');
+            const estrellas = card.querySelectorAll('.estrella-btn');
+            
+            estrellas.forEach(function(est) {
+                if (est.classList.contains('activa')) {
+                    est.style.color = '#ffc107';
+                } else {
+                    est.style.color = '#ddd';
+                }
             });
         });
     });
 });
+
+// Función para generar HTML de estrellas según el promedio
+function generarEstrellas(promedio) {
+    let html = '';
+    for (let i = 1; i <= 5; i++) {
+        if (i <= promedio) {
+            html += '<i class="bi bi-star-fill estrella llena"></i>';
+        } else if (i - 0.5 <= promedio) {
+            html += '<i class="bi bi-star-half estrella media"></i>';
+        } else {
+            html += '<i class="bi bi-star estrella vacia"></i>';
+        }
+    }
+    return html;
+}
+
+// Función para obtener el token CSRF
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}

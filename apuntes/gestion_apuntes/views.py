@@ -35,7 +35,9 @@ def subir_apunte(request, materia_id):
             try:
                 apunte.usuario = Usuario.objects.get(user=request.user)
             except Usuario.DoesNotExist:
-                pass
+                # Crear automáticamente el objeto Usuario si no existe
+                apunte.usuario = Usuario.objects.create(user=request.user)
+                apunte.usuario.save()
 
             apunte.save()
             
@@ -83,7 +85,9 @@ def puntuar_apunte(request, apunte_id):
         try:
             usuario = Usuario.objects.get(user=request.user)
         except Usuario.DoesNotExist:
-            return JsonResponse({'error': 'Usuario no encontrado'}, status=400)
+            # Crear automáticamente el objeto Usuario si no existe
+            usuario = Usuario.objects.create(user=request.user)
+            usuario.save()
         
         # Crear o actualizar la puntuación
         puntuacion, created = Puntuacion.objects.update_or_create(
@@ -105,3 +109,38 @@ def puntuar_apunte(request, apunte_id):
         })
     
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+@login_required
+def eliminar_apunte(request, apunte_id):
+    """
+    Permite eliminar un apunte.
+    Solo el autor del apunte, staff o superusuarios pueden eliminarlo.
+    """
+    from django.contrib import messages
+    
+    apunte = get_object_or_404(Apunte, id=apunte_id)
+    
+    # Verificar permisos: autor, staff o superuser
+    es_autor = apunte.usuario and apunte.usuario.user == request.user
+    es_staff = request.user.is_staff or request.user.is_superuser
+    
+    if not (es_autor or es_staff):
+        messages.error(request, 'No tenés permisos para eliminar este apunte.')
+        return redirect('gestion_apuntes:apuntes')
+    
+    # Guardar información para redirección
+    materia = apunte.materia
+    carrera = materia.carreras.first() if materia else None
+    titulo_apunte = apunte.titulo
+    
+    # Eliminar el apunte
+    apunte.delete()
+    
+    messages.success(request, f'El apunte "{titulo_apunte}" fue eliminado exitosamente.')
+    
+    # Redirigir a la lista de apuntes de la materia
+    if carrera and materia:
+        url = reverse('gestion_materias:materias_por_carrera', kwargs={'carrera_id': carrera.id})
+        return redirect(f'{url}?materia_id={materia.id}')
+    else:
+        return redirect('gestion_apuntes:apuntes')

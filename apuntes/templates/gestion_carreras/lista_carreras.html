@@ -51,7 +51,7 @@
                         </div>
                     </a>
                     {% if user.is_staff or user.is_superuser %}
-                    <a href="{% url 'gestion_carreras:eliminar_carrera' carrera.id %}" class="btn-delete-carrera" data-carrera-nombre="{{ carrera.nombre }}" title="Eliminar carrera">
+                    <a href="{% url 'gestion_carreras:eliminar_carrera' carrera.id %}" class="btn-delete" data-elemento="{{ carrera.nombre }}" title="Eliminar carrera">
                         <i class="bi bi-trash"></i>
                     </a>
                     {% endif %}
@@ -74,4 +74,4 @@
 </section>
 {% endblock %}
 
-{% block otros_js %}<script src="{% static 'js/carreras.js' %}"></script>{% endblock %}
+{% block otros_js %}<script src="{% static 'js/borrar.js' %}"></script>{% endblock %}

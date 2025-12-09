@@ -52,7 +52,7 @@ body {
     background-color: var(--light-primary-color);
     display: flex;
     flex-direction: column;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-bg-color) 30%, var(--primary-color) 100%);
+    background: linear-gradient(135deg, var(--primary-light-color) 0%, var(--dark-bg-color) 30%, var(--primary-color) 100%);
 }
 
 /* Navbar personalizado */
@@ -124,7 +124,7 @@ body {
 .dropdown-item:hover {
     background-color: var(--primary-color);
     color: white;
-    transform: translateY(-2px);
+    transform: translateY(-4px);
 }
 
 .dropdown-item i {
@@ -170,11 +170,43 @@ main {
 
 .btn-custom {
     color: var(--light-primary-color);
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
 }
 
 .btn-custom:hover {
-    background-color: #7611D6;
+   background: linear-gradient(135deg, var(--primary-light-color) 0%, var(--primary-dark-color) 100%);
+}
+
+/* Delete Button */
+.btn-delete {
+    position: absolute;
+    top: 8px;
+    right: 4px;
+    background: transparent;
+    border: none;
+    color: #dc3545;
+    font-size: 1.2rem;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    opacity: 0;
+    text-decoration: none;
+}
+
+.btn-delete:hover {
+    background-color: #dc3545;
+    color: var(--light-primary-color);
+    transform: scale(1.1);
+}
+
+.btn-delete:active {
+    transform: scale(0.95);
 }
 
 /* Footer */
@@ -260,6 +292,10 @@ section {
         background-color: transparent;
         padding: 0;
         margin-top: 0;
+    }
+
+    .btn-delete {
+        opacity: 1;
     }
 }
 

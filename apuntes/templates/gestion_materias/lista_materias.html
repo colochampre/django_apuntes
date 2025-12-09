@@ -7,13 +7,22 @@
 
 {% block content %}
 <div class="materias-container">
+    <!-- Mobile Toggle Button -->
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <i class="bi bi-list"></i>
+        <span>Materias</span>
+    </button>
+
     <!-- Sidebar Navigation -->
-    <aside class="materias-sidebar">
+    <aside class="materias-sidebar" id="materiasSidebar">
         <div class="sidebar-header">
             <h2 class="sidebar-title">
                 <i class="bi bi-mortarboard-fill"></i>
                 {{ carrera.nombre }}
             </h2>
+            <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+                <i class="bi bi-x-lg"></i>
+            </button>
         </div>
         <nav class="materias-nav">
             <ul class="materias-list">
@@ -56,68 +65,82 @@
         {% if apuntes %}
         <div class="apuntes-grid">
             {% for apunte in apuntes %}
-            <div class="apunte-card" data-apunte-id="{{ apunte.id }}">
-                <div class="apunte-card-header">
-                    <h3 class="apunte-titulo">{{ apunte.titulo }}</h3>
-                    <span class="apunte-fecha">
-                        <i class="bi bi-calendar3"></i>
-                        {{ apunte.fecha_publicacion|date:"d/m/Y" }}
-                    </span>
-                </div>
-                
-                <div class="apunte-card-body">
-                    <p class="apunte-descripcion">{{ apunte.descripcion|default:"Sin descripción disponible." }}</p>
+            <div class="apunte-card-wrapper">
+                <div class="apunte-card" data-apunte-id="{{ apunte.id }}">
+                    <div class="apunte-card-header">
+                        <h3 class="apunte-titulo">{{ apunte.titulo }}</h3>
+                        <div class="apunte-info-wrapper">
+                            <span class="apunte-fecha">
+                                <i class="bi bi-calendar3"></i>
+                                {{ apunte.fecha_publicacion|date:"d/m/Y" }}
+                            </span>
+                            <span class="apunte-autor">
+                                <i class="bi bi-person"></i>
+                                {{ apunte.usuario.user.username|default:"Anónimo" }}
+                            </span>
+                        </div>
+                    </div>
                     
-                    <!-- Puntuación Display -->
-                    <div class="puntuacion-section">
-                        <div class="puntuacion-display">
-                            {% if apunte.promedio_puntuacion %}
-                            <div class="estrellas-promedio">
-                                {% with promedio=apunte.promedio_puntuacion %}
-                                {% for i in "12345" %}
-                                {% if forloop.counter <= promedio %}
-                                <i class="bi bi-star-fill estrella llena"></i>
-                                {% elif forloop.counter|add:"-1" < promedio %}
-                                <i class="bi bi-star-half estrella media"></i>
+                    <div class="apunte-card-body">
+                        <p class="apunte-descripcion">{{ apunte.descripcion|default:"Sin descripción disponible." }}</p>
+                        
+                        <!-- Puntuación Display -->
+                        <div class="puntuacion-section">
+                            <div class="puntuacion-display">
+                                {% if apunte.promedio_puntuacion %}
+                                <span class="puntuacion-promedio">{{ apunte.promedio_puntuacion }}</span>
+                                <div class="estrellas-promedio">
+                                    {% with promedio=apunte.promedio_puntuacion %}
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= promedio %}
+                                            <i class="bi bi-star-fill estrella llena"></i>
+                                            {% elif forloop.counter|add:"-1" < promedio %}
+                                            <i class="bi bi-star-half estrella media"></i>
+                                            {% else %}
+                                            <i class="bi bi-star estrella vacia"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endwith %}
+                                </div>
+                                <span class="puntuacion-votos">({{ apunte.total_puntuaciones }})</span>
                                 {% else %}
-                                <i class="bi bi-star estrella vacia"></i>
+                                <span class="sin-puntuacion">
+                                    <i class="bi bi-star"></i>
+                                    Sin valoraciones
+                                </span>
                                 {% endif %}
-                                {% endfor %}
-                                {% endwith %}
                             </div>
-                            <span class="puntuacion-info">
-                                {{ apunte.promedio_puntuacion }}/5 ({{ apunte.total_puntuaciones }} valoraciones)
-                            </span>
-                            {% else %}
-                            <span class="sin-puntuacion">
-                                <i class="bi bi-star"></i>
-                                Sin valoraciones aún
-                            </span>
+                            
+                            <!-- Puntuación Usuario -->
+                            {% if user.is_authenticated and usuario_actual %}
+                            <div class="puntuacion-usuario">
+                                <span class="label-puntuar">Tu valoración:</span>
+                                <div class="estrellas-interactivas">
+                                    {% for i in "12345" %}
+                                    <i class="bi bi-star-fill estrella-btn {% if apunte.puntuacion_del_usuario == forloop.counter %}activa{% endif %}" 
+                                       data-valor="{{ forloop.counter }}"
+                                       data-apunte-id="{{ apunte.id }}"></i>
+                                    {% endfor %}
+                                </div>
+                            </div>
                             {% endif %}
                         </div>
-                        
-                        <!-- Puntuación Usuario -->
-                        {% if user.is_authenticated and usuario_actual %}
-                        <div class="puntuacion-usuario">
-                            <span class="label-puntuar">Tu valoración:</span>
-                            <div class="estrellas-interactivas">
-                                {% for i in "12345" %}
-                                <i class="bi bi-star-fill estrella-btn {% if apunte.puntuacion_del_usuario == forloop.counter %}activa{% endif %}" 
-                                   data-valor="{{ forloop.counter }}"
-                                   data-apunte-id="{{ apunte.id }}"></i>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        {% endif %}
+                    </div>
+                    
+                    <div class="apunte-card-footer">
+                        <a href="{% url 'gestion_apuntes:descargar_apunte' apunte.id %}" class="btn-descargar">
+                            <i class="bi bi-download"></i>
+                            Descargar
+                        </a>
                     </div>
                 </div>
-                
-                <div class="apunte-card-footer">
-                    <a href="{% url 'gestion_apuntes:descargar_apunte' apunte.id %}" class="btn-descargar">
-                        <i class="bi bi-download"></i>
-                        Descargar
+                {% if user.is_authenticated %}
+                    {% if user.is_staff or user.is_superuser or apunte.usuario.user == user %}
+                    <a href="{% url 'gestion_apuntes:eliminar_apunte' apunte.id %}" class="btn-delete" data-elemento="{{ apunte.titulo }}" title="Eliminar apunte">
+                        <i class="bi bi-trash"></i>
                     </a>
-                </div>
+                    {% endif %}
+                {% endif %}
             </div>
             {% endfor %}
         </div>
@@ -146,5 +169,7 @@
 {% endblock %}
 
 {% block otros_js %}
+<script src="{% static 'js/materias.js' %}"></script>
 <script src="{% static 'js/puntuaciones.js' %}"></script>
+<script src="{% static 'js/borrar.js' %}"></script>
 {% endblock %}

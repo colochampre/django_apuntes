@@ -16,12 +16,14 @@ def listar_materias_por_carrera(request, carrera_id):
     apuntes = []
     usuario_actual = None
 
-    # Obtener el usuario actual si está autenticado
+    # Obtener o crear el usuario actual si está autenticado
     if request.user.is_authenticated:
         try:
             usuario_actual = Usuario.objects.get(user=request.user)
         except Usuario.DoesNotExist:
-            pass
+            # Crear automáticamente el objeto Usuario si no existe
+            usuario_actual = Usuario.objects.create(user=request.user)
+            usuario_actual.save()
 
     materia_id = request.GET.get('materia_id')
     if materia_id:

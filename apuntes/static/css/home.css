@@ -8,7 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color-rgb) 30%, var(--primary-color) 100%);
+    background: linear-gradient(135deg, var(--primary-light-color) 0%, var(--dark-bg-color) 30%, var(--primary-color) 100%);
 }
 
 .hero-title {
@@ -33,12 +33,12 @@
     font-size: 1.1rem;
     border-radius: 50px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(var(--primary-dark-color-rgb), 0.2);
+    box-shadow: 2px 4px 16px rgba(var(--dark-bg-color-rgb), 0.3);
 }
 
 .hero-actions .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(var(--primary-dark-color-rgb), 0.3);
+    transform: translateY(-4px);
+    box-shadow: 4px 8px 20px rgba(var(--dark-bg-color-rgb), 0.3);
 }
 
 .hero-actions .btn i {
