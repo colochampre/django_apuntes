@@ -33,34 +33,6 @@
                         <span>{{ materia.nombre }}</span>
                     </a>
                 </li>
-                <li
-                    class="materia-item {% if materia_seleccionada and materia.id == materia_seleccionada.id %}active{% endif %}">
-                    <a href="?materia_id={{ materia.id }}" class="materia-link">
-                        <i class="bi bi-book"></i>
-                        <span>{{ materia.nombre }}</span>
-                    </a>
-                </li>
-                <li
-                    class="materia-item {% if materia_seleccionada and materia.id == materia_seleccionada.id %}active{% endif %}">
-                    <a href="?materia_id={{ materia.id }}" class="materia-link">
-                        <i class="bi bi-book"></i>
-                        <span>{{ materia.nombre }}</span>
-                    </a>
-                </li>
-                <li
-                    class="materia-item {% if materia_seleccionada and materia.id == materia_seleccionada.id %}active{% endif %}">
-                    <a href="?materia_id={{ materia.id }}" class="materia-link">
-                        <i class="bi bi-book"></i>
-                        <span>{{ materia.nombre }}</span>
-                    </a>
-                </li>
-                <li
-                    class="materia-item {% if materia_seleccionada and materia.id == materia_seleccionada.id %}active{% endif %}">
-                    <a href="?materia_id={{ materia.id }}" class="materia-link">
-                        <i class="bi bi-book"></i>
-                        <span>{{ materia.nombre }}</span>
-                    </a>
-                </li>
                 {% endfor %}
             </ul>
         </div>
@@ -83,6 +55,43 @@
                 Subir Contenido
             </a>
         </div>
+        <!-- Filtros de Ordenamiento -->
+        {% if apuntes %}
+        <div class="filtros-container">
+            <div class="filtros-header">
+                <i class="bi bi-funnel"></i>
+                <span>Ordenar por:</span>
+            </div>
+            <div class="filtros-buttons">
+                <button class="filtro-btn active" data-filtro="fecha" data-orden="desc" title="Ordenar por fecha">
+                    <i class="bi bi-calendar3"></i>
+                    <span>Fecha</span>
+                    <i class="bi bi-arrow-down orden-icon"></i>
+                </button>
+                <button class="filtro-btn" data-filtro="nombre" data-orden="asc" title="Ordenar alfabéticamente">
+                    <i class="bi bi-sort-alpha-up-alt"></i>
+                    <span>Nombre</span>
+                    <i class="bi bi-arrow-down orden-icon"></i>
+                </button>
+                <button class="filtro-btn" data-filtro="puntuacion" data-orden="desc" title="Ordenar por puntuación">
+                    <i class="bi bi-star-fill"></i>
+                    <span>Puntuación</span>
+                    <i class="bi bi-arrow-down orden-icon"></i>
+                </button>
+                <button class="filtro-btn" data-filtro="tipo" data-orden="asc" title="Ordenar por tipo de archivo">
+                    <i class="bi bi-file-earmark"></i>
+                    <span>Tipo</span>
+                    <i class="bi bi-arrow-down orden-icon"></i>
+                </button>
+                <button class="filtro-btn" data-filtro="tamano" data-orden="desc" title="Ordenar por tamaño">
+                    <i class="bi bi-hdd"></i>
+                    <span>Tamaño</span>
+                    <i class="bi bi-arrow-down orden-icon"></i>
+                </button>
+            </div>
+        </div>
+        {% endif %}
+
         <!-- Apuntes Grid -->
         {% if apuntes %}
         <div class="apuntes-grid">
@@ -231,6 +240,7 @@
 <script src="{% static 'js/materias.js' %}"></script>
 <script src="{% static 'js/puntuaciones.js' %}"></script>
 <script src="{% static 'js/borrar.js' %}"></script>
+<script src="{% static 'js/filtros-apuntes.js' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/docx-preview@0.1.4/dist/docx-preview.min.js"></script>
 <script src="{% static 'js/docx-preview.js' %}"></script>
