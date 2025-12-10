@@ -45,6 +45,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Clonar el array para no mutar el original
         const apuntesOrdenados = [...apuntesCards];
 
+        // Guardar el estado de visibilidad antes de ordenar
+        const estadosVisibilidad = new Map();
+        apuntesOrdenados.forEach(card => {
+            estadosVisibilidad.set(card, card.classList.contains('hidden'));
+        });
+
         apuntesOrdenados.sort((a, b) => {
             let valorA, valorB;
 
@@ -100,6 +106,10 @@ document.addEventListener('DOMContentLoaded', function () {
         apuntesGrid.innerHTML = '';
         apuntesOrdenados.forEach(card => {
             apuntesGrid.appendChild(card);
+            // Restaurar estado de visibilidad
+            if (estadosVisibilidad.get(card)) {
+                card.classList.add('hidden');
+            }
         });
 
         // Actualizar la referencia
@@ -149,4 +159,138 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Agregar transición suave al grid
     apuntesGrid.style.transition = 'opacity 0.3s ease';
+
+    // ========================================
+    // SISTEMA DE BÚSQUEDA
+    // ========================================
+
+    const searchInput = document.getElementById('searchApuntes');
+    const clearSearchBtn = document.getElementById('clearSearch');
+    const searchResultsInfo = document.getElementById('searchResultsInfo');
+
+    if (searchInput) {
+        // Búsqueda en tiempo real con debounce
+        let searchTimeout;
+        searchInput.addEventListener('input', function () {
+            clearTimeout(searchTimeout);
+            const searchTerm = this.value.trim();
+
+            // Mostrar/ocultar botón de limpiar
+            if (searchTerm.length > 0) {
+                clearSearchBtn.style.display = 'flex';
+            } else {
+                clearSearchBtn.style.display = 'none';
+                searchResultsInfo.style.display = 'none';
+            }
+
+            // Debounce de 300ms
+            searchTimeout = setTimeout(() => {
+                buscarApuntes(searchTerm);
+            }, 300);
+        });
+
+        // Botón para limpiar búsqueda
+        if (clearSearchBtn) {
+            clearSearchBtn.addEventListener('click', function () {
+                searchInput.value = '';
+                clearSearchBtn.style.display = 'none';
+                searchResultsInfo.style.display = 'none';
+                buscarApuntes('');
+                searchInput.focus();
+            });
+        }
+
+        // Limpiar con tecla Escape
+        searchInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                clearSearchBtn.style.display = 'none';
+                searchResultsInfo.style.display = 'none';
+                buscarApuntes('');
+            }
+        });
+    }
+
+    /**
+     * Función de búsqueda de apuntes
+     */
+    function buscarApuntes(searchTerm) {
+        const term = searchTerm.toLowerCase();
+        let matchCount = 0;
+        let totalCount = 0;
+
+        apuntesCards.forEach(card => {
+            totalCount++;
+
+            if (term === '') {
+                // Si no hay término de búsqueda, mostrar todos
+                card.classList.remove('hidden', 'search-match');
+                matchCount++;
+            } else {
+                // Obtener título y descripción
+                const titulo = card.querySelector('.apunte-titulo');
+                const descripcion = card.querySelector('.apunte-descripcion');
+
+                const tituloText = titulo ? titulo.textContent.toLowerCase() : '';
+                const descripcionText = descripcion ? descripcion.textContent.toLowerCase() : '';
+
+                // Buscar coincidencias
+                const matchTitulo = tituloText.includes(term);
+                const matchDescripcion = descripcionText.includes(term);
+
+                if (matchTitulo || matchDescripcion) {
+                    card.classList.remove('hidden');
+                    card.classList.add('search-match');
+                    matchCount++;
+
+                    // Remover la clase de animación después de que termine
+                    setTimeout(() => {
+                        card.classList.remove('search-match');
+                    }, 400);
+                } else {
+                    card.classList.add('hidden');
+                    card.classList.remove('search-match');
+                }
+            }
+        });
+
+        // Actualizar información de resultados
+        if (term !== '') {
+            const resultsText = matchCount === 1
+                ? `Se encontró 1 apunte de ${totalCount}`
+                : `Se encontraron ${matchCount} apuntes de ${totalCount}`;
+
+            searchResultsInfo.querySelector('.results-count').textContent = resultsText;
+            searchResultsInfo.style.display = 'flex';
+
+            // Si no hay resultados, mostrar mensaje especial
+            if (matchCount === 0) {
+                searchResultsInfo.style.background = '#fff3cd';
+                searchResultsInfo.style.borderColor = '#ffc107';
+                searchResultsInfo.querySelector('.results-count').style.color = '#856404';
+                searchResultsInfo.querySelector('.results-count').textContent =
+                    `No se encontraron apuntes que coincidan con "${searchTerm}"`;
+            } else {
+                searchResultsInfo.style.background = '#e7f3ff';
+                searchResultsInfo.style.borderColor = 'var(--primary-color)';
+                searchResultsInfo.querySelector('.results-count').style.color = 'var(--primary-color)';
+            }
+        } else {
+            searchResultsInfo.style.display = 'none';
+        }
+    }
+
+    /**
+     * Modificar la función ordenarApuntes para que respete la búsqueda activa
+     */
+    const ordenarApuntesOriginal = ordenarApuntes;
+    ordenarApuntes = function (filtro, orden) {
+        // Llamar a la función original
+        ordenarApuntesOriginal(filtro, orden);
+
+        // Re-aplicar búsqueda si hay término activo
+        if (searchInput && searchInput.value.trim() !== '') {
+            buscarApuntes(searchInput.value.trim());
+        }
+    };
 });

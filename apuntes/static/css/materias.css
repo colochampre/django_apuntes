@@ -122,7 +122,7 @@
     gap: 0.5rem;
     padding: 0.75rem 1rem;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
-    color: var(--primary-light-color);
+    color: var(--light-primary-color);
     text-decoration: none;
     border: 2px solid;
     border-color: var(--primary-dark-color);
@@ -133,7 +133,7 @@
 
 .materia-link i {
     font-size: 1.1rem;
-    color: var(--primary-light-color);
+    color: var(--light-primary-color);
     transition: transform 0.3s ease;
 }
 
@@ -234,9 +234,131 @@
     color: white;
 }
 
-/* ========================================
-   FILTROS DE ORDENAMIENTO
-   ======================================== */
+/* Search Bar */
+.search-container {
+    margin-bottom: 1rem;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    color: #6c757d;
+    font-size: 1.1rem;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem 3rem 0.75rem 2.75rem;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: var(--dark-bg-color);
+    background: white;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-input::placeholder {
+    color: #adb5bd;
+}
+
+.search-clear {
+    position: absolute;
+    right: 0.75rem;
+    background: transparent;
+    border: none;
+    color: #6c757d;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 1;
+}
+
+.search-clear:hover {
+    color: #dc3545;
+}
+
+.search-results-info {
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: #e7f3ff;
+    border-left: 3px solid var(--primary-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--dark-bg-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.results-count {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.search-results-info i {
+    color: var(--primary-color);
+}
+
+/* Highlight en resultados de búsqueda */
+.apunte-card-wrapper.hidden {
+    display: none !important;
+}
+
+/* Responsive para search bar */
+@media (max-width: 983px) {
+    .search-input {
+        padding: 0.65rem 2.75rem 0.65rem 2.5rem;
+        font-size: 0.9rem;
+    }
+
+    .search-icon {
+        left: 0.75rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .search-input {
+        padding: 0.6rem 2.5rem 0.6rem 2.25rem;
+        font-size: 0.85rem;
+    }
+
+    .search-icon {
+        left: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .search-clear {
+        right: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+    .search-results-info {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.6rem;
+    }
+}
+
+/* Filtros de ordenamiento */
 
 .filtros-container {
     background: white;
@@ -265,7 +387,7 @@
 .filtros-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 0.5rem;
 }
 
 .filtro-btn {
@@ -303,7 +425,6 @@
 }
 
 .filtro-btn.active {
-    border-color: var(--primary-light-color);
     color: white;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
@@ -322,24 +443,24 @@
 }
 
 /* Responsive para filtros */
-@media (max-width: 983px) {
+@media (max-width: 1049px) {
     .filtros-container {
         padding: 1rem;
     }
 
     .filtros-header {
-        justify-content: center;
+        display: none;
     }
 
     .filtros-buttons {
-        justify-content: center; 
-        gap: 0.5rem;
+        justify-content: start; 
+        gap: 0.4rem;
     }
 
     .filtro-btn {
         padding: 0.5rem 0.75rem;
         font-size: 0.85rem;
-        justify-content: center;
+        justify-content: start;
     }
 
     .filtro-btn span {

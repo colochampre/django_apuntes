@@ -62,6 +62,25 @@
                 <i class="bi bi-funnel"></i>
                 <span>Ordenar por:</span>
             </div>
+
+            <!-- Barra de Búsqueda -->
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text" 
+                           id="searchApuntes" 
+                           class="search-input" 
+                           placeholder="Buscar por título o descripción..."
+                           autocomplete="off">
+                    <button class="search-clear" id="clearSearch" style="display: none;">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </button>
+                </div>
+                <div class="search-results-info" id="searchResultsInfo" style="display: none;">
+                    <span class="results-count"></span>
+                </div>
+            </div>
+
             <div class="filtros-buttons">
                 <button class="filtro-btn active" data-filtro="fecha" data-orden="desc" title="Ordenar por fecha">
                     <i class="bi bi-calendar3"></i>
