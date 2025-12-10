@@ -495,7 +495,7 @@
     min-height: 250px;
     background: white;
     border-radius: 8px;
-    padding: 1rem;
+    padding: 4px;
     overflow-y: auto;
     max-height: 300px;
 }
@@ -514,6 +514,10 @@
     font-size: 0.9rem;
     line-height: 1.5;
     color: #333;
+}
+
+.docx-preview-container::before {
+    content: "" !important;
 }
 
 .docx-preview-content p {

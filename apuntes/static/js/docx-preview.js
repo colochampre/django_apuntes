@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Renderizar el DOCX
                     docx.renderAsync(arrayBuffer, container, null, {
                         className: "docx-preview-content",
-                        inWrapper: true,
-                        ignoreWidth: false,
+                        inWrapper: false,
+                        ignoreWidth: true,
                         ignoreHeight: false,
                         ignoreFonts: false,
-                        breakPages: false,
+                        breakPages: true,
                         ignoreLastRenderedPageBreak: true,
                         experimental: false,
                         trimXmlDeclaration: true,
