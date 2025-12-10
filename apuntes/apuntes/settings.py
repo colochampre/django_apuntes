@@ -128,6 +128,10 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Configuración de X-Frame-Options para permitir iframes
+# SAMEORIGIN permite que los archivos se muestren en iframes del mismo dominio
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 # Tipo de campo de clave primaria por defecto
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

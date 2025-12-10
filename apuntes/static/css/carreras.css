@@ -22,7 +22,7 @@
 
 /* Carreras Section */
 .carreras-section {
-    padding: 2rem 0 3rem;
+    padding: 2rem 0 2rem;
     background-color: var(--light-primary-color);
     min-height: 60vh;
 }
@@ -45,7 +45,7 @@
 .carrera-card {
     background: white;
     border-radius: 15px;
-    padding: 25px;
+    padding: 16px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -64,7 +64,7 @@
 
 /* Card Header */
 .carrera-card-header {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 /* Card Icon */
@@ -96,11 +96,11 @@
 /* Card Body */
 .carrera-card-body {
     flex: 1;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .carrera-nombre {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: #333;
     margin-bottom: 12px;
@@ -124,7 +124,7 @@
 
 /* Card Footer */
 .carrera-card-footer {
-    padding-top: 15px;
+    padding-top: 10px;
     border-top: 1px solid #e9ecef;
 }
 
@@ -178,13 +178,6 @@
     margin-bottom: 0;
 }
 
-/* Responsive Design */
-@media (max-width: 1199px) {
-    .carrera-nombre {
-        font-size: 1.2rem;
-    }
-}
-
 @media (max-width: 991px) {
     .page-title {
         font-size: 2rem;
@@ -192,10 +185,6 @@
 
     .page-subtitle {
         font-size: 1.1rem;
-    }
-
-    .carrera-card {
-        padding: 20px;
     }
 
     .carrera-card-wrapper:hover .btn-delete {
@@ -252,10 +241,6 @@
         font-size: 0.95rem;
     }
 
-    .carrera-card {
-        padding: 18px;
-    }
-
     .carrera-card-icon {
         width: 45px;
         height: 45px;
@@ -282,29 +267,3 @@
         font-size: 1.3rem;
     }
 }
-
-/* Animation for cards on load */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.carrera-card {
-    animation: fadeInUp 0.5s ease-out;
-}
-
-/* Stagger animation for multiple cards */
-.col-12:nth-child(1) .carrera-card { animation-delay: 0.1s; }
-.col-12:nth-child(2) .carrera-card { animation-delay: 0.15s; }
-.col-12:nth-child(3) .carrera-card { animation-delay: 0.2s; }
-.col-12:nth-child(4) .carrera-card { animation-delay: 0.25s; }
-.col-12:nth-child(5) .carrera-card { animation-delay: 0.3s; }
-.col-12:nth-child(6) .carrera-card { animation-delay: 0.35s; }
-.col-12:nth-child(7) .carrera-card { animation-delay: 0.4s; }
-.col-12:nth-child(8) .carrera-card { animation-delay: 0.45s; }

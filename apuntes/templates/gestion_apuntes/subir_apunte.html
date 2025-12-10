@@ -11,6 +11,9 @@
         <h2 class="subir-apunte-title py-4 mt-2">Subir Apunte</h1>
         <form class="subir-apunte-form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            {% if carrera_id %}
+            <input type="hidden" name="carrera_id" value="{{ carrera_id }}">
+            {% endif %}
             {{ form.as_p }}
             <button class="btn btn-success" type="submit">Subir</button>
         </form>

@@ -12,7 +12,6 @@
         <i class="bi bi-list"></i>
         <span>Materias</span>
     </button>
-
     <!-- Sidebar Navigation -->
     <aside class="materias-sidebar" id="materiasSidebar">
         <div class="sidebar-header">
@@ -27,7 +26,8 @@
         <nav class="materias-nav">
             <ul class="materias-list">
                 {% for materia in materias %}
-                <li class="materia-item {% if materia_seleccionada and materia.id == materia_seleccionada.id %}active{% endif %}">
+                <li
+                    class="materia-item {% if materia_seleccionada and materia.id == materia_seleccionada.id %}active{% endif %}">
                     <a href="?materia_id={{ materia.id }}" class="materia-link">
                         <i class="bi bi-book"></i>
                         <span>{{ materia.nombre }}</span>
@@ -42,7 +42,6 @@
             </ul>
         </nav>
     </aside>
-
     <!-- Main Content Area -->
     <main class="materias-main-content">
         {% if materia_seleccionada %}
@@ -55,12 +54,12 @@
                 </h1>
                 <p class="apuntes-subtitle">Explorá y descargá el material de estudio</p>
             </div>
-            <a href="{% url 'gestion_apuntes:subir_apunte' materia_seleccionada.id %}" class="btn-subir-apunte">
+            <a href="{% url 'gestion_apuntes:subir_apunte' materia_seleccionada.id %}?carrera_id={{ carrera.id }}"
+                class="btn-subir-apunte">
                 <i class="bi bi-cloud-upload"></i>
                 Subir Contenido
             </a>
         </div>
-
         <!-- Apuntes Grid -->
         {% if apuntes %}
         <div class="apuntes-grid">
@@ -80,10 +79,45 @@
                             </span>
                         </div>
                     </div>
-                    
                     <div class="apunte-card-body">
                         <p class="apunte-descripcion">{{ apunte.descripcion|default:"Sin descripción disponible." }}</p>
-                        
+                        <!-- File Preview -->
+                        {% if apunte.archivo %}
+                        <div class="file-preview">
+                            {% with file_type=apunte.get_file_type %}
+                            {% if file_type == "image" %}
+                            <img src="{{ apunte.archivo.url }}" alt="{{ apunte.titulo }}" class="preview-image">
+                            {% elif file_type == 'pdf' %}
+                            <iframe src="{{ apunte.archivo.url }}#page=1&toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+                                class="preview-pdf" type="application/pdf" title="Vista previa PDF"
+                                loading="lazy"></iframe>
+                            {% elif file_type == 'text' %}
+                            <iframe src="{{ apunte.archivo.url }}" class="preview-text" title="Vista previa Texto"
+                                loading="lazy"></iframe>
+                            {% elif file_type == 'word' %}
+                            <div class="docx-preview-container" data-url="{{ apunte.archivo.url }}"></div>
+                            {% else %}
+
+                            {% if file_type == "excel" %}
+                            <div class="preview-icon excel">
+                                <i class="bi bi-file-earmark-excel-fill"></i>
+                                <span class="preview-label">Excel</span>
+                            </div>
+                            {% elif file_type == "powerpoint" %}
+                            <div class="preview-icon powerpoint">
+                                <i class="bi bi-file-earmark-ppt-fill"></i>
+                                <span class="preview-label">PowerPoint</span>
+                            </div>
+                            {% else %}
+                            <div class="preview-icon other">
+                                <i class="bi bi-file-earmark-fill"></i>
+                                <span class="preview-label">Archivo</span>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            {% endwith %}
+                        </div>
+                        {% endif %}
                         <!-- Puntuación Display -->
                         <div class="puntuacion-section">
                             <div class="puntuacion-display">
@@ -91,16 +125,15 @@
                                 <span class="puntuacion-promedio">{{ apunte.promedio_puntuacion }}</span>
                                 <div class="estrellas-promedio">
                                     {% with promedio=apunte.promedio_puntuacion %}
-                                        {% for i in "12345" %}
-                                            {% if forloop.counter <= promedio %}
-                                            <i class="bi bi-star-fill estrella llena"></i>
-                                            {% elif forloop.counter|add:"-1" < promedio %}
-                                            <i class="bi bi-star-half estrella media"></i>
+                                    {% for i in "12345" %}
+                                    {% if forloop.counter <= promedio %} <i class="bi bi-star-fill estrella llena"></i>
+                                        {% elif forloop.counter|add:"-1" < promedio %} <i
+                                            class="bi bi-star-half estrella media"></i>
                                             {% else %}
                                             <i class="bi bi-star estrella vacia"></i>
                                             {% endif %}
-                                        {% endfor %}
-                                    {% endwith %}
+                                            {% endfor %}
+                                            {% endwith %}
                                 </div>
                                 <span class="puntuacion-votos">({{ apunte.total_puntuaciones }})</span>
                                 {% else %}
@@ -110,24 +143,27 @@
                                 </span>
                                 {% endif %}
                             </div>
-                            
                             <!-- Puntuación Usuario -->
                             {% if user.is_authenticated and usuario_actual %}
                             <div class="puntuacion-usuario">
                                 <span class="label-puntuar">Tu valoración:</span>
                                 <div class="estrellas-interactivas">
                                     {% for i in "12345" %}
-                                    <i class="bi bi-star-fill estrella-btn {% if apunte.puntuacion_del_usuario == forloop.counter %}activa{% endif %}" 
-                                       data-valor="{{ forloop.counter }}"
-                                       data-apunte-id="{{ apunte.id }}"></i>
+                                    <i class="bi bi-star-fill estrella-btn {% if apunte.puntuacion_del_usuario == forloop.counter %}activa{% endif %}"
+                                        data-valor="{{ forloop.counter }}" data-apunte-id="{{ apunte.id }}"></i>
                                     {% endfor %}
                                 </div>
                             </div>
                             {% endif %}
                         </div>
                     </div>
-                    
                     <div class="apunte-card-footer">
+                        {% if apunte.archivo %}
+                        <div class="file-info">
+                            <span class="file-extension">{{ apunte.extension }}</span>
+                            <span class="file-size">{{ apunte.archivo.size|filesizeformat }}</span>
+                        </div>
+                        {% endif %}
                         <a href="{% url 'gestion_apuntes:descargar_apunte' apunte.id %}" class="btn-descargar">
                             <i class="bi bi-download"></i>
                             Descargar
@@ -135,11 +171,12 @@
                     </div>
                 </div>
                 {% if user.is_authenticated %}
-                    {% if user.is_staff or user.is_superuser or apunte.usuario.user == user %}
-                    <a href="{% url 'gestion_apuntes:eliminar_apunte' apunte.id %}" class="btn-delete" data-elemento="{{ apunte.titulo }}" title="Eliminar apunte">
-                        <i class="bi bi-trash"></i>
-                    </a>
-                    {% endif %}
+                {% if user.is_staff or user.is_superuser or apunte.usuario.user == user %}
+                <a href="{% url 'gestion_apuntes:eliminar_apunte' apunte.id %}" class="btn-delete"
+                    data-elemento="{{ apunte.titulo }}" title="Eliminar apunte">
+                    <i class="bi bi-trash"></i>
+                </a>
+                {% endif %}
                 {% endif %}
             </div>
             {% endfor %}
@@ -149,15 +186,14 @@
             <i class="bi bi-inbox empty-icon"></i>
             <h3 class="empty-title">No hay material disponible</h3>
             <p class="empty-text">Aún no se han subido apuntes para esta materia.</p>
-            <a href="{% url 'gestion_apuntes:subir_apunte' materia_seleccionada.id %}" class="btn-subir-primero">
+            <a href="{% url 'gestion_apuntes:subir_apunte' materia_seleccionada.id %}?carrera_id={{ carrera.id }}"
+                class="btn-subir-primero">
                 <i class="bi bi-cloud-upload"></i>
                 Sé el primero en subir contenido
             </a>
         </div>
         {% endif %}
-        
         {% else %}
-        
         <div class="welcome-state">
             <i class="bi bi-file-earmark-text welcome-icon"></i>
             <h2 class="welcome-title">Apuntes Universitarios</h2>
@@ -172,4 +208,7 @@
 <script src="{% static 'js/materias.js' %}"></script>
 <script src="{% static 'js/puntuaciones.js' %}"></script>
 <script src="{% static 'js/borrar.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx-preview@0.1.4/dist/docx-preview.min.js"></script>
+<script src="{% static 'js/docx-preview.js' %}"></script>
 {% endblock %}

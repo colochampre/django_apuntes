@@ -20,6 +20,8 @@ def subir_apunte(request, materia_id):
     Gestiona la subida de un nuevo apunte para una materia específica.
     """
     materia = get_object_or_404(Materia, pk=materia_id)
+    # Obtener carrera_id desde GET o POST
+    carrera_id = request.GET.get('carrera_id') or request.POST.get('carrera_id')
 
     if request.method == 'POST':
         form = ApunteForm(request.POST, request.FILES)
@@ -42,18 +44,23 @@ def subir_apunte(request, materia_id):
             apunte.save()
             
             # Redirige a la lista de apuntes de la materia específica.
-            carrera = materia.carreras.first()
-            if carrera:
-                url = reverse('gestion_materias:materias_por_carrera', kwargs={'carrera_id': carrera.id})
+            # Usar carrera_id si está disponible, sino usar la primera carrera
+            if carrera_id:
+                url = reverse('gestion_materias:materias_por_carrera', kwargs={'carrera_id': carrera_id})
                 return redirect(f'{url}?materia_id={materia.id}')
             else:
-                return redirect('gestion_apuntes:apuntes')
+                carrera = materia.carreras.first()
+                if carrera:
+                    url = reverse('gestion_materias:materias_por_carrera', kwargs={'carrera_id': carrera.id})
+                    return redirect(f'{url}?materia_id={materia.id}')
+                else:
+                    return redirect('gestion_apuntes:apuntes')
     else:
         form = ApunteForm()
         if 'materia' in form.fields:
             del form.fields['materia']
     
-    context = {'form': form, 'materia': materia}
+    context = {'form': form, 'materia': materia, 'carrera_id': carrera_id}
     return render(request, 'gestion_apuntes/subir_apunte.html', context)
 
 @login_required
@@ -130,8 +137,22 @@ def eliminar_apunte(request, apunte_id):
     
     # Guardar información para redirección
     materia = apunte.materia
-    carrera = materia.carreras.first() if materia else None
     titulo_apunte = apunte.titulo
+    
+    # Obtener carrera_id desde el referer (URL anterior)
+    referer = request.META.get('HTTP_REFERER', '')
+    carrera_id = None
+    
+    # Intentar extraer carrera_id de la URL anterior
+    if 'por_carrera/' in referer:
+        try:
+            # Extraer el ID de carrera de la URL
+            import re
+            match = re.search(r'/por_carrera/(\d+)/', referer)
+            if match:
+                carrera_id = match.group(1)
+        except:
+            pass
     
     # Eliminar el apunte
     apunte.delete()
@@ -139,8 +160,14 @@ def eliminar_apunte(request, apunte_id):
     messages.success(request, f'El apunte "{titulo_apunte}" fue eliminado exitosamente.')
     
     # Redirigir a la lista de apuntes de la materia
-    if carrera and materia:
-        url = reverse('gestion_materias:materias_por_carrera', kwargs={'carrera_id': carrera.id})
+    if carrera_id and materia:
+        url = reverse('gestion_materias:materias_por_carrera', kwargs={'carrera_id': carrera_id})
         return redirect(f'{url}?materia_id={materia.id}')
-    else:
-        return redirect('gestion_apuntes:apuntes')
+    elif materia:
+        # Fallback: usar la primera carrera
+        carrera = materia.carreras.first()
+        if carrera:
+            url = reverse('gestion_materias:materias_por_carrera', kwargs={'carrera_id': carrera.id})
+            return redirect(f'{url}?materia_id={materia.id}')
+    
+    return redirect('gestion_apuntes:apuntes')
