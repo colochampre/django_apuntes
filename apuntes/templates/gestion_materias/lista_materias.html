@@ -67,11 +67,8 @@
             <div class="search-container">
                 <div class="search-wrapper">
                     <i class="bi bi-search search-icon"></i>
-                    <input type="text" 
-                           id="searchApuntes" 
-                           class="search-input" 
-                           placeholder="Buscar por título o descripción..."
-                           autocomplete="off">
+                    <input type="text" id="searchApuntes" class="search-input"
+                        placeholder="Buscar por título o descripción..." autocomplete="off">
                     <button class="search-clear" id="clearSearch" style="display: none;">
                         <i class="bi bi-x-circle-fill"></i>
                     </button>
@@ -147,6 +144,10 @@
                                 loading="lazy"></iframe>
                             {% elif file_type == 'word' %}
                             <div class="docx-preview-container" data-url="{{ apunte.archivo.url }}"></div>
+                            <div class="preview-icon word" style="display: none;">
+                                <i class="bi bi-file-earmark-word-fill"></i>
+                                <span class="preview-label">Word</span>
+                            </div>
                             {% else %}
 
                             {% if file_type == "excel" %}
