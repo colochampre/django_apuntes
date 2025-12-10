@@ -39,6 +39,10 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* Configuración general del body */
 html, body {
     width: 100%;
@@ -159,9 +163,9 @@ main {
     flex: 1;
     width: 100%;
     overflow-y: auto;
-    overflow-x: hidden;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 .base-main-content {

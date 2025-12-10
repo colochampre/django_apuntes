@@ -23,7 +23,7 @@
                 <i class="bi bi-x-lg"></i>
             </button>
         </div>
-        <nav class="materias-nav">
+        <div class="materias-nav">
             <ul class="materias-list">
                 {% for materia in materias %}
                 <li
@@ -33,14 +33,37 @@
                         <span>{{ materia.nombre }}</span>
                     </a>
                 </li>
-                {% empty %}
-                <li class="materia-item-empty">
-                    <i class="bi bi-inbox"></i>
-                    <span>No hay materias cargadas</span>
+                <li
+                    class="materia-item {% if materia_seleccionada and materia.id == materia_seleccionada.id %}active{% endif %}">
+                    <a href="?materia_id={{ materia.id }}" class="materia-link">
+                        <i class="bi bi-book"></i>
+                        <span>{{ materia.nombre }}</span>
+                    </a>
+                </li>
+                <li
+                    class="materia-item {% if materia_seleccionada and materia.id == materia_seleccionada.id %}active{% endif %}">
+                    <a href="?materia_id={{ materia.id }}" class="materia-link">
+                        <i class="bi bi-book"></i>
+                        <span>{{ materia.nombre }}</span>
+                    </a>
+                </li>
+                <li
+                    class="materia-item {% if materia_seleccionada and materia.id == materia_seleccionada.id %}active{% endif %}">
+                    <a href="?materia_id={{ materia.id }}" class="materia-link">
+                        <i class="bi bi-book"></i>
+                        <span>{{ materia.nombre }}</span>
+                    </a>
+                </li>
+                <li
+                    class="materia-item {% if materia_seleccionada and materia.id == materia_seleccionada.id %}active{% endif %}">
+                    <a href="?materia_id={{ materia.id }}" class="materia-link">
+                        <i class="bi bi-book"></i>
+                        <span>{{ materia.nombre }}</span>
+                    </a>
                 </li>
                 {% endfor %}
             </ul>
-        </nav>
+        </div>
     </aside>
     <!-- Main Content Area -->
     <main class="materias-main-content">
