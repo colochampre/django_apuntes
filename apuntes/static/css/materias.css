@@ -52,7 +52,7 @@
 
 .materias-sidebar {
     width: 300px;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 200px);
     padding: 2rem 0;
     position: sticky;
     top: 0;
@@ -455,7 +455,7 @@
     }
 
     .filtros-buttons {
-        justify-content: start; 
+        justify-content: start;
         gap: 0.4rem;
     }
 
@@ -475,9 +475,9 @@
 }
 
 @media (max-width: 575px) {
-.filtros-header {
-    justify-content: start;
-}
+    .filtros-header {
+        justify-content: start;
+    }
 
     .filtros-buttons {
         width: 100%;
@@ -797,7 +797,7 @@
     position: relative;
 }
 
-.docx-preview-container > * {
+.docx-preview-container>* {
     max-width: 100% !important;
     overflow-x: hidden !important;
 }
@@ -917,10 +917,7 @@
     color: #d24726;
 }
 
-.preview-icon.text i {
-    color: #6c757d;
-}
-
+.preview-icon.text i,
 .preview-icon.text .preview-label {
     color: #6c757d;
 }
@@ -1072,7 +1069,7 @@
     .docx-preview-container {
         display: none;
     }
-    
+
     /* Mostrar ícono alternativo en móviles */
     .file-preview .preview-icon.word {
         display: flex !important;

@@ -139,6 +139,11 @@
                             <iframe src="{{ apunte.archivo.url }}#page=1&toolbar=0&navpanes=0&scrollbar=0&view=FitH"
                                 class="preview-pdf" type="application/pdf" title="Vista previa PDF"
                                 loading="lazy"></iframe>
+                            {% elif file_type == 'code' %}
+                            <div class="preview-icon other">
+                                <i class="bi bi-file-earmark-code-fill"></i>
+                                <span class="preview-label">Código</span>
+                            </div>
                             {% elif file_type == 'text' %}
                             <iframe src="{{ apunte.archivo.url }}" class="preview-text" title="Vista previa Texto"
                                 loading="lazy"></iframe>
@@ -159,6 +164,21 @@
                             <div class="preview-icon powerpoint">
                                 <i class="bi bi-file-earmark-ppt-fill"></i>
                                 <span class="preview-label">PowerPoint</span>
+                            </div>
+                            {% elif file_type == 'diagram' %}
+                            <div class="preview-icon other">
+                                <i class="bi bi-diagram-3-fill"></i>
+                                <span class="preview-label">Diagrama</span>
+                            </div>
+                            {% elif file_type == "code" %}
+                            <div class="preview-icon other">
+                                <i class="bi bi-file-earmark-code-fill"></i>
+                                <span class="preview-label">Código</span>
+                            </div>
+                            {% elif file_type == "audio" %}
+                            <div class="preview-icon other">
+                                <i class="bi bi-volume-up-fill"></i>
+                                <span class="preview-label">Audio</span>
                             </div>
                             {% else %}
                             <div class="preview-icon other">

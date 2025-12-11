@@ -2,6 +2,12 @@
 from django import forms
 from .models import Apunte
 
+EXTENSIONES_PERMITIDAS = [
+    "c", "cpp", "css", "doc", "docx", "drawio", "gif", "html", 
+    "java", "jpeg", "jpg", "js", "json", "md", "mp3", "pdf", "png", 
+    "ppt", "pptx", "psc", "py", "svg", "txt", "webp", "xls", "xlsx", "xml"
+]
+
 class ApunteForm(forms.ModelForm):
     """
     Formulario para la creación y edición de apuntes.
@@ -24,7 +30,7 @@ class ApunteForm(forms.ModelForm):
             }),
             'archivo': forms.FileInput(attrs={
                 'class': 'form-control',
-                'accept': '.pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif'
+                'accept': ',' .join(f'.{ext}' for ext in EXTENSIONES_PERMITIDAS)
             })
         }
     
@@ -46,11 +52,7 @@ class ApunteForm(forms.ModelForm):
             
             # Validar que el archivo tenga extensión
             nombre = archivo.name.lower()
-            extensiones_validas = [
-                ".c", ".cpp", ".css", ".doc", ".docx", ".drawio", ".gif", ".html", 
-                ".java", ".jpeg", ".jpg", ".js", ".json", ".md", ".pdf", ".png", 
-                ".ppt", ".pptx", ".py", ".txt", ".xls", ".xlsx", ".xml"
-            ]
+            extensiones_validas = [f".{ext}" for ext in EXTENSIONES_PERMITIDAS]
             
             if not any(nombre.endswith(ext) for ext in extensiones_validas):
                 raise forms.ValidationError(

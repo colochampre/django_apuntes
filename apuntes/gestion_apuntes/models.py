@@ -17,8 +17,9 @@ class Apunte(models.Model):
     archivo = models.FileField(upload_to="apuntes/", validators=[
             FileExtensionValidator(allowed_extensions=[
                 "c", "cpp", "css", "doc", "docx", "drawio", "gif", "html", 
-                "java", "jpeg", "jpg", "js", "json", "md", "pdf", "png", 
-                "ppt", "pptx", "py", "txt", "xls", "xlsx", "xml"
+                "java", "jpeg", "jpg", "js", "json", "md", "mp3", "pdf", "png", 
+                "ppt", "pptx", "psc", "py", "svg", "txt", "webp", "xls", 
+                "xlsx", "xml"
             ]),
             validar_tamano_archivo,
         ],
@@ -61,7 +62,7 @@ class Apunte(models.Model):
     def get_file_type(self):
         """ Determina la categoría del archivo basándose en su extensión. """
         name = self.archivo.name.lower()
-        if name.endswith((".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp")):
+        if name.endswith((".png", ".jpg", ".jpeg", ".gif", ".bmp", ".svg", ".webp")):
             return "image"
         elif name.endswith(".pdf"):
             return "pdf"
@@ -71,8 +72,14 @@ class Apunte(models.Model):
             return "excel"
         elif name.endswith((".ppt", ".pptx")):
             return "powerpoint"
-        elif name.endswith((".txt", ".py", ".js", ".html", ".css", ".c", ".cpp", ".java", ".md", ".json", ".xml")):
+        elif name.endswith((".drawio")):
+            return "diagram"
+        elif name.endswith(("cpp", ".html", ".java", "psc", ".xml")):
+            return "code"
+        elif name.endswith((".c", ".css", ".js", ".json", ".txt", ".md", ".py")):
             return "text"
+        elif name.endswith((".mp3")):
+            return "audio"
         return "other"
 
     @property

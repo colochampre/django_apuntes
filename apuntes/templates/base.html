@@ -40,16 +40,23 @@
                             <i class="bi bi-book"></i> Carreras
                         </a>
                     </li>
-
+                    <!-- Botón Administración (solo para staff/superuser) -->
+                    {% if user.is_staff or user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/" target="_blank" title="Administración del sitio">
+                            <i class="bi bi-gear"></i> Administrar
+                        </a>
+                    </li>
+                    {% endif %}
                     <!-- Dropdown de usuario -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle"></i>
                             {% if user.is_authenticated %}
-                                {{ user.username }}
+                            {{ user.username }}
                             {% else %}
-                                Usuario
+                            Usuario
                             {% endif %}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
@@ -102,18 +109,10 @@
                         <p class="footer-text mb-0">Plataforma de gestión de apuntes universitarios</p>
                     </div>
                     <div class="col-md-6 text-center text-md-end">
-                        <p class="footer-text mb-2">Síguenos en:</p>
+                        <p class="footer-text mb-2">Source:</p>
                         <div class="footer-social">
-                            <a href="#" class="text-light me-3" aria-label="Facebook">
-                                <i class="bi bi-facebook fs-5"></i>
-                            </a>
-                            <a href="#" class="text-light me-3" aria-label="Twitter">
-                                <i class="bi bi-twitter fs-5"></i>
-                            </a>
-                            <a href="#" class="text-light me-3" aria-label="Instagram">
-                                <i class="bi bi-instagram fs-5"></i>
-                            </a>
-                            <a href="#" class="text-light" aria-label="GitHub">
+                            <a href="https://github.com/colochampre/django_apuntes" class="text-light"
+                                aria-label="GitHub">
                                 <i class="bi bi-github fs-5"></i>
                             </a>
                         </div>
@@ -135,13 +134,16 @@
     {% if messages %}
     <div class="toast-container position-fixed top-0 p-3" style="z-index: 9999;">
         {% for message in messages %}
-        <div class="toast show align-items-center alert-{{ message.tags }} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast show align-items-center alert-{{ message.tags }} border-0" role="alert" aria-live="assertive"
+            aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
-                    <i class="bi bi-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' or message.tags == 'danger' %}exclamation-circle{% elif message.tags == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %} me-2"></i>
+                    <i
+                        class="bi bi-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' or message.tags == 'danger' %}exclamation-circle{% elif message.tags == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %} me-2"></i>
                     {{ message }}
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
             </div>
         </div>
         {% endfor %}
