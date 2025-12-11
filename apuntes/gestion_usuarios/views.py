@@ -35,7 +35,8 @@ def perfil(request):
 
     return render(request, 'gestion_usuarios/perfil.html', {
         'user_form': user_form,
-        'profile_form': profile_form
+        'profile_form': profile_form,
+        'usuario_profile': usuario_profile
     })
 
 def custom_logout(request):

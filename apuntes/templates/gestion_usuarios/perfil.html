@@ -1,29 +1,128 @@
-
 {% extends 'base.html' %}
 {% load static %}
 
 {% block title %}Perfil de Usuario{% endblock %}
-{% block otros_css %}<link rel="stylesheet" href="{% static 'css/register.css' %}">{% endblock %}
+{% block otros_css %}
+<link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="profile-container">
-    <div class="profile-card text-white">
-        <h2 class="login-title text-center">Mi Perfil</h1>
-        <hr>
-        
-        <div class="login-form">
-            <div class="mb-3">
-                <label class="fw-bold">Nombre</label>
-                <p class="profile-value-bg text-white">{{ user.first_name }}</p>
+<div class="perfil-wrapper">
+    <div class="perfil-container">
+        <!-- Header con avatar y nombre -->
+        <div class="perfil-header">
+            <div class="avatar-container">
+                <div class="avatar-circle">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+                <div class="avatar-badge">
+                    {% if user.is_superuser %}
+                    <i class="bi bi-star-fill" title="Superusuario"></i>
+                    {% elif user.is_staff %}
+                    <i class="bi bi-shield-fill-check" title="Staff"></i>
+                    {% else %}
+                    <i class="bi bi-person-check-fill" title="Usuario"></i>
+                    {% endif %}
+                </div>
             </div>
-            <div class="mb-3">
-                <label class="fw-bold">Apellido</label>
-                <p class="profile-value-bg text-white">{{ user.last_name }}</p>
+            <div class="perfil-header-info">
+                <h1 class="perfil-nombre">{{ user.get_full_name|default:user.username }}</h1>
+                <p class="perfil-username">@{{ user.username }}</p>
+                {% if user.is_superuser %}
+                <span class="perfil-role superuser">Superusuario</span>
+                {% elif user.is_staff %}
+                <span class="perfil-role staff">Staff</span>
+                {% else %}
+                <span class="perfil-role user">Usuario</span>
+                {% endif %}
             </div>
-            <div class="mb-3">
-                <label class="fw-bold">Email</label>
-                <p class="profile-value-bg text-white">{{ user.email }}</p>
+        </div>
+
+        <!-- Información personal -->
+        <div class="perfil-section">
+            <h2 class="section-title">
+                <i class="bi bi-person-lines-fill"></i>
+                Información Personal
+            </h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="bi bi-person"></i>
+                        Nombre
+                    </div>
+                    <div class="info-value">{{ user.first_name|default:"No especificado" }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="bi bi-person"></i>
+                        Apellido
+                    </div>
+                    <div class="info-value">{{ user.last_name|default:"No especificado" }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="bi bi-envelope"></i>
+                        Email
+                    </div>
+                    <div class="info-value">{{ user.email|default:"No especificado" }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">
+                        <i class="bi bi-calendar-check"></i>
+                        Miembro desde
+                    </div>
+                    <div class="info-value">{{ user.date_joined|date:"d/m/Y" }}</div>
+                </div>
             </div>
+        </div>
+
+        <!-- Estadísticas (si tienes apuntes relacionados) -->
+        <div class="perfil-section">
+            <h2 class="section-title">
+                <i class="bi bi-bar-chart-fill"></i>
+                Estadísticas
+            </h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">{{ usuario_profile.apunte_set.count|default:0 }}</div>
+                        <div class="stat-label">Apuntes subidos</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">{{ usuario_profile.puntuacion_set.count|default:0 }}</div>
+                        <div class="stat-label">Valoraciones</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">{{ user.last_login|timesince }}</div>
+                        <div class="stat-label">Última sesión</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="perfil-actions">
+            <a href="#" class="btn-action btn-primary">
+                <i class="bi bi-pencil-square"></i>
+                Editar Perfil
+            </a>
+            <a href="#" class="btn-action btn-secondary">
+                <i class="bi bi-key"></i>
+                Cambiar Contraseña
+            </a>
         </div>
     </div>
 </div>
