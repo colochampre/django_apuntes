@@ -19,6 +19,8 @@
     animation: fadeInUp 0.5s ease-out;
 }
 
+
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -402,5 +404,96 @@
 
     .stat-value {
         font-size: 1.5rem;
+    }
+}
+
+/* Grid de 4 columnas para estadísticas */
+.stats-grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+/* Tarjeta de rating especial */
+.stat-card-rating .stat-value {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.stat-card-rating .rating-star {
+    font-size: 1.25rem;
+    color: #FFD700;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.stat-card-rating .no-rating {
+    font-size: 1.5rem;
+    opacity: 0.6;
+}
+
+/* Badge de reputación */
+.reputacion-badge {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reputacion-badge i {
+    font-size: 2rem;
+    color: white;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.reputacion-nivel {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.reputacion-detalle {
+    margin-left: auto;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+/* Responsive para badge de reputación */
+@media (max-width: 768px) {
+    .stats-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .reputacion-badge {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+    
+    .reputacion-detalle {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid-4 {
+        grid-template-columns: 1fr;
     }
 }
