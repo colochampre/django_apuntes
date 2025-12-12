@@ -137,6 +137,6 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'home'  # Fallback si no hay 'next'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'gestion_usuarios:login'

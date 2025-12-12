@@ -70,7 +70,11 @@ def descargar_apunte(request, apunte_id):
     Verifica que el usuario esté autenticado y luego sirve el archivo.
     """
     apunte = get_object_or_404(Apunte, id=apunte_id)
-    return FileResponse(apunte.archivo.open(), as_attachment=True, filename=apunte.archivo.name)
+    
+    # Servir el archivo
+    response = FileResponse(apunte.archivo.open(), as_attachment=True, filename=apunte.archivo.name)
+    
+    return response
 
 @login_required
 def puntuar_apunte(request, apunte_id):

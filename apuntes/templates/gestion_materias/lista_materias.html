@@ -253,7 +253,7 @@
                             <span class="file-size">{{ apunte.archivo.size|filesizeformat }}</span>
                         </div>
                         {% endif %}
-                        <a href="{% url 'gestion_apuntes:descargar_apunte' apunte.id %}" class="btn-descargar">
+                        <a href="{% url 'gestion_apuntes:descargar_apunte' apunte.id %}" target="_blank" class="btn-descargar">
                             <i class="bi bi-download"></i>
                             Descargar
                         </a>
