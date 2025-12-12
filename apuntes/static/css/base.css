@@ -56,7 +56,7 @@ body {
     background-color: var(--light-primary-color);
     display: flex;
     flex-direction: column;
-    background: linear-gradient(135deg, var(--primary-light-color) 0%, var(--dark-bg-color) 30%, var(--primary-color) 100%);
+    background: linear-gradient(135deg, var(--primary-light-color) 0%,var(--primary-dark-color) 100%)
 }
 
 /* Navbar personalizado */
