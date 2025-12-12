@@ -65,17 +65,34 @@
 
             <!-- Barra de Búsqueda -->
             <div class="search-container">
-                <div class="search-wrapper">
-                    <i class="bi bi-search search-icon"></i>
-                    <input type="text" id="searchApuntes" class="search-input"
-                        placeholder="Buscar por título o descripción..." autocomplete="off">
-                    <button class="search-clear" id="clearSearch" style="display: none;">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </button>
+                <form method="get" action="" class="search-form">
+                    <input type="hidden" name="materia_id" value="{{ materia_seleccionada.id }}">
+                    <div class="search-wrapper">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" name="q" id="searchApuntes" class="search-input"
+                            placeholder="Buscar por título o descripción..." autocomplete="off"
+                            value="{{ search_query }}">
+                        {% if search_query %}
+                        <a href="?materia_id={{ materia_seleccionada.id }}" class="search-clear" id="clearSearch">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </form>
+                {% if search_query %}
+                <div class="search-results-info" id="searchResultsInfo">
+                    <i class="bi bi-search"></i>
+                    <span class="results-count">
+                        {% if apuntes.paginator.count == 1 %}
+                            Se encontró 1 apunte con "{{ search_query }}"
+                        {% elif apuntes.paginator.count == 0 %}
+                            No se encontraron apuntes con "{{ search_query }}"
+                        {% else %}
+                            Se encontraron {{ apuntes.paginator.count }} apuntes con "{{ search_query }}"
+                        {% endif %}
+                    </span>
                 </div>
-                <div class="search-results-info" id="searchResultsInfo" style="display: none;">
-                    <span class="results-count"></span>
-                </div>
+                {% endif %}
             </div>
 
             <div class="filtros-buttons">
@@ -253,6 +270,69 @@
             </div>
             {% endfor %}
         </div>
+
+        <!-- Paginación -->
+        {% if apuntes.has_other_pages %}
+        <nav class="pagination-container" aria-label="Navegación de páginas">
+            <ul class="pagination">
+                {% if apuntes.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?materia_id={{ materia_seleccionada.id }}&page=1{% if search_query %}&q={{ search_query }}{% endif %}" aria-label="Primera">
+                        <i class="bi bi-chevron-double-left"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?materia_id={{ materia_seleccionada.id }}&page={{ apuntes.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}" aria-label="Anterior">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link"><i class="bi bi-chevron-double-left"></i></span>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link"><i class="bi bi-chevron-left"></i></span>
+                </li>
+                {% endif %}
+
+                {% for num in apuntes.paginator.page_range %}
+                    {% if apuntes.number == num %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                    {% elif num > apuntes.number|add:'-3' and num < apuntes.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?materia_id={{ materia_seleccionada.id }}&page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if apuntes.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?materia_id={{ materia_seleccionada.id }}&page={{ apuntes.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}" aria-label="Siguiente">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?materia_id={{ materia_seleccionada.id }}&page={{ apuntes.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}" aria-label="Última">
+                        <i class="bi bi-chevron-double-right"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link"><i class="bi bi-chevron-right"></i></span>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link"><i class="bi bi-chevron-double-right"></i></span>
+                </li>
+                {% endif %}
+            </ul>
+            <div class="pagination-info">
+                Página {{ apuntes.number }} de {{ apuntes.paginator.num_pages }} ({{ apuntes.paginator.count }} apuntes)
+            </div>
+        </nav>
+        {% endif %}
+
         {% else %}
         <div class="empty-state">
             <i class="bi bi-inbox empty-icon"></i>
