@@ -96,6 +96,7 @@ body {
     padding: 0.5rem 1rem !important;
     color: var(--light-primary-color);
     cursor: pointer;
+    font-size: 1.1rem;
     font-weight: 400;
     transition: all 0.3s ease;
 }
@@ -107,6 +108,7 @@ body {
 
 .nav-link i {
     margin-right: 4px;
+    font-size: 1.4rem;
 }
 
 .dropdown-menu {
