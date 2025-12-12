@@ -23,6 +23,7 @@
 }
 
 .hero-title {
+    color: var(--light-primary-color);
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
@@ -30,6 +31,7 @@
 }
 
 .hero-subtitle {
+    color: var(--light-primary-color);
     font-size: 1.3rem;
     margin-bottom: 1rem;
     opacity: 0.95;
