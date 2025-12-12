@@ -2,44 +2,42 @@
 {% load static %}
 
 {% block title %}Iniciar Sesión{% endblock %}
-{% block otros_css %}<link rel="stylesheet" href="{% static 'css/register.css' %}">{% endblock %}
+{% block otros_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">{% endblock %}
 
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center" style="flex: 1;">
-    <div id="login-container" class="bg-black text-white">
-        <h1 class="login-title text-center">Inicia Sesión</h1>
-        <p class="login-subtitle text-center">Obtené acceso a más funciones</p>
+<div style="flex: 1;">
+    <h2>Inicia Sesión</h2>
+    <p>Obtené acceso a más funciones</p>
 
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-info" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-info" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <p>¿No tenés cuenta? <a href="{% url 'gestion_usuarios:register' %}"
+            class="register-link text-decoration-none">Registrate</a></p>
+    <hr>
+    <form method="post" action="{% url 'gestion_usuarios:login' %}">
+        {% csrf_token %}
+
+        <div>
+            <label for="id_username">Usuario</label>
+            {{ form.username }}
+            <label for="id_password">Contraseña</label>
+            {{ form.password }}
+        </div>
+
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            Por favor, corrija los errores a continuación.
+        </div>
         {% endif %}
 
-        <p class="register-text mb-2">¿No tenés cuenta? <a href="{% url 'gestion_usuarios:register' %}" class="register-link text-decoration-none">Registrate</a></p>
-        <hr>
-        <form class="login-form" method="post" action="{% url 'gestion_usuarios:login' %}">
-            {% csrf_token %}
-            
-            <div class="mb-3">
-                <label for="id_username">Usuario</label>
-                {{ form.username }}
-            </div>
-            <div class="mb-3">
-                <label for="id_password">Contraseña</label>
-                {{ form.password }}
-            </div>
-
-            {% if form.errors %}
-                <div class="alert alert-danger">
-                    Por favor, corrija los errores a continuación.
-                </div>
-            {% endif %}
-
-            <button id="login-submit" type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
-        </form>
-    </div>
+        <button id="login-submit" type="submit">Iniciar Sesión</button>
+    </form>
 </div>
 {% endblock %}
