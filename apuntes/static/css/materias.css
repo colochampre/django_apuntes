@@ -57,9 +57,9 @@
     position: sticky;
     top: 0;
     border-right: 1px solid rgba(var(--dark-bg-color), 0.1);
-    background: linear-gradient(180deg, var(--dark-bg-color) 0%, #1a1d2e 100%);
     overflow-y: auto;
     scrollbar-color: var(--primary-dark-color) var(--dark-bg-color);
+    background: linear-gradient(180deg, var(--dark-bg-color) 0%, var(--dark-dropdown-color) 100%);
 }
 
 .sidebar-header {

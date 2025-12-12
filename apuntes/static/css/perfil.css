@@ -187,12 +187,13 @@
     border-radius: 12px;
     border-left: 4px solid var(--primary-color);
     transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(var(--primary-dark-color-rgb), 0.2);
 }
 
 .info-item:hover {
     background: #e9ecef;
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(var(--primary-dark-color-rgb), 0.2);
 }
 
 .info-label {
@@ -232,13 +233,13 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    box-shadow: 0 4px 15px rgba(143, 19, 254, 0.2);
+    box-shadow: 0 4px 16px rgba(var(--primary-dark-color-rgb), 0.2);
     transition: all 0.3s ease;
 }
 
 .stat-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(143, 19, 254, 0.3);
+    box-shadow: 0 8px 16px rgba(var(--primary-dark-color-rgb), 0.3);
 }
 
 .stat-icon {
@@ -304,20 +305,24 @@
 }
 
 .btn-action.btn-primary {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
+    border: 2px solid;
+    border-color: var(--primary-dark-color);
     color: var(--light-primary-color);
-    box-shadow: 0 4px 15px rgba(143, 19, 254, 0.3);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
+    box-shadow: 0 4px 16px rgba(var(--primary-dark-color-rgb), 0.3);
 }
 
 .btn-action.btn-primary:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 16px rgba(var(--primary-dark-color-rgb), 0.4);
     transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(var(--primary-dark-color-rgb), 0.4);
 }
 
 .btn-action.btn-secondary {
     background: var(--light-primary-color);
     color: #555;
-    border: 2px solid #555;
+    border: 2px solid #ccc;
+    box-shadow: 0 4px 16px rgba(var(--primary-dark-color-rgb), 0.3);
 }
 
 .btn-action.btn-secondary:hover {
@@ -325,7 +330,7 @@
     border-color: var(--primary-light-color);
     color: var(--primary-color);
     transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(var(--primary-dark-color-rgb), 0.4);
+    box-shadow: 0 8px 16px rgba(var(--primary-dark-color-rgb), 0.4);
 }
 
 /* Responsive */

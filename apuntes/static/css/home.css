@@ -8,7 +8,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, var(--primary-light-color) 0%, var(--dark-bg-color) 30%, var(--primary-color) 100%);
+    background: linear-gradient(135deg, var(--primary-dark-color) 0%, var(--primary-light-color) 100%);
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
 }
 
 .hero-title {

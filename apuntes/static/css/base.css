@@ -175,12 +175,14 @@ main {
 }
 
 .btn-custom {
+    border: 2px solid;
+    border-color: var(--primary-color);
     color: var(--light-primary-color);
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
 }
 
 .btn-custom:hover {
-   background: linear-gradient(135deg, var(--primary-light-color) 0%, var(--primary-dark-color) 100%);
+   border-color: var(--primary-light-color);
 }
 
 /* Delete Button */
