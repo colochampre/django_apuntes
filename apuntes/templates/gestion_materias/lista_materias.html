@@ -84,11 +84,11 @@
                     <i class="bi bi-search"></i>
                     <span class="results-count">
                         {% if apuntes.paginator.count == 1 %}
-                            Se encontró 1 apunte con "{{ search_query }}"
+                        Se encontró 1 apunte con "{{ search_query }}"
                         {% elif apuntes.paginator.count == 0 %}
-                            No se encontraron apuntes con "{{ search_query }}"
+                        No se encontraron apuntes con "{{ search_query }}"
                         {% else %}
-                            Se encontraron {{ apuntes.paginator.count }} apuntes con "{{ search_query }}"
+                        Se encontraron {{ apuntes.paginator.count }} apuntes con "{{ search_query }}"
                         {% endif %}
                     </span>
                 </div>
@@ -277,12 +277,16 @@
             <ul class="pagination">
                 {% if apuntes.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?materia_id={{ materia_seleccionada.id }}&page=1{% if search_query %}&q={{ search_query }}{% endif %}" aria-label="Primera">
+                    <a class="page-link"
+                        href="?materia_id={{ materia_seleccionada.id }}&page=1{% if search_query %}&q={{ search_query }}{% endif %}"
+                        aria-label="Primera">
                         <i class="bi bi-chevron-double-left"></i>
                     </a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="?materia_id={{ materia_seleccionada.id }}&page={{ apuntes.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}" aria-label="Anterior">
+                    <a class="page-link"
+                        href="?materia_id={{ materia_seleccionada.id }}&page={{ apuntes.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                        aria-label="Anterior">
                         <i class="bi bi-chevron-left"></i>
                     </a>
                 </li>
@@ -296,36 +300,41 @@
                 {% endif %}
 
                 {% for num in apuntes.paginator.page_range %}
-                    {% if apuntes.number == num %}
-                    <li class="page-item active" aria-current="page">
-                        <span class="page-link">{{ num }}</span>
-                    </li>
-                    {% elif num > apuntes.number|add:'-3' and num < apuntes.number|add:'3' %}
-                    <li class="page-item">
-                        <a class="page-link" href="?materia_id={{ materia_seleccionada.id }}&page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}">{{ num }}</a>
+                {% if apuntes.number == num %}
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+                {% elif num > apuntes.number|add:'-3' and num < apuntes.number|add:'3' %} <li class="page-item">
+                    <a class="page-link"
+                        href="?materia_id={{ materia_seleccionada.id }}&page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}">{{
+                        num }}</a>
                     </li>
                     {% endif %}
-                {% endfor %}
+                    {% endfor %}
 
-                {% if apuntes.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?materia_id={{ materia_seleccionada.id }}&page={{ apuntes.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}" aria-label="Siguiente">
-                        <i class="bi bi-chevron-right"></i>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?materia_id={{ materia_seleccionada.id }}&page={{ apuntes.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}" aria-label="Última">
-                        <i class="bi bi-chevron-double-right"></i>
-                    </a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <span class="page-link"><i class="bi bi-chevron-right"></i></span>
-                </li>
-                <li class="page-item disabled">
-                    <span class="page-link"><i class="bi bi-chevron-double-right"></i></span>
-                </li>
-                {% endif %}
+                    {% if apuntes.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="?materia_id={{ materia_seleccionada.id }}&page={{ apuntes.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                            aria-label="Siguiente">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="?materia_id={{ materia_seleccionada.id }}&page={{ apuntes.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                            aria-label="Última">
+                            <i class="bi bi-chevron-double-right"></i>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link"><i class="bi bi-chevron-right"></i></span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link"><i class="bi bi-chevron-double-right"></i></span>
+                    </li>
+                    {% endif %}
             </ul>
             <div class="pagination-info">
                 Página {{ apuntes.number }} de {{ apuntes.paginator.num_pages }} ({{ apuntes.paginator.count }} apuntes)
@@ -334,6 +343,21 @@
         {% endif %}
 
         {% else %}
+        {% if search_query %}
+        <!-- Búsqueda sin resultados -->
+        <div class="apuntes-grid">
+            <div class="empty-search-state">
+                <i class="bi bi-search empty-icon"></i>
+                <h3 class="empty-title">No se encontraron resultados</h3>
+                <p class="empty-text">No hay apuntes que coincidan con "{{ search_query }}"</p>
+                <a href="?materia_id={{ materia_seleccionada.id }}" class="btn-clear-search">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                    Limpiar búsqueda
+                </a>
+            </div>
+        </div>
+        {% else %}
+        <!-- Materia sin apuntes -->
         <div class="empty-state">
             <i class="bi bi-inbox empty-icon"></i>
             <h3 class="empty-title">No hay material disponible</h3>
@@ -345,6 +369,8 @@
             </a>
         </div>
         {% endif %}
+        {% endif %}
+        
         {% else %}
         <div class="welcome-state">
             <i class="bi bi-file-earmark-text welcome-icon"></i>

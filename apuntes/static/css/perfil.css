@@ -306,14 +306,13 @@
 
 .btn-action.btn-primary {
     border: 2px solid;
-    border-color: var(--primary-dark-color);
+    border-color: var(--primary-color);
     color: var(--light-primary-color);
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
     box-shadow: 0 4px 16px rgba(var(--primary-dark-color-rgb), 0.3);
 }
 
 .btn-action.btn-primary:hover {
-    border-color: var(--primary-color);
     box-shadow: 0 8px 16px rgba(var(--primary-dark-color-rgb), 0.4);
     transform: translateY(-4px);
 }
