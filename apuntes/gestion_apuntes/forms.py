@@ -14,6 +14,11 @@ class ApunteForm(forms.ModelForm):
     Permite subir archivos y definir título y descripción.
     Incluye validaciones de tamaño y tipo de archivo.
     """
+    def __init__(self, *args, **kwargs):
+        # Extraer la materia del kwargs si está presente
+        self.materia = kwargs.pop('materia', None)
+        super().__init__(*args, **kwargs)
+    
     class Meta:
         """Metadatos del formulario ApunteForm."""
         model = Apunte
@@ -63,10 +68,33 @@ class ApunteForm(forms.ModelForm):
         return archivo
     
     def clean_titulo(self):
-        """Validación del título: no puede estar vacío ni ser solo espacios."""
+        """
+        Validación del título: no puede estar vacío ni ser solo espacios.
+        Además, verifica que no exista otro apunte con el mismo título en la misma materia.
+        """
         titulo = self.cleaned_data.get('titulo')
         
         if titulo and not titulo.strip():
             raise forms.ValidationError('El título no puede estar vacío')
         
-        return titulo.strip() if titulo else titulo
+        titulo = titulo.strip() if titulo else titulo
+        
+        # Verificar si ya existe un apunte con el mismo título en la misma materia
+        if titulo and self.materia:
+            # Excluir el apunte actual si estamos editando (self.instance.pk existe)
+            apuntes_existentes = Apunte.objects.filter(
+                titulo__iexact=titulo,  # iexact = case-insensitive
+                materia=self.materia
+            )
+            
+            # Si estamos editando, excluir el apunte actual
+            if self.instance and self.instance.pk:
+                apuntes_existentes = apuntes_existentes.exclude(pk=self.instance.pk)
+            
+            if apuntes_existentes.exists():
+                raise forms.ValidationError(
+                    f'Ya existe un apunte "{titulo}" en esta materia. '
+                    'Por favor, elige un título diferente.'
+                )
+        
+        return titulo

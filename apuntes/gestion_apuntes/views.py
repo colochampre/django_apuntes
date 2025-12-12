@@ -24,7 +24,7 @@ def subir_apunte(request, materia_id):
     carrera_id = request.GET.get('carrera_id') or request.POST.get('carrera_id')
 
     if request.method == 'POST':
-        form = ApunteForm(request.POST, request.FILES)
+        form = ApunteForm(request.POST, request.FILES, materia=materia)
         # Eliminamos el campo materia del formulario para que no se valide
         if 'materia' in form.fields:
             del form.fields['materia']
@@ -56,7 +56,7 @@ def subir_apunte(request, materia_id):
                 else:
                     return redirect('gestion_apuntes:apuntes')
     else:
-        form = ApunteForm()
+        form = ApunteForm(materia=materia)
         if 'materia' in form.fields:
             del form.fields['materia']
     
