@@ -139,11 +139,12 @@ document.addEventListener('DOMContentLoaded', function () {
      */
     function parsearTamano(sizeText) {
         const text = sizeText.trim().toLowerCase();
-        const match = text.match(/([\d.]+)\s*(bytes?|kb|mb|gb)/i);
+        const match = text.match(/([\d.,]+)\s*(bytes?|kb|mb|gb)/i);
 
         if (!match) return 0;
 
-        const valor = parseFloat(match[1]);
+        // Reemplazar coma por punto para parseFloat (formato español -> formato JS)
+        const valor = parseFloat(match[1].replace(',', '.'));
         const unidad = match[2].toLowerCase();
 
         const multiplicadores = {

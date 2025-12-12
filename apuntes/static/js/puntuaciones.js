@@ -16,7 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: `valor=${valor}`
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        throw { status: response.status, data: data };
+                    });
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     // Actualizar las estrellas del usuario
@@ -57,7 +64,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                if (error.status === 403 && error.data && error.data.error) {
+                    mostrarToast(error.data.error, 'warning');
+                } else if (error.data && error.data.error) {
+                    mostrarToast(error.data.error, 'danger');
+                } else {
+                    console.error('Error:', error);
+                    mostrarToast('Error al procesar la puntuación', 'danger');
+                }
             });
         });
 
@@ -120,4 +134,54 @@ function getCookie(name) {
         }
     }
     return cookieValue;
+}
+
+// Función para mostrar mensajes toast
+function mostrarToast(mensaje, tipo = 'info') {
+    // Crear el contenedor si no existe
+    let container = document.querySelector('.toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'toast-container position-fixed top-0 p-3';
+        container.style.zIndex = '9999';
+        document.body.appendChild(container);
+    }
+
+    // Determinar el icono según el tipo
+    let icono = 'info-circle';
+    if (tipo === 'success') icono = 'check-circle';
+    else if (tipo === 'danger' || tipo === 'error') icono = 'exclamation-circle';
+    else if (tipo === 'warning') icono = 'exclamation-triangle';
+
+    // Crear el toast
+    const toast = document.createElement('div');
+    toast.className = `toast show align-items-center alert-${tipo} border-0`;
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
+    
+    toast.innerHTML = `
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="bi bi-${icono} me-2"></i>
+                ${mensaje}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    `;
+
+    container.appendChild(toast);
+
+    // Auto-cerrar después de 5 segundos
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 5000);
+
+    // Manejar el botón de cerrar
+    const closeBtn = toast.querySelector('.btn-close');
+    closeBtn.addEventListener('click', () => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    });
 }

@@ -749,7 +749,7 @@
 
 .file-preview {
     margin-bottom: 1rem;
-    border-radius: 4px;
+    border-radius: 12px;
     overflow: hidden;
     background: #f8f9fa;
     border: 2px solid #555;
@@ -866,18 +866,18 @@
     justify-content: center;
     gap: 0.5rem;
     padding: 1.5rem;
+    transition: transform 0.3s ease;
 }
 
 .preview-icon i {
     font-size: 3.5rem;
-    transition: transform 0.3s ease;
 }
 
-.preview-icon:hover i {
+.apunte-card-wrapper:hover .preview-icon {
     transform: scale(1.1);
 }
 
-.preview-label {
+.apunte-card-wrapper .preview-label {
     font-size: 0.9rem;
     font-weight: 600;
     text-transform: uppercase;

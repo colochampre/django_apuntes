@@ -77,6 +77,7 @@ def puntuar_apunte(request, apunte_id):
     """
     Permite a un usuario puntuar un apunte con un valor de 1 a 5.
     Si ya puntuó, actualiza su puntuación.
+    Los autores no pueden puntuar sus propios apuntes.
     """
     if request.method == 'POST':
         apunte = get_object_or_404(Apunte, id=apunte_id)
@@ -95,6 +96,10 @@ def puntuar_apunte(request, apunte_id):
             # Crear automáticamente el objeto Usuario si no existe
             usuario = Usuario.objects.create(user=request.user)
             usuario.save()
+        
+        # Verificar que el usuario no sea el autor del apunte
+        if apunte.usuario == usuario:
+            return JsonResponse({'error': 'No podés puntuar tu propio apunte'}, status=403)
         
         # Crear o actualizar la puntuación
         puntuacion, created = Puntuacion.objects.update_or_create(
