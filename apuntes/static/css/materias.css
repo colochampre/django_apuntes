@@ -1026,6 +1026,11 @@
     margin-bottom: 2rem;
 }
 
+.welcome-text span {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
 .btn-subir-primero {
     display: inline-flex;
     align-items: center;
