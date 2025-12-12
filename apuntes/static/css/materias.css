@@ -52,7 +52,7 @@
 
 .materias-sidebar {
     width: 300px;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 60px);
     padding: 2rem 0;
     position: sticky;
     top: 0;
