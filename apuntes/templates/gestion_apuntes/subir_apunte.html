@@ -3,21 +3,180 @@
 
 {% block title %}Subir Apunte{% endblock %}
 {% block otros_css %}
-<link rel="stylesheet" href="{% static 'css/subir_apunte.css' %}">{% endblock %}
+<link rel="stylesheet" href="{% static 'css/subir_apunte.css' %}">
+{% endblock %}
 
 {% block content %}
 <section class="subir-apuntes-container">
-    <div>
-        <h2>Subir Apunte</h1>
-        <form class="subir-apunte-form" method="post" enctype="multipart/form-data">
+    <div class="subir-apunte-card">
+        <!-- Header -->
+        <div class="subir-apunte-header">
+            <h1 class="subir-apunte-title">
+                <i class="bi bi-cloud-upload-fill"></i>
+                Subir Nuevo Apunte
+            </h1>
+            <p class="subir-apunte-subtitle">Comparte tus conocimientos con la comunidad</p>
+        </div>
+
+        <!-- Formulario -->
+        <form class="subir-apunte-form" method="post" enctype="multipart/form-data" id="apunteForm">
             {% csrf_token %}
             {% if carrera_id %}
             <input type="hidden" name="carrera_id" value="{{ carrera_id }}">
             {% endif %}
-            {{ form.as_p }}
-            <button class="btn btn-success" type="submit">Subir</button>
+
+            <!-- Título -->
+            <div class="form-group">
+                <label for="{{ form.titulo.id_for_label }}">
+                    <i class="bi bi-pencil-fill"></i>
+                    Título del Apunte
+                    <span class="required">*</span>
+                </label>
+                {{ form.titulo }}
+                {% if form.titulo.errors %}
+                {{ form.titulo.errors }}
+                {% endif %}
+            </div>
+
+            <!-- Descripción -->
+            <div class="form-group">
+                <label for="{{ form.descripcion.id_for_label }}">
+                    <i class="bi bi-text-paragraph"></i>
+                    Descripción
+                </label>
+                {{ form.descripcion }}
+                {% if form.descripcion.errors %}
+                {{ form.descripcion.errors }}
+                {% endif %}
+            </div>
+
+            <!-- Archivo -->
+            <div class="form-group">
+                <label>
+                    <i class="bi bi-file-earmark-arrow-up-fill"></i>
+                    Archivo
+                    <span class="required">*</span>
+                </label>
+                <div class="file-input-wrapper">
+                    {{ form.archivo }}
+                    <label for="{{ form.archivo.id_for_label }}" class="file-input-label">
+                        <i class="bi bi-cloud-arrow-up-fill"></i>
+                        <div class="file-input-text">
+                            <span class="main-text">Haz clic para seleccionar un archivo</span>
+                            <span class="sub-text">o arrastra y suelta aquí (máx. 10MB)</span>
+                        </div>
+                    </label>
+                </div>
+                <div id="fileSelected" class="file-selected" style="display: none;">
+                    <i class="bi bi-file-earmark-check-fill"></i>
+                    <span class="file-name"></span>
+                    <span class="file-size"></span>
+                </div>
+                {% if form.archivo.errors %}
+                {{ form.archivo.errors }}
+                {% endif %}
+
+                <!-- Extensiones permitidas -->
+                <div class="extensiones-info">
+                    <h4>
+                        <i class="bi bi-check-circle-fill"></i>
+                        Extensiones permitidas
+                    </h4>
+                    <div class="extensiones-list">
+                        <span class="extension-badge">.pdf</span>
+                        <span class="extension-badge">.doc</span>
+                        <span class="extension-badge">.docx</span>
+                        <span class="extension-badge">.ppt</span>
+                        <span class="extension-badge">.pptx</span>
+                        <span class="extension-badge">.xls</span>
+                        <span class="extension-badge">.xlsx</span>
+                        <span class="extension-badge">.txt</span>
+                        <span class="extension-badge">.md</span>
+                        <span class="extension-badge">.py</span>
+                        <span class="extension-badge">.java</span>
+                        <span class="extension-badge">.c</span>
+                        <span class="extension-badge">.cpp</span>
+                        <span class="extension-badge">.js</span>
+                        <span class="extension-badge">.html</span>
+                        <span class="extension-badge">.css</span>
+                        <span class="extension-badge">.json</span>
+                        <span class="extension-badge">.xml</span>
+                        <span class="extension-badge">.jpg</span>
+                        <span class="extension-badge">.png</span>
+                        <span class="extension-badge">.gif</span>
+                        <span class="extension-badge">.svg</span>
+                        <span class="extension-badge">.webp</span>
+                        <span class="extension-badge">.mp3</span>
+                        <span class="extension-badge">.drawio</span>
+                        <span class="extension-badge">.psc</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="form-actions">
+                {% if carrera_id %}
+                    <a href="{% url 'gestion_materias:materias_por_carrera' carrera_id=carrera_id %}?materia_id={{ materia.id }}" class="btn-cancel">
+                {% else %}
+                    <a href="{% url 'gestion_materias:materias_por_carrera' carrera_id=materia.carreras.first.id %}?materia_id={{ materia.id }}" class="btn-cancel">
+                {% endif %}
+                    <i class="bi bi-x-circle-fill"></i>
+                    Cancelar
+                </a>
+                <button type="submit" class="btn-submit">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Subir Apunte
+                </button>
+            </div>
         </form>
     </div>
 </section>
 
+<script>
+// Script para mostrar el nombre del archivo seleccionado
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('{{ form.archivo.id_for_label }}');
+    const fileSelected = document.getElementById('fileSelected');
+    const fileLabel = document.querySelector('.file-input-label');
+    
+    if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+            const fileName = fileSelected.querySelector('.file-name');
+            const fileSize = fileSelected.querySelector('.file-size');
+            
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                fileName.textContent = file.name;
+                
+                // Convertir tamaño a formato legible
+                const size = file.size;
+                let sizeText;
+                if (size < 1024) {
+                    sizeText = size + ' B';
+                } else if (size < 1024 * 1024) {
+                    sizeText = (size / 1024).toFixed(2) + ' KB';
+                } else {
+                    sizeText = (size / (1024 * 1024)).toFixed(2) + ' MB';
+                }
+                fileSize.textContent = sizeText;
+                
+                // Mostrar el archivo seleccionado
+                fileSelected.style.display = 'flex';
+                
+                // Cambiar el texto del label
+                const mainText = fileLabel.querySelector('.main-text');
+                if (mainText) {
+                    mainText.textContent = 'Archivo seleccionado';
+                }
+            } else {
+                fileSelected.style.display = 'none';
+                const mainText = fileLabel.querySelector('.main-text');
+                if (mainText) {
+                    mainText.textContent = 'Haz clic para seleccionar un archivo';
+                }
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

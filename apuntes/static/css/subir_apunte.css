@@ -1,1 +1,434 @@
+/* Contenedor principal */
+.subir-apuntes-container {
+    width: 100%;
+    min-height: calc(100vh - var(--navbar-height));
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
 
+.subir-apunte-card {
+    width: 100%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header */
+.subir-apunte-header {
+    background: linear-gradient(135deg, var(--primary-dark-color) 0%, var(--primary-light-color) 100%);
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.subir-apunte-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.subir-apunte-title {
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.subir-apunte-title i {
+    font-size: 2.5rem;
+}
+
+.subir-apunte-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Formulario */
+.subir-apunte-form {
+    padding: 2.5rem;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group label i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.form-group .required {
+    color: #dc3545;
+}
+
+/* Inputs */
+.form-control {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #fff;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(var(--primary-color-rgb), 0.1);
+}
+
+.form-control:hover {
+    border-color: var(--primary-light-color);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* File input personalizado */
+.file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-input-wrapper input[type="file"] {
+    position: absolute;
+    left: -9999px;
+}
+
+.file-input-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    border: 2px dashed var(--primary-light-color);
+    border-radius: 12px;
+    background: rgba(var(--primary-color-rgb), 0.05);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.file-input-label:hover {
+    border-color: var(--primary-color);
+    background: rgba(var(--primary-color-rgb), 0.1);
+}
+
+.file-input-label i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.file-input-wrapper .file-input-label {
+    align-items: start;
+}
+
+.file-input-text {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.25rem;
+}
+
+.file-input-text .main-text {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.file-input-text .sub-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.file-selected {
+    padding: 1rem;
+    background: rgba(var(--primary-color-rgb), 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--primary-dark-color);
+}
+
+.file-selected i {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.file-selected .file-name {
+    font-weight: 600;
+    flex: 1;
+}
+
+.file-selected .file-size {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+/* Select personalizado */
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238F13FE' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+/* Información de ayuda */
+.form-help {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-help i {
+    color: var(--primary-light-color);
+}
+
+/* Extensiones permitidas */
+.extensiones-info {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.extensiones-info h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.extensiones-info h4 i {
+    color: var(--primary-color);
+}
+
+.extensiones-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.extension-badge {
+    padding: 0.25rem 0.75rem;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #495057;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Botones */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
+.btn-submit {
+    flex: 1;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    border: 2px solid;
+    border-color: var(--primary-dark-color);
+    color: var(--light-primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
+    box-shadow: 0 4px 16px rgba(var(--primary-dark-color-rgb), 0.3);
+}
+
+.btn-submit:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 16px rgba(var(--primary-dark-color-rgb), 0.4);
+    transform: translateY(-4px);
+}
+
+.btn-submit i {
+    font-size: 1.2rem;
+}
+
+.btn-cancel {
+    padding: 1rem 2rem;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #555;
+    background: var(--light-primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 16px rgba(var(--primary-dark-color-rgb), 0.3);
+}
+
+.btn-cancel:hover {
+    background: #e9ecef;
+    border-color: var(--primary-light-color);
+    color: var(--primary-color);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(var(--primary-dark-color-rgb), 0.4);
+}
+
+/* Mensajes de error */
+.errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+}
+
+.errorlist li {
+    color: #dc3545;
+    font-size: 0.875rem;
+    padding: 0.5rem;
+    background: rgba(220, 53, 69, 0.1);
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.errorlist li::before {
+    content: '⚠';
+    font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .subir-apuntes-container {
+        padding: 1rem;
+    }
+
+    .subir-apunte-card {
+        border-radius: 16px;
+    }
+
+    .subir-apunte-header {
+        padding: 2rem 1.5rem;
+    }
+
+    .subir-apunte-title {
+        font-size: 1.5rem;
+    }
+
+    .subir-apunte-title i {
+        font-size: 2rem;
+    }
+
+    .subir-apunte-form {
+        padding: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-submit,
+    .btn-cancel {
+        width: 100%;
+    }
+
+    .extensiones-list {
+        gap: 0.375rem;
+        justify-content: space-between;
+    }
+
+    .extension-badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .subir-apunte-header {
+        padding: 1.5rem 1rem;
+    }
+
+    .subir-apunte-title {
+        font-size: 1.25rem;
+    }
+
+    .subir-apunte-form {
+        padding: 1rem;
+    }
+
+    .file-input-label {
+        padding: 1.5rem 1rem;
+    }
+
+    .file-input-label i {
+        font-size: 1.5rem;
+    }
+}
