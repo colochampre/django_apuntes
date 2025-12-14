@@ -249,7 +249,7 @@
 
 .search-icon {
     position: absolute;
-    left: 1rem;
+    left: 1.1rem;
     color: #6c757d;
     font-size: 1.1rem;
     pointer-events: none;
@@ -261,7 +261,7 @@
     padding: 0.75rem 3rem 0.75rem 2.75rem;
     border: 2px solid #e9ecef;
     border-radius: 10px;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--dark-bg-color);
     background: white;
     transition: all 0.3s ease;
@@ -328,24 +328,16 @@
 @media (max-width: 983px) {
     .search-input {
         padding: 0.65rem 2.75rem 0.65rem 2.5rem;
-        font-size: 0.9rem;
-    }
-
-    .search-icon {
-        left: 0.75rem;
-        font-size: 1rem;
     }
 }
 
 @media (max-width: 575px) {
     .search-input {
         padding: 0.6rem 2.5rem 0.6rem 2.25rem;
-        font-size: 0.85rem;
     }
 
     .search-icon {
         left: 0.5rem;
-        font-size: 0.95rem;
     }
 
     .search-clear {

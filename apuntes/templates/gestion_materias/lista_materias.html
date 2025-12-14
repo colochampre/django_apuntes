@@ -55,8 +55,8 @@
                 Subir Contenido
             </a>
         </div>
-        <!-- Filtros de Ordenamiento -->
-        {% if apuntes %}
+        <!-- Barra de Búsqueda y Filtros (siempre visibles si hay materia seleccionada) -->
+        {% if materia_seleccionada %}
         <div class="filtros-container">
             <!-- Barra de Búsqueda -->
             <div class="search-container">
@@ -89,6 +89,8 @@
                 </div>
                 {% endif %}
             </div>
+            <!-- Botones de Filtros (solo si hay apuntes) -->
+            {% if apuntes %}
             <div class="filtros-buttons">
                 <button class="filtro-btn active" data-filtro="fecha" data-orden="desc" title="Ordenar por fecha">
                     <i class="bi bi-calendar3"></i>
@@ -116,6 +118,7 @@
                     <i class="bi bi-arrow-down orden-icon"></i>
                 </button>
             </div>
+            {% endif %}
         </div>
         {% endif %}
 

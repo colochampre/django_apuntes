@@ -171,24 +171,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchForm = document.querySelector('.search-form');
 
     if (searchInput && searchForm) {
-        // Búsqueda en tiempo real con debounce
-        let searchTimeout;
-        searchInput.addEventListener('input', function () {
-            clearTimeout(searchTimeout);
-            const searchTerm = this.value.trim();
-
-            // Debounce de 600ms para enviar el formulario (búsqueda del servidor)
-            searchTimeout = setTimeout(() => {
-                if (searchTerm.length > 0) {
-                    searchForm.submit();
-                }
-            }, 600);
-        });
-
         // Limpiar con tecla Escape
         searchInput.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
-                clearTimeout(searchTimeout);
                 window.location.href = '?materia_id=' + new URLSearchParams(window.location.search).get('materia_id');
             }
         });

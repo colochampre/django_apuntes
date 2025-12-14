@@ -7,6 +7,11 @@
 {% endblock %}
 
 {% block content %}
+<!-- Botón Volver -->
+<button onclick="history.back()" class="btn-back" title="Volver atrás">
+    <i class="bi bi-arrow-left"></i>
+    <span>Volver</span>
+</button>
 <div class="perfil-wrapper">
     <div class="perfil-container">
         <!-- Header con avatar y nombre -->
@@ -31,8 +36,8 @@
                     <p class="perfil-username">@{{ profile_user.username }}</p>
                     {% if usuario_profile.puntuacion_promedio %}
                     <span class="perfil-puntuacion">{{ usuario_profile.puntuacion_promedio }}
-                    <i class="bi bi-star-fill rating-star"></i>
-                    {% endif %}
+                        <i class="bi bi-star-fill rating-star"></i>
+                        {% endif %}
                 </div>
                 {% if profile_user.is_superuser %}
                 <span class="perfil-role superuser">Superusuario</span>
@@ -133,7 +138,8 @@
                 <i class="bi bi-trophy-fill"></i>
                 <span class="reputacion-nivel">{{ usuario_profile.nivel_reputacion }}</span>
                 <span class="reputacion-detalle">
-                    Basado en {{ usuario_profile.total_puntuaciones_recibidas }} puntaje{{usuario_profile.total_puntuaciones_recibidas|pluralize:"s" }}
+                    Basado en {{ usuario_profile.total_puntuaciones_recibidas }}
+                    puntaje{{usuario_profile.total_puntuaciones_recibidas|pluralize:"s" }}
                 </span>
             </div>
             {% endif %}

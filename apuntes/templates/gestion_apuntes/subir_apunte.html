@@ -7,12 +7,19 @@
 {% endblock %}
 
 {% block content %}
+<!-- Botón Volver -->
+<button onclick="history.back()" class="btn-back" title="Volver atrás">
+    <i class="bi bi-arrow-left"></i>
+    <span>Volver</span>
+</button>
 <section class="subir-apuntes-container">
     <div class="subir-apunte-card">
         <!-- Header -->
         <div class="subir-apunte-header">
-            <h1 class="subir-apunte-title">
+            <div class="subir-apunte-icon">
                 <i class="bi bi-cloud-upload-fill"></i>
+            </div>
+            <h1 class="subir-apunte-title">
                 Subir Nuevo Apunte
             </h1>
             <p class="subir-apunte-subtitle">Comparte tus conocimientos con la comunidad</p>

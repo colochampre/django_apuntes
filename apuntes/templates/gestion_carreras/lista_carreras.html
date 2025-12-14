@@ -24,6 +24,37 @@
 <!-- Carreras Grid Section -->
 <section class="carreras-section">
     <div class="container">
+        <!-- Barra de Búsqueda -->
+        <div class="search-container">
+            <form method="get" action="" class="search-form">
+                <div class="search-wrapper">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text" name="q" id="searchCarreras" class="search-input"
+                        placeholder="Buscar por nombre de carrera o universidad..." autocomplete="off"
+                        value="{{ search_query }}">
+                    {% if search_query %}
+                    <a href="{% url 'gestion_carreras:lista_carreras' %}" class="search-clear" id="clearSearch">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </form>
+            {% if search_query %}
+            <div class="search-results-info" id="searchResultsInfo">
+                <i class="bi bi-search"></i>
+                <span class="results-count">
+                    {% if carreras.count == 1 %}
+                    Se encontró 1 carrera con "{{ search_query }}"
+                    {% elif carreras.count == 0 %}
+                    No se encontraron carreras con "{{ search_query }}"
+                    {% else %}
+                    Se encontraron {{ carreras.count }} carreras con "{{ search_query }}"
+                    {% endif %}
+                </span>
+            </div>
+            {% endif %}
+        </div>
+
         {% if carreras %}
         <div class="row g-4 p-3">
             {% for carrera in carreras %}
@@ -62,11 +93,25 @@
         {% else %}
         <div class="row">
             <div class="col-12 py-3">
+                {% if search_query %}
+                <!-- Búsqueda sin resultados -->
+                <div class="empty-state">
+                    <i class="bi bi-search empty-icon"></i>
+                    <h3 class="empty-title">No se encontraron resultados</h3>
+                    <p class="empty-text">No hay carreras que coincidan con "{{ search_query }}"</p>
+                    <a href="{% url 'gestion_carreras:lista_carreras' %}" class="btn-clear-search">
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                        Limpiar búsqueda
+                    </a>
+                </div>
+                {% else %}
+                <!-- Sin carreras -->
                 <div class="empty-state">
                     <i class="bi bi-inbox empty-icon"></i>
                     <h3 class="empty-title">No hay carreras disponibles</h3>
                     <p class="empty-text">Aún no se han agregado carreras a la plataforma.</p>
                 </div>
+                {% endif %}
             </div>
         </div>
         {% endif %}
@@ -74,4 +119,7 @@
 </section>
 {% endblock %}
 
-{% block otros_js %}<script src="{% static 'js/borrar.js' %}"></script>{% endblock %}
+{% block otros_js %}
+<script src="{% static 'js/borrar.js' %}"></script>
+<script src="{% static 'js/search-carreras.js' %}"></script>
+{% endblock %}

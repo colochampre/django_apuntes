@@ -35,6 +35,8 @@
 .subir-apunte-header {
     background: linear-gradient(135deg, var(--primary-dark-color) 0%, var(--primary-light-color) 100%);
     padding: 3rem 2rem;
+    text-align: center;
+    gap: 2rem;
     position: relative;
     overflow: hidden;
 }
@@ -55,15 +57,17 @@
     font-size: 2rem;
     font-weight: 600;
     margin: 0;
-    display: flex;
-    align-items: center;
     gap: 1rem;
     position: relative;
     z-index: 1;
 }
 
-.subir-apunte-title i {
-    font-size: 2.5rem;
+.subir-apunte-icon i {
+    font-size: 4rem;
+    color: white;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
 }
 
 .subir-apunte-subtitle {
@@ -382,8 +386,8 @@ select.form-control {
         font-size: 1.5rem;
     }
 
-    .subir-apunte-title i {
-        font-size: 2rem;
+    .subir-apunte-icon i {
+        font-size: 3rem;
     }
 
     .subir-apunte-form {

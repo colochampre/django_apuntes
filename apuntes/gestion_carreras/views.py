@@ -6,9 +6,23 @@ from .models import Carrera
 def lista_carreras(request):
     """
     Obtiene y muestra una lista de todas las carreras, ordenadas por nombre.
+    Incluye funcionalidad de búsqueda por nombre o universidad.
     """
-    carreras = Carrera.objects.all().order_by('nombre')  # Obtiene las carreras de la base de datos ordenadas por nombre
-    return render(request, 'gestion_carreras/lista_carreras.html', {'carreras': carreras})  # Envía la lista de carreras al template
+    carreras = Carrera.objects.all().order_by('nombre')
+    
+    # Búsqueda
+    search_query = request.GET.get('q', '').strip()
+    if search_query:
+        from django.db.models import Q
+        carreras = carreras.filter(
+            Q(nombre__icontains=search_query) |
+            Q(universidad__icontains=search_query)
+        )
+    
+    return render(request, 'gestion_carreras/lista_carreras.html', {
+        'carreras': carreras,
+        'search_query': search_query
+    })
 
 @login_required
 def eliminar_carrera(request, carrera_id):
