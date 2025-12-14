@@ -16,9 +16,9 @@
                     <i class="bi bi-person-fill"></i>
                 </div>
                 <div class="avatar-badge">
-                    {% if user.is_superuser %}
+                    {% if profile_user.is_superuser %}
                     <i class="bi bi-star-fill" title="Superusuario"></i>
-                    {% elif user.is_staff %}
+                    {% elif profile_user.is_staff %}
                     <i class="bi bi-shield-fill-check" title="Staff"></i>
                     {% else %}
                     <i class="bi bi-person-check-fill" title="Usuario"></i>
@@ -26,11 +26,11 @@
                 </div>
             </div>
             <div class="perfil-header-info">
-                <h1 class="perfil-nombre">{{ user.get_full_name|default:user.username }}</h1>
-                <p class="perfil-username">@{{ user.username }}</p>
-                {% if user.is_superuser %}
+                <h1 class="perfil-nombre">{{ profile_user.get_full_name|default:profile_user.username }}</h1>
+                <p class="perfil-username">@{{ profile_user.username }}</p>
+                {% if profile_user.is_superuser %}
                 <span class="perfil-role superuser">Superusuario</span>
-                {% elif user.is_staff %}
+                {% elif profile_user.is_staff %}
                 <span class="perfil-role staff">Staff</span>
                 {% else %}
                 <span class="perfil-role user">Usuario</span>
@@ -38,7 +38,8 @@
             </div>
         </div>
 
-        <!-- Información personal -->
+        <!-- Información personal (solo visible para el propio usuario) -->
+        {% if es_propio %}
         <div class="perfil-section">
             <h2 class="section-title">
                 <i class="bi bi-person-lines-fill"></i>
@@ -50,31 +51,32 @@
                         <i class="bi bi-person"></i>
                         Nombre
                     </div>
-                    <div class="info-value">{{ user.first_name|default:"No especificado" }}</div>
+                    <div class="info-value">{{ profile_user.first_name|default:"No especificado" }}</div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">
                         <i class="bi bi-person"></i>
                         Apellido
                     </div>
-                    <div class="info-value">{{ user.last_name|default:"No especificado" }}</div>
+                    <div class="info-value">{{ profile_user.last_name|default:"No especificado" }}</div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">
                         <i class="bi bi-envelope"></i>
                         Email
                     </div>
-                    <div class="info-value">{{ user.email|default:"No especificado" }}</div>
+                    <div class="info-value">{{ profile_user.email|default:"No especificado" }}</div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">
                         <i class="bi bi-calendar-check"></i>
                         Miembro desde
                     </div>
-                    <div class="info-value">{{ user.date_joined|date:"d/m/Y" }}</div>
+                    <div class="info-value">{{ profile_user.date_joined|date:"d/m/Y" }}</div>
                 </div>
             </div>
         </div>
+        {% endif %}
 
         <!-- Estadísticas (si tienes apuntes relacionados) -->
         <div class="perfil-section">
@@ -131,7 +133,8 @@
             {% endif %}
         </div>
 
-        <!-- Acciones -->
+        <!-- Acciones (solo visible para el propio usuario) -->
+        {% if es_propio %}
         <div class="perfil-actions">
             <a href="#" class="btn-action btn-primary">
                 <i class="bi bi-pencil-square"></i>
@@ -142,6 +145,7 @@
                 Cambiar Contraseña
             </a>
         </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

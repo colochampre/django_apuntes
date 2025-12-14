@@ -13,4 +13,5 @@ urlpatterns = [
     ),
     path("logout/", views.custom_logout, name="logout"),
     path("perfil/", views.perfil, name="perfil"),
+    path("usuario/<str:username>/", views.ver_perfil_usuario, name="ver_perfil"),
 ]

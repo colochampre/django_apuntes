@@ -581,7 +581,7 @@
 
 .apunte-card-header {
     margin-bottom: 8px;
-    padding-bottom: 8px;
+    padding-bottom: 4px;
     border-bottom: 2px solid rgba(102, 126, 234, 0.2);
 }
 
@@ -614,19 +614,33 @@
 
 .apunte-fecha,
 .apunte-autor {
+    padding: 4px;
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
     font-size: 0.85rem;
-    color: #666;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.apunte-fecha i {
-    font-size: 0.9rem;
+.apunte-autor {
+    color: var(--primary-color);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.apunte-autor:hover {
+    color: var(--primary-light-color);
+}
+
+.apunte-fecha {
+    color: #666;
+}
+
+.apunte-autor i, .apunte-fecha i {
+    font-size: 1.0rem;
 }
 
 .apunte-card-body {
@@ -1148,9 +1162,9 @@
 }
 
 .page-item.disabled .page-link {
-    background: #f8f9fa;
-    border-color: #e9ecef;
-    color: #adb5bd;
+    background: #e9e9e9;
+    border-color: #bbb;
+    color: #888;
     cursor: not-allowed;
     opacity: 0.6;
 }

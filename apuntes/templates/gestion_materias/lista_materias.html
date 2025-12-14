@@ -138,10 +138,10 @@
                                 <i class="bi bi-calendar3"></i>
                                 {{ apunte.fecha_publicacion|date:"d/m/Y" }}
                             </span>
-                            <span class="apunte-autor">
+                            <a href="{% url 'gestion_usuarios:ver_perfil' apunte.usuario.user.username %}" class="apunte-autor" title="Ver perfil de {{ apunte.usuario.user.username }}">
                                 <i class="bi bi-person"></i>
                                 {{ apunte.usuario.user.username|default:"Anónimo" }}
-                            </span>
+                            </a>
                         </div>
                     </div>
                     <div class="apunte-card-body">

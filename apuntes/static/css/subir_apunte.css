@@ -297,16 +297,15 @@ select.form-control {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-
     border: 2px solid;
-    border-color: var(--primary-dark-color);
+    border-color: var(--primary-color);
     color: var(--light-primary-color);
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
     box-shadow: 0 4px 16px rgba(var(--primary-dark-color-rgb), 0.3);
 }
 
 .btn-submit:hover {
-    border-color: var(--primary-color);
+    border-color: var(--primary-light-color);
     box-shadow: 0 8px 16px rgba(var(--primary-dark-color-rgb), 0.4);
     transform: translateY(-4px);
 }
