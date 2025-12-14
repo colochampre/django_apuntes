@@ -134,41 +134,47 @@
 </section>
 
 <script>
-// Script para mostrar el nombre del archivo seleccionado
+// Script para mostrar el nombre del archivo seleccionado y drag-and-drop
 document.addEventListener('DOMContentLoaded', function() {
     const fileInput = document.getElementById('{{ form.archivo.id_for_label }}');
     const fileSelected = document.getElementById('fileSelected');
     const fileLabel = document.querySelector('.file-input-label');
+    const fileWrapper = document.querySelector('.file-input-wrapper');
     
+    // Función para actualizar la UI cuando se selecciona un archivo
+    function updateFileDisplay(file) {
+        const fileName = fileSelected.querySelector('.file-name');
+        const fileSize = fileSelected.querySelector('.file-size');
+        
+        fileName.textContent = file.name;
+        
+        // Convertir tamaño a formato legible
+        const size = file.size;
+        let sizeText;
+        if (size < 1024) {
+            sizeText = size + ' B';
+        } else if (size < 1024 * 1024) {
+            sizeText = (size / 1024).toFixed(2) + ' KB';
+        } else {
+            sizeText = (size / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+        fileSize.textContent = sizeText;
+        
+        // Mostrar el archivo seleccionado
+        fileSelected.style.display = 'flex';
+        
+        // Cambiar el texto del label
+        const mainText = fileLabel.querySelector('.main-text');
+        if (mainText) {
+            mainText.textContent = 'Archivo seleccionado';
+        }
+    }
+    
+    // Evento change para selección manual
     if (fileInput) {
         fileInput.addEventListener('change', function(e) {
-            const fileName = fileSelected.querySelector('.file-name');
-            const fileSize = fileSelected.querySelector('.file-size');
-            
             if (this.files && this.files[0]) {
-                const file = this.files[0];
-                fileName.textContent = file.name;
-                
-                // Convertir tamaño a formato legible
-                const size = file.size;
-                let sizeText;
-                if (size < 1024) {
-                    sizeText = size + ' B';
-                } else if (size < 1024 * 1024) {
-                    sizeText = (size / 1024).toFixed(2) + ' KB';
-                } else {
-                    sizeText = (size / (1024 * 1024)).toFixed(2) + ' MB';
-                }
-                fileSize.textContent = sizeText;
-                
-                // Mostrar el archivo seleccionado
-                fileSelected.style.display = 'flex';
-                
-                // Cambiar el texto del label
-                const mainText = fileLabel.querySelector('.main-text');
-                if (mainText) {
-                    mainText.textContent = 'Archivo seleccionado';
-                }
+                updateFileDisplay(this.files[0]);
             } else {
                 fileSelected.style.display = 'none';
                 const mainText = fileLabel.querySelector('.main-text');
@@ -177,6 +183,55 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+    }
+    
+    // Drag and Drop functionality
+    if (fileLabel && fileInput) {
+        // Prevenir comportamiento por defecto en toda la página
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            document.body.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        // Highlight cuando se arrastra sobre el área
+        ['dragenter', 'dragover'].forEach(eventName => {
+            fileLabel.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            fileLabel.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight(e) {
+            fileLabel.style.borderColor = 'var(--primary-color)';
+            fileLabel.style.background = 'rgba(var(--primary-color-rgb), 0.15)';
+        }
+        
+        function unhighlight(e) {
+            fileLabel.style.borderColor = 'var(--primary-light-color)';
+            fileLabel.style.background = 'rgba(var(--primary-color-rgb), 0.05)';
+        }
+        
+        // Manejar el drop
+        fileLabel.addEventListener('drop', handleDrop, false);
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0) {
+                // Asignar el archivo al input
+                fileInput.files = files;
+                
+                // Disparar el evento change manualmente
+                const event = new Event('change', { bubbles: true });
+                fileInput.dispatchEvent(event);
+            }
+        }
     }
 });
 </script>
