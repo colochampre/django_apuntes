@@ -71,8 +71,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 case 'puntuacion':
                     const puntuacionA = a.querySelector('.puntuacion-promedio');
                     const puntuacionB = b.querySelector('.puntuacion-promedio');
-                    valorA = puntuacionA ? parseFloat(puntuacionA.textContent) : 0;
-                    valorB = puntuacionB ? parseFloat(puntuacionB.textContent) : 0;
+                    // Reemplazar coma por punto para parseFloat (formato español -> formato JS)
+                    // Usar valor según el orden para que los sin puntuación aparezcan siempre al final
+                    const valorSinPuntuacion = orden === 'desc' ? 0 : 6;
+                    valorA = puntuacionA ? parseFloat(puntuacionA.textContent.trim().replace(',', '.')) : valorSinPuntuacion;
+                    valorB = puntuacionB ? parseFloat(puntuacionB.textContent.trim().replace(',', '.')) : valorSinPuntuacion;
                     break;
 
                 case 'tipo':
