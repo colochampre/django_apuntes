@@ -27,7 +27,13 @@
             </div>
             <div class="perfil-header-info">
                 <h1 class="perfil-nombre">{{ profile_user.get_full_name|default:profile_user.username }}</h1>
-                <p class="perfil-username">@{{ profile_user.username }}</p>
+                <div class="perfil-info-wrapper">
+                    <p class="perfil-username">@{{ profile_user.username }}</p>
+                    {% if usuario_profile.puntuacion_promedio %}
+                    <span class="perfil-puntuacion">{{ usuario_profile.puntuacion_promedio }}
+                    <i class="bi bi-star-fill rating-star"></i>
+                    {% endif %}
+                </div>
                 {% if profile_user.is_superuser %}
                 <span class="perfil-role superuser">Superusuario</span>
                 {% elif profile_user.is_staff %}
@@ -127,7 +133,7 @@
                 <i class="bi bi-trophy-fill"></i>
                 <span class="reputacion-nivel">{{ usuario_profile.nivel_reputacion }}</span>
                 <span class="reputacion-detalle">
-                    Basado en {{ usuario_profile.total_puntuaciones_recibidas }} valoración{{usuario_profile.total_puntuaciones_recibidas|pluralize:"es" }}
+                    Basado en {{ usuario_profile.total_puntuaciones_recibidas }} puntaje{{usuario_profile.total_puntuaciones_recibidas|pluralize:"s" }}
                 </span>
             </div>
             {% endif %}
