@@ -1,11 +1,16 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm, UserChangeForm as BaseUserChangeForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.validators import EmailValidator
 from .models import Usuario
+import dns.resolver
+import socket
 
 class UsuarioCreationForm(BaseUserCreationForm):
     email = forms.EmailField(
         max_length=254,
+        required=True,
         label='Correo electrónico',
         help_text='Requerido. Ingresá una dirección de correo válida.',
         widget=forms.EmailInput(attrs={
@@ -70,6 +75,51 @@ class UsuarioCreationForm(BaseUserCreationForm):
             'placeholder': 'Confirmá tu contraseña'
         })
 
+    def clean_email(self):
+        """
+        Valida que el email tenga un formato válido, que no esté ya registrado,
+        y que el dominio tenga registros MX válidos (servidor de correo).
+        """
+        email = self.cleaned_data.get('email')
+        
+        if not email:
+            raise ValidationError('El correo electrónico es obligatorio.')
+        
+        # Validar formato de email
+        validator = EmailValidator(message='Ingresá una dirección de correo electrónico válida.')
+        try:
+            validator(email)
+        except ValidationError:
+            raise ValidationError('El formato del correo electrónico no es válido.')
+        
+        # Validar que el email no esté ya registrado
+        if User.objects.filter(email=email).exists():
+            raise ValidationError('Este correo electrónico ya está registrado.')
+        
+        # Validar que el dominio exista y tenga registros MX
+        if '@' in email:
+            domain = email.split('@')[1]
+            
+            # Lista de dominios temporales/desechables comunes que querés bloquear
+            blocked_domains = ['tempmail.com', 'throwaway.email', 'guerrillamail.com', '10minutemail.com']
+            if domain.lower() in blocked_domains:
+                raise ValidationError('No se permiten correos electrónicos temporales o desechables.')
+            
+            # Verificar que el dominio tenga registros MX (servidores de correo)
+            try:
+                mx_records = dns.resolver.resolve(domain, 'MX')
+                if not mx_records:
+                    raise ValidationError('El dominio del correo electrónico no tiene servidores de correo configurados.')
+            except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer, dns.resolver.NoNameservers):
+                raise ValidationError('El dominio del correo electrónico no existe o no está configurado correctamente.')
+            except dns.exception.Timeout:
+                # Si hay timeout, permitir el registro (para no bloquear por problemas de red)
+                pass
+            except Exception:
+                # Para otros errores de DNS, permitir el registro
+                pass
+        
+        return email
 
 class UserEditForm(forms.ModelForm):
     class Meta:
