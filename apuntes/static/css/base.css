@@ -26,17 +26,22 @@
     --dark-dropdown-color-rgb: 52, 58, 64;
     /* sizes */
     --navbar-height: 68px;
+    /* font-families */
+    --title-font-family: 'Poppins', sans-serif;
+    --body-font-family: 'Inter', sans-serif;
+    --preview-font-family: 'Calibri', 'Arial', sans-serif;
+    --value-font-family: 'IBM Plex Mono', monospace;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--body-font-family);
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--title-font-family);
 }
 
 html {
@@ -81,7 +86,7 @@ body {
 }
 
 .navbar-title {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--title-font-family);
     font-weight: 600;
     font-size: 1.25rem;
     letter-spacing: 0.5px;
@@ -226,7 +231,7 @@ main {
 
 .footer-title {
     color: var(--light-primary-color);
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--title-font-family);
     font-weight: 600;
     font-size: 1.25rem;
     margin-bottom: 0.5rem;

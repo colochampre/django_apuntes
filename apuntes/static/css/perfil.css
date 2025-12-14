@@ -105,7 +105,6 @@
 }
 
 .perfil-nombre {
-    font-family: 'Poppins', sans-serif;
     font-size: 2rem;
     font-weight: 700;
     margin: 0 0 0.5rem 0;
@@ -169,7 +168,6 @@
 }
 
 .section-title {
-    font-family: 'Poppins', sans-serif;
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--primary-dark-color);
@@ -271,7 +269,7 @@
 }
 
 .stat-value {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--title-font-family);
     font-size: 1.75rem;
     font-weight: 700;
     color: white;
@@ -475,7 +473,7 @@
 }
 
 .reputacion-nivel {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--title-font-family);
     font-size: 1.5rem;
     font-weight: 700;
     color: white;

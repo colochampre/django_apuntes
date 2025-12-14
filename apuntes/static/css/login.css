@@ -161,7 +161,7 @@
     font-size: 1rem;
     transition: all 0.3s ease;
     background: #fff;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--body-font-family);
 }
 
 .auth-form input:focus {
