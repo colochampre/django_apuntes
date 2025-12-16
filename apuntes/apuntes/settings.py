@@ -10,6 +10,7 @@ Para la lista completa de configuraciones y sus valores, ver
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Construye las rutas dentro del proyecto como esto: BASE_DIR / 'subdir'.
@@ -20,12 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Ver https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # ADVERTENCIA DE SEGURIDAD: ¡mantén la clave secreta usada en producción en secreto!
-SECRET_KEY = 'django-insecure-emks*vu&0n73h89i8-s4olpc5k78*yenehaw2%@drd^&*#84h('
+# En producción, establecer la variable de entorno DJANGO_SECRET_KEY
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-emks*vu&0n73h89i8-s4olpc5k78*yenehaw2%@drd^&*#84h(')
 
 # ADVERTENCIA DE SEGURIDAD: ¡no ejecutes con debug activado in producción!
-DEBUG = True
+# En producción, establecer DJANGO_DEBUG=False
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+# En producción, definir los hosts permitidos separados por comas en DJANGO_ALLOWED_HOSTS
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',') if os.environ.get('DJANGO_ALLOWED_HOSTS') else []
 
 
 # Definición de la aplicación

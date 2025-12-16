@@ -12,6 +12,18 @@ class UsuarioSignalTest(TestCase):
         self.assertTrue(hasattr(user, 'usuario'))
         self.assertIsInstance(user.usuario, Usuario)
 
+    def test_usuario_save_signal(self):
+        """Prueba que al guardar el User se dispara la señal de guardado del perfil"""
+        user = User.objects.create_user(username='saveuser', password='password')
+        
+        # Modificamos algo en el usuario para disparar el save
+        user.first_name = "Pedro"
+        user.save()
+        
+        # Verificamos que el perfil sigue accesible y consistente
+        self.assertEqual(user.usuario.user.first_name, "Pedro")
+
+
 class UsuarioReputationTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='expert', password='password')

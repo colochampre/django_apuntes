@@ -47,6 +47,48 @@ class ApunteModelTest(TestCase):
         self.assertEqual(apunte.total_puntuaciones(), 1)
         self.assertEqual(apunte.puntuacion_usuario(user2.usuario), 5)
 
+    def test_invalid_file_extension(self):
+        """Prueba que no se permitan extensiones peligrosas como .exe"""
+        from django.core.exceptions import ValidationError
+        
+        file = SimpleUploadedFile("virus.exe", b"malware", content_type="application/x-msdownload")
+        
+        apunte = Apunte(
+            titulo="Virus",
+            descripcion="No descargar",
+            archivo=file,
+            materia=self.materia,
+            usuario=self.user.usuario
+        )
+        
+        # La validación ocurre al llamar a full_clean()
+        with self.assertRaises(ValidationError):
+            apunte.full_clean()
+
+    def test_file_size_limit(self):
+        """Prueba que no se permitan archivos mayores a 10MB"""
+        from django.core.exceptions import ValidationError
+        
+        # Simulamos un archivo de 11MB
+        # No creamos 11MB reales de datos para no llenar memoria, usamos un mock o un archivo sparse
+        # Pero SimpleUploadedFile crea en memoria. Para el test simple, usaremos un truco:
+        # Sobreescribir el atributo size del archivo envuelto antes de validar
+        
+        file = SimpleUploadedFile("large.pdf", b"dummy content", content_type="application/pdf")
+        file.size = 11 * 1024 * 1024  # 11 MB
+        
+        apunte = Apunte(
+            titulo="Archivo Grande",
+            descripcion="Muy pesado",
+            archivo=file,
+            materia=self.materia,
+            usuario=self.user.usuario
+        )
+        
+        with self.assertRaisesRegex(ValidationError, "El archivo no puede superar 10MB"):
+            apunte.full_clean()
+
+
 class ApunteViewTest(TestCase):
     def setUp(self):
         self.client = Client()
