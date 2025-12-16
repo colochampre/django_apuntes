@@ -34,12 +34,7 @@ def subir_apunte(request, materia_id):
             apunte.materia = materia # Asignamos la materia automáticamente
             
             # Asigna el usuario actual al apunte.
-            try:
-                apunte.usuario = Usuario.objects.get(user=request.user)
-            except Usuario.DoesNotExist:
-                # Crear automáticamente el objeto Usuario si no existe
-                apunte.usuario = Usuario.objects.create(user=request.user)
-                apunte.usuario.save()
+            apunte.usuario, _ = Usuario.objects.get_or_create(user=request.user)
 
             apunte.save()
             
@@ -94,12 +89,7 @@ def puntuar_apunte(request, apunte_id):
         except (ValueError, TypeError):
             return JsonResponse({'error': 'Valor inválido'}, status=400)
         
-        try:
-            usuario = Usuario.objects.get(user=request.user)
-        except Usuario.DoesNotExist:
-            # Crear automáticamente el objeto Usuario si no existe
-            usuario = Usuario.objects.create(user=request.user)
-            usuario.save()
+        usuario, _ = Usuario.objects.get_or_create(user=request.user)
         
         # Verificar que el usuario no sea el autor del apunte
         if apunte.usuario == usuario:

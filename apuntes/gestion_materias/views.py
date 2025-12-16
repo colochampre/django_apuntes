@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Prefetch
 from gestion_carreras.models import Carrera
 from gestion_materias.models import Materia
-from gestion_apuntes.models import Apunte
+from gestion_apuntes.models import Apunte, Puntuacion
 from gestion_usuarios.models import Usuario
 
 def listar_materias_por_carrera(request, carrera_id):
@@ -19,12 +20,7 @@ def listar_materias_por_carrera(request, carrera_id):
 
     # Obtener o crear el usuario actual si está autenticado
     if request.user.is_authenticated:
-        try:
-            usuario_actual = Usuario.objects.get(user=request.user)
-        except Usuario.DoesNotExist:
-            # Crear automáticamente el objeto Usuario si no existe
-            usuario_actual = Usuario.objects.create(user=request.user)
-            usuario_actual.save()
+        usuario_actual, _ = Usuario.objects.get_or_create(user=request.user)
 
     materia_id = request.GET.get('materia_id')
     if materia_id:
@@ -40,6 +36,16 @@ def listar_materias_por_carrera(request, carrera_id):
             apuntes_list = apuntes_list.filter(
                 Q(titulo__icontains=search_query) | 
                 Q(descripcion__icontains=search_query)
+            )
+            
+        # Optimización: Prefetch de puntuaciones del usuario actual
+        if usuario_actual:
+            apuntes_list = apuntes_list.prefetch_related(
+                Prefetch(
+                    'puntuaciones',
+                    queryset=Puntuacion.objects.filter(usuario=usuario_actual),
+                    to_attr='user_score_list'
+                )
             )
         
         # Configurar paginación: 12 apuntes por página
@@ -60,10 +66,14 @@ def listar_materias_por_carrera(request, carrera_id):
             # Si page está fuera de rango, mostrar la última página
             apuntes = paginator.page(paginator.num_pages)
         
-        # Agregar la puntuación del usuario actual a cada apunte
+        # Agregar la puntuación del usuario actual a cada apunte (usando los datos pre-cargados)
         if usuario_actual:
             for apunte in apuntes:
-                apunte.puntuacion_del_usuario = apunte.puntuacion_usuario(usuario_actual)
+                # Usamos la lista pre-cargada en lugar de hacer una query por cada apunte
+                if hasattr(apunte, 'user_score_list') and apunte.user_score_list:
+                    apunte.puntuacion_del_usuario = apunte.user_score_list[0].valor
+                else:
+                    apunte.puntuacion_del_usuario = None
 
     context = {
         "carrera": carrera, 

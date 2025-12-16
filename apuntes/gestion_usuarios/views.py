@@ -18,10 +18,7 @@ def registro(request):
 
 @login_required
 def perfil(request):
-    try:
-        usuario_profile = request.user.usuario
-    except Usuario.DoesNotExist:
-        usuario_profile = Usuario.objects.create(user=request.user)
+    usuario_profile, _ = Usuario.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
         user_form = UserEditForm(request.POST, instance=request.user)
@@ -29,7 +26,7 @@ def perfil(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('perfil')
+            return redirect('gestion_usuarios:perfil')
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = UsuarioProfileForm(instance=usuario_profile)
@@ -53,10 +50,7 @@ def ver_perfil_usuario(request, username):
     """
     profile_user = get_object_or_404(User, username=username)
     
-    try:
-        usuario_profile = profile_user.usuario
-    except Usuario.DoesNotExist:
-        usuario_profile = Usuario.objects.create(user=profile_user)
+    usuario_profile, _ = Usuario.objects.get_or_create(user=profile_user)
     
     # Determinar si el usuario actual está viendo su propio perfil
     es_propio = request.user.is_authenticated and request.user == profile_user
