@@ -1,3 +1,9 @@
+"""
+Formularios para la gestión de apuntes.
+
+Este módulo define los formularios necesarios para crear, editar y validar los apuntes
+subidos por los usuarios, incluyendo validaciones de archivos y títulos.
+"""
 
 from django import forms
 from .models import Apunte
@@ -11,6 +17,7 @@ EXTENSIONES_PERMITIDAS = [
 class ApunteForm(forms.ModelForm):
     """
     Formulario para la creación y edición de apuntes.
+    
     Permite subir archivos y definir título y descripción.
     Incluye validaciones de tamaño y tipo de archivo.
     """
@@ -42,7 +49,14 @@ class ApunteForm(forms.ModelForm):
     def clean_archivo(self):
         """
         Validación adicional del archivo subido.
-        Verifica tamaño y tipo MIME si está disponible.
+        
+        Verifica el tamaño (máximo 10MB) y que la extensión esté permitida.
+        
+        Returns:
+            File: El archivo validado.
+        
+        Raises:
+            ValidationError: Si el archivo es muy grande o tiene una extensión no permitida.
         """
         archivo = self.cleaned_data.get('archivo')
         
@@ -69,8 +83,16 @@ class ApunteForm(forms.ModelForm):
     
     def clean_titulo(self):
         """
-        Validación del título: no puede estar vacío ni ser solo espacios.
-        Además, verifica que no exista otro apunte con el mismo título en la misma materia.
+        Validación del título.
+        
+        Verifica que no esté vacío y que no exista otro apunte con el mismo título
+        en la misma materia (evitando duplicados en el contexto de una materia).
+        
+        Returns:
+            str: El título validado.
+        
+        Raises:
+            ValidationError: Si el título está vacío o ya existe en la materia.
         """
         titulo = self.cleaned_data.get('titulo')
         

@@ -1,3 +1,10 @@
+"""
+Vistas para la gestión de materias.
+
+Este módulo contiene la lógica para visualizar las materias de una carrera y sus apuntes asociados,
+incluyendo búsqueda, paginación y gestión de puntuaciones de usuario.
+"""
+
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Prefetch
@@ -9,7 +16,17 @@ from gestion_usuarios.models import Usuario
 def listar_materias_por_carrera(request, carrera_id):
     """
     Lista las materias de una carrera y muestra los apuntes de una materia seleccionada.
-    Si no se especifica una materia, no se muestra ningún apunte.
+
+    Si se proporciona un ID de materia en la URL (GET param 'materia_id'),
+    filtra y muestra los apuntes de esa materia, aplicando búsqueda y paginación.
+    También inyecta la puntuación que el usuario actual ha dado a cada apunte.
+
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+        carrera_id (int): El ID de la carrera a consultar.
+
+    Returns:
+        HttpResponse: La plantilla 'lista_materias.html' renderizada con el contexto.
     """
     carrera = get_object_or_404(Carrera, id=carrera_id) 
     materias = carrera.materias.all().order_by("nombre")

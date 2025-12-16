@@ -1,3 +1,11 @@
+"""
+Modelos de datos para la gestión de usuarios.
+
+Este módulo define el modelo Usuario, que extiende la funcionalidad del modelo User de Django,
+permitiendo asociar información adicional como las carreras que cursa y métodos para calcular
+su reputación basada en puntuaciones.
+"""
+
 from django.db import models
 from gestion_carreras.models import Carrera
 from django.contrib.auth.models import User
@@ -5,8 +13,14 @@ from django.db.models import Avg, Count
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-# Create your models here.
+# Crea tus modelos aquí.
 class Usuario(models.Model):
+    """
+    Modelo que representa el perfil extendido de un usuario.
+
+    Extiende el modelo User de Django mediante una relación OneToOne.
+    Almacena las carreras asociadas al estudiante.
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     carrera = models.ManyToManyField(Carrera, related_name='usuarios')
 
@@ -19,7 +33,9 @@ class Usuario(models.Model):
     def puntuacion_promedio(self):
         """
         Calcula el promedio de todas las puntuaciones recibidas en los apuntes del usuario.
-        Retorna un valor entre 1-5 o None si no tiene puntuaciones.
+        
+        Returns:
+            float or None: Un valor redondeado a 1 decimal entre 1 y 5, o None si no tiene puntuaciones.
         """
         from gestion_apuntes.models import Puntuacion
         
@@ -32,6 +48,9 @@ class Usuario(models.Model):
     def total_puntuaciones_recibidas(self):
         """
         Cuenta el total de puntuaciones que han recibido todos los apuntes del usuario.
+        
+        Returns:
+            int: Cantidad total de puntuaciones.
         """
         from gestion_apuntes.models import Puntuacion
         
@@ -40,6 +59,9 @@ class Usuario(models.Model):
     def nivel_reputacion(self):
         """
         Retorna un nivel de reputación basado en el promedio de puntuaciones.
+        
+        Returns:
+            str: Nivel de reputación ('Nuevo', 'Principiante', 'Intermedio', 'Avanzado', 'Experto').
         """
         promedio = self.puntuacion_promedio()
         
@@ -56,11 +78,17 @@ class Usuario(models.Model):
 
 @receiver(post_save, sender=User)
 def crear_usuario(sender, instance, created, **kwargs):
+    """
+    Señal para crear automáticamente un perfil de Usuario cuando se crea un User.
+    """
     if created:
         Usuario.objects.create(user=instance)
 
 @receiver(post_save, sender=User)
 def guardar_usuario(sender, instance, **kwargs):
+    """
+    Señal para guardar el perfil de Usuario cuando se guarda el User.
+    """
     # Solo intentamos guardar si el usuario ya tiene un perfil asociado
     if hasattr(instance, 'usuario'):
         instance.usuario.save()

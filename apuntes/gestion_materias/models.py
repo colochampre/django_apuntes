@@ -1,9 +1,20 @@
+"""
+Modelos de datos para la gestión de materias.
+
+Este módulo define el modelo Materia, que representa una asignatura académica.
+"""
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from common import validadores as v
 
-# Create your models here.
+# Crea tus modelos aquí.
 class Materia(models.Model):
+    """
+    Modelo que representa una materia universitaria.
+
+    Contiene el nombre de la materia y el año en que se dicta.
+    """
     nombre = models.CharField(max_length=50, null=False, blank=False)
     anio = models.IntegerField(null=False, blank=False)
 
@@ -11,6 +22,14 @@ class Materia(models.Model):
         ordering = ['nombre', 'anio']
 
     def clean(self):
+        """
+        Valida los campos del modelo antes de guardar.
+        
+        Verifica que el año y el nombre cumplan con los formatos permitidos.
+
+        Raises:
+            ValidationError: Si el año o el nombre contienen valores inválidos.
+        """
         if not v.es_anio_valido(self.anio):
             raise ValidationError('Año inválido')
         if not v.es_nombre_valido(self.nombre):

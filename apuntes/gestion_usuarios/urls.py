@@ -1,3 +1,9 @@
+"""
+Configuración de URLs para la aplicación gestion_usuarios.
+
+Define las rutas para registro, inicio de sesión, cierre de sesión y gestión de perfiles.
+"""
+
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views

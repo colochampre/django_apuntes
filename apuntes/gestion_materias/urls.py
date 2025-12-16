@@ -1,3 +1,9 @@
+"""
+Configuración de URLs para la aplicación gestion_materias.
+
+Define la ruta para listar las materias asociadas a una carrera específica.
+"""
+
 from django.urls import path
 from . import views
 

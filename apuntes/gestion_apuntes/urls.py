@@ -1,3 +1,9 @@
+"""
+Configuración de URLs para la aplicación gestion_apuntes.
+
+Define las rutas para listar, subir, descargar, puntuar y eliminar apuntes.
+"""
+
 from django.urls import path
 from .views import apuntes, subir_apunte, descargar_apunte, puntuar_apunte, eliminar_apunte
 

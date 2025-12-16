@@ -3,36 +3,36 @@ Configuración de Django para el proyecto apuntes.
 
 Generado por 'django-admin startproject' usando Django 5.2.7.
 
-Para más información sobre este archivo, ver
+Para más información sobre este archivo, consulte:
 https://docs.djangoproject.com/en/5.2/topics/settings/
 
-Para la lista completa de configuraciones y sus valores, ver
+Para la lista completa de configuraciones y sus valores, consulte:
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
 from pathlib import Path
 
-# Construye las rutas dentro del proyecto como esto: BASE_DIR / 'subdir'.
+# Construye las rutas dentro del proyecto como: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Configuraciones de desarrollo de inicio rápido - no adecuadas para producción
-# Ver https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+# Configuraciones de desarrollo de inicio rápido - no aptas para producción
+# Consulte https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# ADVERTENCIA DE SEGURIDAD: ¡mantén la clave secreta usada en producción en secreto!
-# En producción, establecer la variable de entorno DJANGO_SECRET_KEY
+# ADVERTENCIA DE SEGURIDAD: ¡Mantenga secreta la clave utilizada en producción!
+# En producción, establezca la variable de entorno DJANGO_SECRET_KEY
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-emks*vu&0n73h89i8-s4olpc5k78*yenehaw2%@drd^&*#84h(')
 
-# ADVERTENCIA DE SEGURIDAD: ¡no ejecutes con debug activado in producción!
-# En producción, establecer DJANGO_DEBUG=False
+# ADVERTENCIA DE SEGURIDAD: ¡No ejecute con debug activado en producción!
+# En producción, establezca DJANGO_DEBUG=False
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-# En producción, definir los hosts permitidos separados por comas en DJANGO_ALLOWED_HOSTS
+# En producción, defina los hosts permitidos separados por comas en DJANGO_ALLOWED_HOSTS
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',') if os.environ.get('DJANGO_ALLOWED_HOSTS') else []
 
 
-# Definición de la aplicación
+# Definición de aplicaciones instaladas
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -78,7 +78,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'apuntes.wsgi.application'
 
 
-# Base de datos
+# Configuración de la base de datos
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
@@ -141,6 +141,6 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'home'  # Fallback si no hay 'next'
+LOGIN_REDIRECT_URL = 'home'  # Redirección por defecto si no hay 'next'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'gestion_usuarios:login'

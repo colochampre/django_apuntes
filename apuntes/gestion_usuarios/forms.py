@@ -1,3 +1,10 @@
+"""
+Formularios para la gestión de usuarios.
+
+Este módulo contiene los formularios para el registro, edición y gestión del perfil de los usuarios,
+incluyendo validaciones personalizadas para correos electrónicos y contraseñas.
+"""
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm as BaseUserCreationForm, UserChangeForm as BaseUserChangeForm
 from django.contrib.auth.models import User
@@ -8,6 +15,12 @@ import dns.resolver
 import socket
 
 class UsuarioCreationForm(BaseUserCreationForm):
+    """
+    Formulario personalizado para la creación de nuevos usuarios.
+    
+    Añade campos para el nombre, apellido y correo electrónico, e incluye validaciones
+    avanzadas para el correo (formato, existencia, dominios desechables y registros MX).
+    """
     email = forms.EmailField(
         max_length=254,
         required=True,
@@ -79,6 +92,12 @@ class UsuarioCreationForm(BaseUserCreationForm):
         """
         Valida que el email tenga un formato válido, que no esté ya registrado,
         y que el dominio tenga registros MX válidos (servidor de correo).
+        
+        Returns:
+            str: El email validado.
+        
+        Raises:
+            ValidationError: Si el email no es válido, ya existe o el dominio es sospechoso.
         """
         email = self.cleaned_data.get('email')
         
@@ -122,11 +141,19 @@ class UsuarioCreationForm(BaseUserCreationForm):
         return email
 
 class UserEditForm(forms.ModelForm):
+    """
+    Formulario para editar la información básica del usuario (User).
+    """
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']
 
 class UsuarioProfileForm(forms.ModelForm):
+    """
+    Formulario para editar la información del perfil extendido del usuario.
+    
+    Permite seleccionar las carreras que el usuario está cursando.
+    """
     class Meta:
         model = Usuario
         fields = ['carrera']

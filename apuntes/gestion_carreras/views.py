@@ -1,3 +1,10 @@
+"""
+Vistas para la gestión de carreras.
+
+Este módulo contiene las funciones para visualizar el listado de carreras
+y eliminar carreras existentes, gestionando los permisos y la búsqueda.
+"""
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -5,8 +12,16 @@ from .models import Carrera
 
 def lista_carreras(request):
     """
-    Obtiene y muestra una lista de todas las carreras, ordenadas por nombre.
-    Incluye funcionalidad de búsqueda por nombre o universidad.
+    Obtiene y muestra una lista de todas las carreras.
+
+    Permite filtrar las carreras por nombre o universidad mediante un parámetro de búsqueda.
+    Los resultados se ordenan alfabéticamente por nombre.
+
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+
+    Returns:
+        HttpResponse: La plantilla 'lista_carreras.html' renderizada con los resultados.
     """
     carreras = Carrera.objects.all().order_by('nombre')
     
@@ -27,7 +42,17 @@ def lista_carreras(request):
 @login_required
 def eliminar_carrera(request, carrera_id):
     """
-    Elimina una carrera específica. Solo accesible para usuarios staff o superusuarios.
+    Elimina una carrera específica del sistema.
+
+    Esta acción está restringida a usuarios con permisos de staff o superusuario.
+    Si el usuario no tiene permisos, muestra un mensaje de error.
+
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+        carrera_id (int): El ID de la carrera a eliminar.
+
+    Returns:
+        HttpResponseRedirect: Redirección a la lista de carreras.
     """
     # Verificar que el usuario tenga permisos de administrador
     if not (request.user.is_staff or request.user.is_superuser):

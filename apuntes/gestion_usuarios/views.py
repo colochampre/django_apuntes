@@ -1,3 +1,10 @@
+"""
+Vistas para la gestión de usuarios.
+
+Contiene las funciones para manejar el registro de usuarios, edición de perfiles,
+inicio y cierre de sesión (lógica adicional), y visualización de perfiles públicos.
+"""
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
@@ -6,6 +13,18 @@ from .forms import UsuarioCreationForm, UserEditForm, UsuarioProfileForm
 from .models import Usuario
 
 def registro(request):
+    """
+    Gestiona el registro de nuevos usuarios.
+
+    Maneja tanto la solicitud GET para mostrar el formulario como la POST para procesarlo.
+    Si el registro es exitoso, inicia sesión automáticamente y redirige.
+
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+
+    Returns:
+        HttpResponse: La página de registro renderizada o una redirección.
+    """
     # Capturar 'next' de GET o POST para persistencia
     next_url = request.GET.get('next') or request.POST.get('next', '')
     
@@ -28,6 +47,17 @@ def registro(request):
 
 @login_required
 def perfil(request):
+    """
+    Permite al usuario autenticado ver y editar su propio perfil.
+
+    Maneja la edición de los datos básicos del usuario (User) y los datos extendidos (Usuario).
+
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+
+    Returns:
+        HttpResponse: La página de perfil renderizada.
+    """
     usuario_profile, _ = Usuario.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
@@ -50,13 +80,31 @@ def perfil(request):
     })
 
 def custom_logout(request):
+    """
+    Cierra la sesión del usuario actual y redirige a la página de inicio.
+
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+
+    Returns:
+        HttpResponse: Redirección a la página de inicio.
+    """
     logout(request)
     return redirect('home')
 
 def ver_perfil_usuario(request, username):
     """
-    Vista pública de perfil de usuario.
+    Vista pública del perfil de un usuario.
+    
+    Muestra información básica y estadísticas del usuario.
     Muestra información personal solo si el usuario está viendo su propio perfil.
+    
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+        username (str): El nombre de usuario del perfil a visualizar.
+
+    Returns:
+        HttpResponse: La página de perfil renderizada.
     """
     profile_user = get_object_or_404(User, username=username)
     

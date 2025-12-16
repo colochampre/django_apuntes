@@ -1,3 +1,10 @@
+"""
+Vistas para la gestión de apuntes.
+
+Este módulo contiene las funciones para listar, subir, descargar, puntuar y eliminar apuntes,
+manejando la lógica de negocio y permisos asociados.
+"""
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -9,8 +16,16 @@ from .models import Apunte, Puntuacion
 
 def apuntes(request):
     """
-    Vista para mostrar la página principal de apuntes.
-    Actualmente, solo renderiza una plantilla estática.
+    Muestra la página principal de apuntes.
+
+    Actualmente, renderiza una plantilla estática que sirve como punto de entrada
+    o listado general.
+
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+
+    Returns:
+        HttpResponse: La plantilla 'lista_apuntes.html' renderizada.
     """
     return render(request, 'gestion_apuntes/lista_apuntes.html')
 
@@ -18,6 +33,16 @@ def apuntes(request):
 def subir_apunte(request, materia_id):
     """
     Gestiona la subida de un nuevo apunte para una materia específica.
+
+    Si la solicitud es POST, procesa el formulario de subida, asigna la materia y el usuario,
+    y guarda el apunte. Si es GET, muestra el formulario vacío.
+
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+        materia_id (int): El ID de la materia a la cual se asociará el apunte.
+
+    Returns:
+        HttpResponse: La plantilla de subida o una redirección tras el éxito.
     """
     materia = get_object_or_404(Materia, pk=materia_id)
     # Obtener carrera_id desde GET o POST
@@ -60,8 +85,18 @@ def subir_apunte(request, materia_id):
 
 def descargar_apunte(request, apunte_id):
     """
-    Gestiona la descarga de un apunte.
-    Si el usuario no está autenticado, redirige al login y luego vuelve a la página anterior iniciando la descarga.
+    Gestiona la descarga de un archivo de apunte.
+
+    Si el usuario no está autenticado, lo redirige al login, preservando la intención de descarga
+    para ejecutarla automáticamente tras iniciar sesión.
+
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+        apunte_id (int): El ID del apunte a descargar.
+
+    Returns:
+        FileResponse: El archivo solicitado como adjunto.
+        HttpResponseRedirect: Redirección al login si no está autenticado.
     """
     if not request.user.is_authenticated:
         from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -101,9 +136,17 @@ def descargar_apunte(request, apunte_id):
 @login_required
 def puntuar_apunte(request, apunte_id):
     """
-    Permite a un usuario puntuar un apunte con un valor de 1 a 5.
-    Si ya puntuó, actualiza su puntuación.
-    Los autores no pueden puntuar sus propios apuntes.
+    Permite a un usuario puntuar un apunte.
+
+    Valida que el valor esté entre 1 y 5, que el usuario no sea el autor,
+    y actualiza o crea la puntuación.
+
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP (debe ser POST).
+        apunte_id (int): El ID del apunte a puntuar.
+
+    Returns:
+        JsonResponse: Datos con el resultado de la operación (éxito o error).
     """
     if request.method == 'POST':
         apunte = get_object_or_404(Apunte, id=apunte_id)
@@ -146,8 +189,17 @@ def puntuar_apunte(request, apunte_id):
 @login_required
 def eliminar_apunte(request, apunte_id):
     """
-    Permite eliminar un apunte.
-    Solo el autor del apunte, staff o superusuarios pueden eliminarlo.
+    Permite eliminar un apunte del sistema.
+
+    Solo permite la eliminación si el usuario es el autor, parte del staff o superusuario.
+    Redirige a la página adecuada tras la eliminación.
+
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+        apunte_id (int): El ID del apunte a eliminar.
+
+    Returns:
+        HttpResponseRedirect: Redirección a la lista de apuntes o página anterior.
     """
     from django.contrib import messages
     
