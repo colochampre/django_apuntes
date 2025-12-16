@@ -45,7 +45,7 @@ El proyecto cumple con todos los requerimientos de la rúbrica de evaluación, d
 
 Para garantizar un rendimiento profesional y un código limpio, se implementaron las siguientes mejoras de ingeniería de software:
 
--   **Optimización de Consultas (N+1 Problems):** Se resolvió N+1, consultas en los listados. Mediante `prefetch_related` y objetos `Prefetch`, logramos cargar listas de apuntes completas con sus puntuaciones de usuario en **solo 2 consultas** a la base de datos, mejorando drásticamente el tiempo de respuesta.
+-   **Optimización de Consultas (N+1 Problems):** Se resolvió N+1, reduciendo las consultas en los listados. Mediante `prefetch_related` y objetos `Prefetch`, logramos cargar listas de apuntes completas con sus puntuaciones de usuario en **solo 2 consultas** a la base de datos, mejorando drásticamente el tiempo de respuesta.
 -   **Señales (Signals):**
     -   **Gestión de Perfiles:** Automatización de la creación de perfiles (`UserProfile`) al registrarse mediante `post_save`, garantizando la integridad de datos.
     -   **Limpieza Automática:** Implementación de señales `post_delete` para eliminar físicamente los archivos del servidor cuando se borra un apunte de la base de datos, evitando archivos huérfanos.
