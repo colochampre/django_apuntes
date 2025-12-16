@@ -29,6 +29,7 @@ El proyecto cumple con todos los requerimientos de la rúbrica de evaluación, d
     -   **Carreras:** Visualización de la oferta académica.
     -   **Materias:** Listado de materias asociadas a cada carrera (Relación _Many-to-Many_).
 -   **Gestión de Apuntes:**
+
     -   **Subida de Archivos:** Los usuarios autenticados pueden publicar apuntes vinculados a una materia específica con validación de extensiones y tamaño.
     -   **Descarga:** Acceso directo a los archivos compartidos.
     -   **Puntuación:** Sistema de votación (1-5 estrellas) para calificar la calidad del material.
@@ -44,10 +45,13 @@ El proyecto cumple con todos los requerimientos de la rúbrica de evaluación, d
 
 Para garantizar un rendimiento profesional y un código limpio, se implementaron las siguientes mejoras de ingeniería de software:
 
-*   **Optimización de Consultas (N+1 Problems):** Se implementó `prefetch_related` con objetos `Prefetch` personalizados en las vistas de materias para cargar las puntuaciones de los usuarios en una única consulta, reduciendo drásticamente la carga en la base de datos al listar apuntes.
-*   **Señales (Signals):** Automatización de la creación de perfiles de usuario mediante `post_save` signals, asegurando integridad de datos y separando responsabilidades (Principio de Responsabilidad Única).
-*   **Testing Automatizado:** Cobertura de tests unitarios y de integración para modelos y vistas críticas, asegurando la robustez de las funcionalidades principales (Subida, Votación, Eliminación).
-*   **Validadores Personalizados:** Control estricto de tipos de archivos y tamaños para seguridad del servidor.
+-   **Optimización de Consultas (N+1 Problems):** Se resolvió N+1, consultas en los listados. Mediante `prefetch_related` y objetos `Prefetch`, logramos cargar listas de apuntes completas con sus puntuaciones de usuario en **solo 2 consultas** a la base de datos, mejorando drásticamente el tiempo de respuesta.
+-   **Señales (Signals):**
+    -   **Gestión de Perfiles:** Automatización de la creación de perfiles (`UserProfile`) al registrarse mediante `post_save`, garantizando la integridad de datos.
+    -   **Limpieza Automática:** Implementación de señales `post_delete` para eliminar físicamente los archivos del servidor cuando se borra un apunte de la base de datos, evitando archivos huérfanos.
+-   **Validaciones Robustas:**
+    -   **Seguridad:** Control estricto de extensiones permitidas (PDF, DOCX, Imágenes, Código, etc.) y límite de peso (máx 10MB) directamente en el modelo para proteger el servidor.
+-   **Testing Automatizado:** Batería de tests unitarios y de integración que aseguran el funcionamiento crítico: cálculo de promedios, permisos de borrado y flujo de subida de archivos.
 
 ---
 
@@ -156,12 +160,12 @@ El código está organizado siguiendo el patrón de diseño de Django:
 
 Este proyecto fue realizado de manera colaborativa.
 
-| Integrante                   | Rol Principal                     |
-| :--------------------------- | :-------------------------------- |
-| **Reynoso Maite**            | _Base de datos, Estilos_          |
-| **Cardenas Lautaro**         | _Base de datos, Estilos_          |
-| **Boda Juan Pedro**          | _Backend, Testing_                |
-| **Champredonde Juan Martin** | _Frontend, Testing_               |
+| Integrante                   | Rol Principal            |
+| :--------------------------- | :----------------------- |
+| **Reynoso Maite**            | _Base de datos, Estilos_ |
+| **Cardenas Lautaro**         | _Base de datos, Estilos_ |
+| **Boda Juan Pedro**          | _Backend, Testing_       |
+| **Champredonde Juan Martin** | _Frontend, Testing_      |
 
 ---
 
