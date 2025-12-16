@@ -7,7 +7,12 @@ from gestion_carreras.models import Carrera
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 class UsuarioSignalTest(TestCase):
+    """
+    Pruebas para las señales (signals) del modelo Usuario.
+    Verifica que se cree y actualice automáticamente el perfil de usuario.
+    """
     def test_usuario_created_signal(self):
+        """Prueba que al crear un User se crea automáticamente su perfil Usuario asociado."""
         user = User.objects.create_user(username='newuser', password='password')
         self.assertTrue(hasattr(user, 'usuario'))
         self.assertIsInstance(user.usuario, Usuario)
@@ -25,7 +30,13 @@ class UsuarioSignalTest(TestCase):
 
 
 class UsuarioReputationTest(TestCase):
+    """
+    Pruebas para la lógica de reputación del usuario.
+    Verifica que el cálculo de niveles de reputación (Nuevo, Principiante, etc.) sea correcto
+    basado en el promedio de puntuaciones recibidas.
+    """
     def setUp(self):
+        """Configura el entorno de prueba con usuario, apuntes y votantes."""
         self.user = User.objects.create_user(username='expert', password='password')
         self.carrera = Carrera.objects.create(nombre="Tecnicatura")
         self.materia = Materia.objects.create(nombre="Algo", anio=1)
@@ -41,6 +52,10 @@ class UsuarioReputationTest(TestCase):
         self.voter2 = User.objects.create_user(username='v2', password='p')
 
     def test_reputation_levels(self):
+        """
+        Prueba que el nivel de reputación cambie correctamente según el promedio de puntuaciones.
+        Verifica transiciones de Nuevo a Experto e Intermedio.
+        """
         # Nuevo (sin votos)
         self.assertEqual(self.user.usuario.nivel_reputacion(), "Nuevo")
         

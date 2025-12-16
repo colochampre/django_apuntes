@@ -7,7 +7,15 @@ from gestion_apuntes.models import Apunte
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 class BusquedaMateriasTest(TestCase):
+    """
+    Suite de pruebas para la funcionalidad de búsqueda de materias y apuntes.
+    
+    Verifica que el buscador filtre correctamente los apuntes según el término de búsqueda
+    proporcionado por el usuario.
+    """
+
     def setUp(self):
+        """Configura el entorno de prueba con carrera, materia, usuarios y apuntes de ejemplo."""
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='password')
         
