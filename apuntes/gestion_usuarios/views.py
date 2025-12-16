@@ -6,15 +6,25 @@ from .forms import UsuarioCreationForm, UserEditForm, UsuarioProfileForm
 from .models import Usuario
 
 def registro(request):
+    # Capturar 'next' de GET o POST para persistencia
+    next_url = request.GET.get('next') or request.POST.get('next', '')
+    
     if request.method == 'POST':
         form = UsuarioCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
+            
+            if next_url:
+                return redirect(next_url)
             return redirect('home')
     else:
         form = UsuarioCreationForm()
-    return render(request, 'gestion_usuarios/register.html', {'form': form})
+        
+    return render(request, 'gestion_usuarios/register.html', {
+        'form': form,
+        'next': next_url
+    })
 
 @login_required
 def perfil(request):

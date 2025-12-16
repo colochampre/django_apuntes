@@ -40,8 +40,8 @@
             {% csrf_token %}
 
             <!-- Campo oculto para preservar el parámetro next -->
-            {% if request.GET.next %}
-            <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% if next %}
+            <input type="hidden" name="next" value="{{ next }}">
             {% endif %}
 
             <div class="form-group">
@@ -89,7 +89,7 @@
         <div class="auth-footer">
             <p class="auth-link-text">
                 ¿No tenés cuenta?
-                <a href="{% url 'gestion_usuarios:register' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" class="auth-link">
+                <a href="{% url 'gestion_usuarios:register' %}{% if next %}?next={{ next|urlencode }}{% endif %}" class="auth-link">
                     Registrate aquí
                 </a>
             </p>

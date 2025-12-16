@@ -58,12 +58,39 @@ def subir_apunte(request, materia_id):
     context = {'form': form, 'materia': materia, 'carrera_id': carrera_id}
     return render(request, 'gestion_apuntes/subir_apunte.html', context)
 
-@login_required
 def descargar_apunte(request, apunte_id):
     """
     Gestiona la descarga de un apunte.
-    Verifica que el usuario esté autenticado y luego sirve el archivo.
+    Si el usuario no está autenticado, redirige al login y luego vuelve a la página anterior iniciando la descarga.
     """
+    if not request.user.is_authenticated:
+        from django.contrib.auth import REDIRECT_FIELD_NAME
+        from urllib.parse import urlparse, parse_qs, urlunparse, urlencode as urllib_urlencode
+
+        # Obtener la página anterior (referer)
+        referer = request.META.get('HTTP_REFERER', '/')
+        
+        # Parsear la URL para agregar el parámetro de descarga de forma segura
+        parsed_ref = urlparse(referer)
+        query = parse_qs(parsed_ref.query)
+        query['download_pending'] = str(apunte_id)
+        
+        # Reconstruir la URL de retorno
+        new_query_str = urllib_urlencode(query, doseq=True)
+        next_url = urlunparse((
+            parsed_ref.scheme,
+            parsed_ref.netloc,
+            parsed_ref.path,
+            parsed_ref.params,
+            new_query_str,
+            parsed_ref.fragment
+        ))
+        
+        # Redirigir al login con el next configurado
+        login_url = reverse('gestion_usuarios:login')
+        params = {REDIRECT_FIELD_NAME: next_url}
+        return redirect(f"{login_url}?{urllib_urlencode(params)}")
+
     apunte = get_object_or_404(Apunte, id=apunte_id)
     
     # Servir el archivo
