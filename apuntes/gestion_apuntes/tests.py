@@ -88,6 +88,28 @@ class ApunteModelTest(TestCase):
         with self.assertRaisesRegex(ValidationError, "El archivo no puede superar 10MB"):
             apunte.full_clean()
 
+    def test_file_cleanup_on_delete(self):
+        """Prueba que el archivo físico se elimina al borrar el apunte"""
+        import os
+        
+        file_content = b"content to be deleted"
+        file = SimpleUploadedFile("delete_me.txt", file_content, content_type="text/plain")
+        
+        apunte = Apunte.objects.create(
+            titulo="Apunte Borrar",
+            descripcion="Para borrar",
+            archivo=file,
+            materia=self.materia,
+            usuario=self.user.usuario
+        )
+        
+        file_path = apunte.archivo.path
+        self.assertTrue(os.path.exists(file_path))
+        
+        apunte.delete()
+        
+        self.assertFalse(os.path.exists(file_path))
+
 
 class ApunteViewTest(TestCase):
     def setUp(self):
