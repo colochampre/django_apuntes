@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Apuntes{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Todos los Apuntes</h2>
+    <p>Esta es la lista general de apuntes.</p>
+    <!-- Aquí podría ir una lista general o un buscador -->
+    <a href="{% url 'home' %}" class="btn btn-secondary">Volver al Inicio</a>
+</div>
+{% endblock %}

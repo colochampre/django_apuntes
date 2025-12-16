@@ -8,6 +8,7 @@ manejando la lógica de negocio y permisos asociados.
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import FileResponse, JsonResponse
 from gestion_usuarios.models import Usuario
 from gestion_materias.models import Materia
@@ -62,6 +63,8 @@ def subir_apunte(request, materia_id):
             apunte.usuario, _ = Usuario.objects.get_or_create(user=request.user)
 
             apunte.save()
+
+            messages.success(request, '¡Apunte subido exitosamente!')
             
             # Redirige a la lista de apuntes de la materia específica.
             # Usar carrera_id si está disponible, sino usar la primera carrera
@@ -75,6 +78,8 @@ def subir_apunte(request, materia_id):
                     return redirect(f'{url}?materia_id={materia.id}')
                 else:
                     return redirect('gestion_apuntes:apuntes')
+        else:
+            messages.error(request, 'Hubo un error al subir el apunte. Por favor revisa el formulario.')
     else:
         form = ApunteForm(materia=materia)
         if 'materia' in form.fields:
@@ -201,7 +206,6 @@ def eliminar_apunte(request, apunte_id):
     Returns:
         HttpResponseRedirect: Redirección a la lista de apuntes o página anterior.
     """
-    from django.contrib import messages
     
     apunte = get_object_or_404(Apunte, id=apunte_id)
     

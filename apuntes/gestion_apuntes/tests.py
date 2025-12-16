@@ -141,9 +141,44 @@ class ApunteViewTest(TestCase):
             'carrera_id': self.carrera.id
         }
         
-        response = self.client.post(url, data)
-        self.assertEqual(response.status_code, 302) # Redirect
+        response = self.client.post(url, data, follow=True)
+        self.assertEqual(response.status_code, 200) # Redirect followed
         self.assertTrue(Apunte.objects.filter(titulo='Nuevo Apunte').exists())
+        
+        # Verify success message
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), '¡Apunte subido exitosamente!')
+
+    def test_subir_apunte_invalid_data(self):
+        self.client.login(username='author', password='password')
+        url = reverse('gestion_apuntes:subir_apunte', args=[self.materia.id])
+        
+        # Intento de subir sin archivo ni título
+        data = {
+            'titulo': '',
+            'descripcion': 'Desc',
+             # Sin archivo
+        }
+        
+        response = self.client.post(url, data, follow=True)
+        
+        # Debería renderizar la misma página (código 200) pero sin redirigir (si no es follow=True, sería 200 directo)
+        # Con follow=True, si hay error, se queda en la página (200) y muestra errores
+        self.assertEqual(response.status_code, 200)
+        
+        # Verificar que NO se creó el apunte
+        self.assertFalse(Apunte.objects.filter(descripcion='Desc').exists())
+        
+        # Verificar mensaje de error global
+        messages = list(response.context['messages'])
+        self.assertTrue(any("Hubo un error" in str(m) for m in messages))
+        
+        # Verificar errores de campo en el formulario
+        form = response.context['form']
+        self.assertTrue(form.errors)
+        self.assertIn('titulo', form.errors)
+        self.assertIn('archivo', form.errors)
 
     def test_puntuar_apunte_view(self):
         self.client.login(username='voter', password='password')
@@ -163,12 +198,14 @@ class ApunteViewTest(TestCase):
         self.client.login(username='voter', password='password')
         url = reverse('gestion_apuntes:eliminar_apunte', args=[self.apunte.id])
         
-        response = self.client.get(url) # Eliminacion via GET/redirect usually, logic check
-        # The view logic redirects to 'gestion_apuntes:apuntes' with error message on failure
-        # Or redirects to 'materias_por_carrera' on success.
+        response = self.client.get(url, follow=True) # Eliminacion via GET/redirect
         
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
         self.assertTrue(Apunte.objects.filter(id=self.apunte.id).exists()) # Should still exist
+        
+        # Verify error message
+        messages = list(response.context['messages'])
+        self.assertTrue(any("No tenés permisos" in str(m) for m in messages))
 
         # Author deletes
         self.client.login(username='author', password='password')
