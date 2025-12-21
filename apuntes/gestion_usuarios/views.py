@@ -48,15 +48,34 @@ def registro(request):
 @login_required
 def perfil(request):
     """
-    Permite al usuario autenticado ver y editar su propio perfil.
-
-    Maneja la edición de los datos básicos del usuario (User) y los datos extendidos (Usuario).
+    Permite al usuario autenticado ver su propio perfil.
 
     Args:
         request (HttpRequest): El objeto de solicitud HTTP.
 
     Returns:
         HttpResponse: La página de perfil renderizada.
+    """
+    usuario_profile, _ = Usuario.objects.get_or_create(user=request.user)
+
+    return render(request, 'gestion_usuarios/perfil.html', {
+        'profile_user': request.user,
+        'usuario_profile': usuario_profile,
+        'es_propio': True
+    })
+
+@login_required
+def editar_perfil(request):
+    """
+    Permite al usuario editar su propio perfil.
+    
+    Maneja la edición de los datos básicos del usuario (User) y los datos extendidos (Usuario).
+
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+
+    Returns:
+        HttpResponse: El formulario de edición renderizado o redirección al perfil.
     """
     usuario_profile, _ = Usuario.objects.get_or_create(user=request.user)
 
@@ -71,12 +90,9 @@ def perfil(request):
         user_form = UserEditForm(instance=request.user)
         profile_form = UsuarioProfileForm(instance=usuario_profile)
 
-    return render(request, 'gestion_usuarios/perfil.html', {
+    return render(request, 'gestion_usuarios/editar_perfil.html', {
         'user_form': user_form,
-        'profile_form': profile_form,
-        'profile_user': request.user,
-        'usuario_profile': usuario_profile,
-        'es_propio': True
+        'profile_form': profile_form
     })
 
 def custom_logout(request):

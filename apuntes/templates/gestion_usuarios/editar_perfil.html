@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Perfil{% endblock %}
+{% block otros_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Botón Volver -->
+<button onclick="history.back()" class="btn-back" title="Volver atrás">
+    <i class="bi bi-arrow-left"></i>
+    <span>Volver</span>
+</button>
+<div class="auth-wrapper">
+    <div class="auth-container">
+        <!-- Header -->
+        <div class="auth-header">
+            <div class="auth-icon">
+                <i class="bi bi-pencil-square"></i>
+            </div>
+            <h1 class="auth-title">Editar Perfil</h1>
+            <p class="auth-subtitle">Actualiza tu información personal</p>
+        </div>
+
+        <!-- Formulario -->
+        <form class="auth-form" method="post">
+            {% csrf_token %}
+
+            <div class="section-divider">
+                <span>Información Básica</span>
+            </div>
+            
+            {% for field in user_form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                    {% if field.field.required %}<span class="required">*</span>{% endif %}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                <div class="error-message">
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+                {% if field.help_text %}
+                <div class="form-help">
+                    {{ field.help_text }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="section-divider mt-4">
+                <span>Información Académica</span>
+            </div>
+            
+            {% for field in profile_form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                    {% if field.field.required %}<span class="required">*</span>{% endif %}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                <div class="error-message">
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn-submit">
+                <i class="bi bi-check-circle-fill"></i>
+                Guardar Cambios
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .section-divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 1.5rem 0 1rem;
+        color: #6c757d;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .section-divider::before,
+    .section-divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .section-divider span {
+        padding: 0 1rem;
+    }
+
+    .mt-4 {
+        margin-top: 1.5rem !important;
+    }
+</style>
+{% endblock %}
